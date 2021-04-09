@@ -11,6 +11,7 @@ class SignUpPage extends StatelessWidget {
   static const name = "/signUpPage";
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController passwordVerificationController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController fullNameController = TextEditingController();
 
@@ -21,6 +22,8 @@ class SignUpPage extends StatelessWidget {
         children: [
           TextField(
             controller: fullNameController,
+            keyboardType: TextInputType.text,
+            inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.allow(RegExp('[a-zA-Z ]'))],
             decoration: InputDecoration(
               labelText: "Full Name",
             ),
@@ -40,6 +43,14 @@ class SignUpPage extends StatelessWidget {
             ),
           ),
           TextField(
+            controller: passwordVerificationController,
+            obscureText: true,
+            decoration: InputDecoration(
+              labelText: "Password Verification",
+
+            ),
+          ),
+          TextField(
             controller: phoneNumberController,
             keyboardType: TextInputType.number,
             inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
@@ -49,11 +60,14 @@ class SignUpPage extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              if(fullNameController.text==""){
+              if (fullNameController.text==""){
                 ShowInformation().showMyDialog(context, "Full Name Required.");
               }
-              else if(phoneNumberController.text==""){
+              else if (phoneNumberController.text==""){
                 ShowInformation().showMyDialog(context, "Phone Number Required.");
+              }
+              else if (passwordController.text != passwordVerificationController.text){
+                ShowInformation().showMyDialog(context, "Passwords are not the same.");
               }
               else {
                 context.read<AuthenticationService>().signUp(
