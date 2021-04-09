@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 
 class HomePage extends StatelessWidget {
+  static const name = "/menuPage";
   @override
   Widget build(BuildContext context) {
     return Scaffold(

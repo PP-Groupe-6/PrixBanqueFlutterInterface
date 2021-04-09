@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:prix_banque_flutter_interface/authentification_service.dart';
 import 'package:prix_banque_flutter_interface/home_page.dart';
 import 'package:prix_banque_flutter_interface/sign_in_page.dart';
+import 'package:prix_banque_flutter_interface/sign_up_page.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
-  
 }
 
 class MyApp extends StatelessWidget {
@@ -23,16 +23,23 @@ class MyApp extends StatelessWidget {
           create: (_) => AuthenticationService(FirebaseAuth.instance),
         ),
         StreamProvider(
-          create: (context) => context.read<AuthenticationService>().authStateChanges,
+          create: (context) =>
+              context.read<AuthenticationService>().authStateChanges,
         )
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Prix Banque',
         theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: AuthenticationWrapper(),
+        initialRoute: SignInPage.name,
+        routes: {
+          SignInPage.name: (context) => SignInPage(),
+          SignUpPage.name: (context) => SignUpPage(),
+          HomePage.name: (context) => HomePage()
+        },
       ),
     );
   }
