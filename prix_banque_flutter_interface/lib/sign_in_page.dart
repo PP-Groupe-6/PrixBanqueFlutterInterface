@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prix_banque_flutter_interface/authentification_service.dart';
@@ -25,6 +26,7 @@ class SignInPage extends StatelessWidget {
               ),
               TextField(
                 controller: passwordController,
+                obscureText: true,
                 decoration: InputDecoration(
                   labelText: "Password",
                 ),
@@ -35,10 +37,6 @@ class SignInPage extends StatelessWidget {
                     email: emailController.text.trim(),
                     password: passwordController.text.trim(),
                   );
-                  final fireBaseUser = context.watch<User>();
-                  if(){
-                    Navigator.pushNamed(context, HomePage.name);
-                  }
                 },
                 child: Text("Sign in"),
 

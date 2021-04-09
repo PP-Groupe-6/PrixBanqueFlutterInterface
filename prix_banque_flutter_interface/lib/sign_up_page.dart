@@ -1,6 +1,10 @@
 
+import 'dart:html';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:prix_banque_flutter_interface/authentification_service.dart';
+import 'package:prix_banque_flutter_interface/show_information.dart';
 import 'package:provider/provider.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -29,23 +33,41 @@ class SignUpPage extends StatelessWidget {
           ),
           TextField(
             controller: passwordController,
+            obscureText: true,
             decoration: InputDecoration(
               labelText: "Password",
+
             ),
           ),
           TextField(
             controller: phoneNumberController,
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
             decoration: InputDecoration(
               labelText: "Phone Number",
             ),
           ),
           ElevatedButton(
             onPressed: () {
-              context.read<AuthenticationService>().signUp(
-                email: emailController.text.trim(),
-                password: passwordController.text.trim(),
-              );
-              Navigator.pop(context);
+              if(fullNameController.text==""){
+                ShowInformation().showMyDialog(context, "Full Name Required.");
+              }
+              else if(phoneNumberController.text==""){
+                ShowInformation().showMyDialog(context, "Phone Number Required.");
+              }
+              else {
+                context.read<AuthenticationService>().signUp(
+                  email: emailController.text.trim(),
+                  password: passwordController.text.trim(),
+                ).then((message) {
+                  if (message == "Signed up") {
+                    Navigator.pop(context);
+                  }
+                  else {
+                    ShowInformation().showMyDialog(context, message);
+                  }
+                });
+              }
             },
             child: Text("Sign Up"),
           )
@@ -53,4 +75,6 @@ class SignUpPage extends StatelessWidget {
       ),
     );
   }
+
 }
+

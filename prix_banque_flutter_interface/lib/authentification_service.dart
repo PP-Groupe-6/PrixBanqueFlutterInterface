@@ -40,8 +40,4 @@ class AuthenticationService {
       return e.message;
     }
   }
-
-  Future<bool> isUserConnected() async{
-    return _firebaseAuth.currentUser!=null;
-  }
 }
