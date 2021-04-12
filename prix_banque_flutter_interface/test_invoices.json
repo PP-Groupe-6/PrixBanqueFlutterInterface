@@ -1,0 +1,40 @@
+{
+  "invoices": [
+    {
+      "id": 1,
+      "amount": 100,
+      "state": "waiting",
+      "expDate" : "2021-04-27 20:00:00",
+      "payto" : "Jhon Snow",
+      "email" : "jhon@snow.fr",
+      "phone" : "06-06-06-06-06"
+    },
+    {
+      "id": 2,
+      "amount": 10000,
+      "state": "waiting",
+      "expDate" : "2021-04-30 20:00:00",
+      "payto" : "Jeanne Snow",
+      "email" : "jeanne@snow.fr",
+      "phone" : "06-06-06-06-00"
+    },
+    {
+      "id": 3,
+      "amount": 69420,
+      "state": "waiting",
+      "expDate" : "2021-06-20 20:00:00",
+      "payto" : "Alex Dau",
+      "email" : "aled@dau.fr",
+      "phone" : "06-06-06-00-00"
+    },
+    {
+      "id": 4,
+      "amount": 1,
+      "state": "waiting",
+      "expDate" : "2021-03-21 20:00:00",
+      "payto" : "Cépa Wam",
+      "email" : "cépa@wam.fr",
+      "phone" : "06-42-42-42-42"
+    }
+  ]
+}
