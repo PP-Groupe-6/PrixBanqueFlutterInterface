@@ -10,11 +10,11 @@ class InvoiceInfo extends StatelessWidget{
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text("Invoice from "+invoice.nameOfReceiver),
+        title: Text("Invoice from "+invoice.clientToPay),
       ),
       body: Column(
         children: [
-          Text("Invoice to pay before"+invoice.date.toString()),
+          Text("Invoice to pay before"+invoice.expirationDate.toString()),
           Text("Amount of the invoice : "+invoice.amount.toString()),
         ],
       )
