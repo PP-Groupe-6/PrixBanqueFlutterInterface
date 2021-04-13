@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prix_banque_flutter_interface/show_information.dart';
+import 'package:prix_banque_flutter_interface/transfers_management/transfer_main_page.dart';
 import 'authentification_service.dart';
 import 'package:provider/provider.dart';
 
@@ -51,8 +52,7 @@ class HomePage extends StatelessWidget {
                   height: 50,
                   child: ElevatedButton(
                       onPressed: () {
-                        ShowInformation()
-                            .showMyDialog(context, "Transfers page");
+                       Navigator.pushNamed(context, TransferPage.name);
                       },
                       child: Text("My transfers")),
                 ),

@@ -6,6 +6,8 @@ import 'package:prix_banque_flutter_interface/authentification_service.dart';
 import 'package:prix_banque_flutter_interface/home_page.dart';
 import 'package:prix_banque_flutter_interface/sign_in_page.dart';
 import 'package:prix_banque_flutter_interface/sign_up_page.dart';
+import 'package:prix_banque_flutter_interface/transfers_management/creation_transfer_page.dart';
+import 'package:prix_banque_flutter_interface/transfers_management/transfer_main_page.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -37,7 +39,9 @@ class MyApp extends StatelessWidget {
           routes: {
           SignInPage.name: (context) => SignInPage(),
           SignUpPage.name: (context) => SignUpPage(),
-          HomePage.name: (context) => HomePage()
+          HomePage.name: (context) => HomePage(),
+          TransferPage.name: (context) => TransferPage(),
+            CreateTransferPage.name: (context) => CreateTransferPage()
         },
       ),
     );
