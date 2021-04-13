@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prix_banque_flutter_interface/invoice_package/invoice_main_page.dart';
 
+import 'invoice.dart';
+
 class InvoiceInfo extends StatelessWidget{
   final Invoice invoice;
 
