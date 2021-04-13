@@ -39,18 +39,10 @@ class Invoice {
     );
   }
 }
-Future<String> loadAsset() async {
-  return await rootBundle.loadString('test_invoices.json');
-}
+
 
 class InvoicePage extends StatelessWidget {
   static const name = "/invoicePage";
-
-
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -58,39 +50,50 @@ class InvoicePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Your invoices"),
       ),
-      body: FutureBuilder(
-        future: rootBundle.loadString('test_invoices.json'),
-        builder: (BuildContext context, AsyncSnapshot snap){
-          if (snap.hasData){
-            var invoiceList = invoiceListFromJson(snap.data);
-            return Scaffold(
-              appBar: AppBar(
-                backgroundColor: Colors.lime,
-                title: Text("Invoices to pay")
-              ),
-              body: Column(
-                children: invoiceList.invoices.map((invoice) => ListTile(
-                    title : Text(invoice.clientToPay),
-                    onTap : (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context)=>InvoiceInfo(
-                              invoice: invoice
-                          ),
-                        ),
-                      );
-                    },
-                )
-                ).toList(),
-              ),
-            );
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          child: FutureBuilder(
+            future: rootBundle.loadString('test_invoices.json'),
+            builder: (BuildContext context, AsyncSnapshot snap){
+              if (snap.hasData){
+                var invoiceList = invoiceListFromJson(snap.data);
+                return Scaffold(
+                  appBar: AppBar(
+                    backgroundColor: Colors.redAccent,
+                    title: Text("Invoices to pay")
+                  ),
+                  body: Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.redAccent)
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: invoiceList.invoices.map((invoice) => ListTile(
+                          title : Text(invoice.clientToPay),
+                          onTap : (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context)=>InvoiceInfo(
+                                    invoice: invoice
+                                ),
+                              ),
+                            );
+                          },
+                      )
+                      ).toList(),
+                    ),
+                  ),
+                );
 
-          }
-          else{
-            return CircularProgressIndicator();
-          }
-        }
+              }
+              else{
+                return CircularProgressIndicator();
+              }
+            }
+          ),
+        ),
       )
 
     );
