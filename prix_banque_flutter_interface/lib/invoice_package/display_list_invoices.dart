@@ -61,7 +61,7 @@ class _DisplayListInvoiceState extends State<DisplayListInvoice> {
                     ),
                   );
                 },
-                
+
               )
               ).toList(),
             ),
