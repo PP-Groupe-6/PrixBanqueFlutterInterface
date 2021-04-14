@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:prix_banque_flutter_interface/transfers_management/display_list_transfers.dart';
-import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
-
-class ShowInformation {
+class ShowInformation  {
   final TextEditingController answerController = new TextEditingController();
+  final VoidCallback onTransferAccepted;
+  ShowInformation({this.onTransferAccepted});
 
   void showMyDialog(BuildContext context, String message) {
     showDialog<bool>(
@@ -21,6 +20,7 @@ class ShowInformation {
                 if (message == "transfer accepted") {
                   Navigator.of(context).pop(true);
                   Navigator.of(context).pop(true);
+                  onTransferAccepted();
                 } else {
                   Navigator.of(context).pop(true);
                 }
@@ -32,14 +32,12 @@ class ShowInformation {
     );
   }
 
-  void confirmDialog(BuildContext context, String question, String answer, Transfer transfer) {
-    final DisplayListTransferState state = DisplayListTransfer.of(context);
+  void confirmDialog(BuildContext context, String question, String answer) {
     showDialog<bool>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           content: Text(
-
             question,
           ),
           actions: <Widget>[
@@ -47,15 +45,13 @@ class ShowInformation {
                 width: 300,
                 height: 100,
                 child :TextField(
-                controller: answerController,
-                decoration: InputDecoration(labelText: "secret answer :"))),
+                    controller: answerController,
+                    decoration: InputDecoration(labelText: "secret answer :"))),
             TextButton(
               child: const Text('OK'),
               onPressed: () {
                 if (answerController.text == answer) {
                   showMyDialog(context, "transfer accepted");
-
-                  state.removeTransfer(transfer);
                 } else {
                   showMyDialog(context, "transfer refused, wrong answer");
                 }
