@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:tuple/tuple.dart';
 
 InvoiceList invoiceListFromJson(String str) => InvoiceList.fromJson(json.decode(str));
 
