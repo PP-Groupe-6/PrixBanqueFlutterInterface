@@ -42,10 +42,7 @@ class HomePage extends StatelessWidget {
                   height: 50,
                   child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => InvoicePage())
-                        );
+                        Navigator.pushNamed(context, InvoicePage.name);
                       },
                       child: Text("My invoices")),
                 ),

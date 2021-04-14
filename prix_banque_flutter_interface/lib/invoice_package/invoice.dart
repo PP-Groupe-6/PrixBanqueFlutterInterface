@@ -6,10 +6,12 @@ InvoiceList invoiceListFromJson(String str) => InvoiceList.fromJson(json.decode(
 class InvoiceList {
   List<Invoice> invoicesToPay;
   List<Invoice> invoicesPaid;
+  List<Invoice> invoicesExpired;
 
   InvoiceList(List<Invoice> invoices){
     this.invoicesToPay = invoices.where((element) => element.state=="waiting").toList();
     this.invoicesPaid = invoices.where((element) => element.state=="paid").toList();
+    this.invoicesExpired = invoices.where((element) => element.state=="expired").toList();
   }
 
   factory InvoiceList.fromJson(Map<String, dynamic> json) => InvoiceList(
