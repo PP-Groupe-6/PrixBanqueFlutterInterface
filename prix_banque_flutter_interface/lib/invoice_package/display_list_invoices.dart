@@ -3,7 +3,7 @@ import 'package:prix_banque_flutter_interface/invoice_package/invoice_info_page.
 
 import 'invoice.dart';
 
-class DisplayListInvoice extends StatelessWidget {
+class DisplayListInvoice extends StatefulWidget {
 
   final String state;
   final List<Invoice> invoices;
@@ -11,18 +11,22 @@ class DisplayListInvoice extends StatelessWidget {
 
   DisplayListInvoice({Key key, @required this.state, @required this.invoices, @required this.color}):super(key:key);
 
+  @override
+  _DisplayListInvoiceState createState() => _DisplayListInvoiceState();
+}
 
+class _DisplayListInvoiceState extends State<DisplayListInvoice> {
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Column(
         children: [
           Container(
-            color: color,
+            color: widget.color,
             height: 30,
             child: Center(
               child: Text(
-                state,
+                widget.state,
                 style: TextStyle(
                   fontSize: 15.0,
                 ),
@@ -32,9 +36,9 @@ class DisplayListInvoice extends StatelessWidget {
           Container(
             height: 300,
             decoration: BoxDecoration(
-                border: Border.all(color: color)
+                border: Border.all(color: widget.color)
             ),
-            child: invoices.isEmpty?Center(
+            child: widget.invoices.isEmpty?Center(
               child: Text(
                   "No invoices found",
                   style: TextStyle(
@@ -43,7 +47,7 @@ class DisplayListInvoice extends StatelessWidget {
               )
             ):
             ListView(
-              children: invoices.map((invoice) => ListTile(
+              children: widget.invoices.map((invoice) => ListTile(
                 title : Text(invoice.clientToPay),
                 subtitle: Text(invoice.expirationDate),
                 trailing: Icon(Icons.keyboard_arrow_right),
@@ -57,6 +61,7 @@ class DisplayListInvoice extends StatelessWidget {
                     ),
                   );
                 },
+                
               )
               ).toList(),
             ),
