@@ -117,13 +117,50 @@ class InvoiceInfo extends StatelessWidget{
                     height: 10,
                     color: Colors.blue,
                   ),
-                  
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child: Text(
+                      "Limit date for payment :",
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child: Text(
+                      invoice.expirationDate,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 30,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child: Text(
+                      "Amount :",
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child: Text(
+                      invoice.amount.toString(),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 30,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
-          Text("Invoice to pay before"+invoice.expirationDate.toString()),
-          Text("Amount of the invoice : "+invoice.amount.toString()),
         ],
       )
     );
