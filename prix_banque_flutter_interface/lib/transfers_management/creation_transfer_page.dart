@@ -15,7 +15,7 @@ class CreateTransferPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("creation transfer Page"),]
+            Text("Creation Transfer Page"),]
         ),
       ),
     );

@@ -1,0 +1,64 @@
+{
+  "transfers": [
+    {
+      "transferId": 1,
+      "accountTransferPayerId": 123,
+      "accountTransferReceiverId": 456,
+      "scheduledTransferDate" : "2021-04-27 20:00:00",
+      "transferAmount" : 550,
+      "transferType" : "scheduled",
+      "receiverQuestion" : "Quel est le couleur de mon chat ?",
+      "receiverAnswer" : "Roux"
+    },
+    {
+      "transferId": 2,
+      "accountTransferPayerId": 444,
+      "accountTransferReceiverId": 456,
+      "scheduledTransferDate" : "2021-04-27 20:00:00",
+      "transferAmount" : 524,
+      "transferType" : "scheduled",
+      "receiverQuestion" : "Quel est le couleur de mon chat ?",
+      "receiverAnswer" : "Roux"
+    },
+    {
+      "transferId": 3,
+      "accountTransferPayerId": 555,
+      "accountTransferReceiverId": 456,
+      "scheduledTransferDate" : "2021-04-27 20:00:00",
+      "transferAmount" : 550,
+      "transferType" : "scheduled",
+      "receiverQuestion" : "Quel est le couleur de mon chat ?",
+      "receiverAnswer" : "Roux"
+    },
+    {
+      "transferId": 4,
+      "accountTransferPayerId": 666,
+      "accountTransferReceiverId": 456,
+      "scheduledTransferDate" : "2021-04-27 20:00:00",
+      "transferAmount" : 524,
+      "transferType" : "scheduled",
+      "receiverQuestion" : "Quel est le couleur de mon chat ?",
+      "receiverAnswer" : "Roux"
+    },
+    {
+      "transferId": 1,
+      "accountTransferPayerId": 123,
+      "accountTransferReceiverId": 456,
+      "scheduledTransferDate" : "2021-04-27 20:00:00",
+      "transferAmount" : 550,
+      "transferType" : "scheduled",
+      "receiverQuestion" : "Quel est le couleur de mon chat ?",
+      "receiverAnswer" : "Roux"
+    },
+    {
+      "transferId": 2,
+      "accountTransferPayerId": 123,
+      "accountTransferReceiverId": 456,
+      "scheduledTransferDate" : "2021-04-27 20:00:00",
+      "transferAmount" : 524,
+      "transferType" : "scheduled",
+      "receiverQuestion" : "Quel est le couleur de mon chat ?",
+      "receiverAnswer" : "Roux"
+    }
+  ]
+}

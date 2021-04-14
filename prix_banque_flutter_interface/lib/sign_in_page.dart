@@ -47,7 +47,6 @@ class SignInPage extends StatelessWidget {
                 child: Text("Sign in"),
 
               ),
-
               ElevatedButton(
                   onPressed: () {
                     Navigator.pushNamed(context, SignUpPage.name);
