@@ -20,20 +20,21 @@ class InvoicePage extends StatelessWidget {
           builder: (BuildContext context, AsyncSnapshot snap){
             if (snap.hasData){
               var invoiceList = invoiceListFromJson(snap.data);
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  DisplayListInvoice(
-                    state: "Invoices to pay",
-                    invoices: invoiceList.invoicesToPay,
-                    color: Colors.redAccent,
-                  ),
-                  DisplayListInvoice(
-                    state: "Invoices paid",
-                    invoices: invoiceList.invoicesPaid,
-                    color: Colors.lightGreen,
-                  )
-                ],
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    DisplayListInvoice(
+                      state: "Invoices to pay",
+                      invoices: invoiceList.invoicesToPay,
+                      color: Colors.redAccent,
+                    ),
+                    DisplayListInvoice(
+                      state: "Invoices paid",
+                      invoices: invoiceList.invoicesPaid,
+                      color: Colors.lightGreen,
+                    )
+                  ],
+                ),
               );
 
             }

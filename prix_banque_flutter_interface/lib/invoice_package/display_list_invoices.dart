@@ -15,40 +15,37 @@ class DisplayListInvoice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Container(
-        decoration: BoxDecoration(
-            border: Border.all(color: color)
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              color: color,
-              height: 30,
-              child: Center(
-                child: Text(
-                  state,
-                  style: TextStyle(
-                    fontSize: 15.0,
-                  ),
+      child: Column(
+        children: [
+          Container(
+            color: color,
+            height: 30,
+            child: Center(
+              child: Text(
+                state,
+                style: TextStyle(
+                  fontSize: 15.0,
                 ),
               ),
             ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: invoices.isEmpty? [Container(
-                height: 100,
-                child: Center(
-                  child: Text(
-                    "No invoices found",
-                    style: TextStyle(
-                      fontSize: 15.0,
-                    ),
+          ),
+          Container(
+            height: 300,
+            decoration: BoxDecoration(
+                border: Border.all(color: color)
+            ),
+            child: invoices.isEmpty?Center(
+              child: Text(
+                  "No invoices found",
+                  style: TextStyle(
+                    fontSize: 15.0,
                   ),
-                ),
-              )]:
-              invoices.map((invoice) => ListTile(
+              )
+            ):
+            ListView(
+              children: invoices.map((invoice) => ListTile(
                 title : Text(invoice.clientToPay),
+                subtitle: Text(invoice.expirationDate),
                 trailing: Icon(Icons.keyboard_arrow_right),
                 onTap : (){
                   Navigator.push(
@@ -63,9 +60,14 @@ class DisplayListInvoice extends StatelessWidget {
               )
               ).toList(),
             ),
-          ],
-        ),
-      ),
+          ),
+        ],
+      )
     );
+
+
+
+
   }
 }
+
