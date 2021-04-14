@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 
 class ShowInformation {
   final TextEditingController answerController = new TextEditingController();
@@ -47,6 +46,7 @@ class ShowInformation {
               onPressed: () {
                 if (answerController.text == answer) {
                   showMyDialog(context, "transfer accepted");
+
                 } else {
                   showMyDialog(context, "transfer refused, wrong answer");
                 }
