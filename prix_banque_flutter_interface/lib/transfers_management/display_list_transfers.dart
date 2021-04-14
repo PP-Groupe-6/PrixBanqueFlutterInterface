@@ -3,20 +3,40 @@ import 'package:prix_banque_flutter_interface/transfers_management/transfer_mode
 
 import '../show_information.dart';
 
+class _TransferListInherited extends InheritedWidget {
+  _TransferListInherited({
+    Key key,
+    @required Widget child,
+    @required this.data,
+  }) : super(key: key, child: child);
 
+  final DisplayListTransferState data;
+
+  @override
+  bool updateShouldNotify(_TransferListInherited oldWidget) {
+    return true;
+  }
+}
 class DisplayListTransfer extends StatefulWidget {
 
   final List<Transfer> transfers;
   final Color color;
-
   DisplayListTransfer(
       {Key key,
       @required this.transfers,
-      @required this.color})
+      @required this.color,
+      this.child,
+      })
       : super(key: key);
+
+  final Widget child;
+
 
   @override
   _DisplayListTransfer createState() => _DisplayListTransfer();
+  static DisplayListTransferState of(BuildContext context){
+    return (context.dependOnInheritedWidgetOfExactType<_TransferListInherited>() as _TransferListInherited).data;
+  }
 }
 
 class _DisplayListTransfer extends State<DisplayListTransfer> {
@@ -58,7 +78,8 @@ class _DisplayListTransfer extends State<DisplayListTransfer> {
                               ShowInformation().confirmDialog(
                                   context,
                                   transfer.receiverQuestion,
-                                  transfer.receiverAnswer);
+                                  transfer.receiverAnswer,
+                                  transfer);
                             },
                           ))
                       .toList(),
@@ -66,5 +87,26 @@ class _DisplayListTransfer extends State<DisplayListTransfer> {
         ),
       ],
     ));
+  }
+}
+
+
+class DisplayListTransferState extends State<DisplayListTransfer>{
+  /// List of Items
+  List<Transfer> transfers = <Transfer>[];
+
+  /// Helper method to add an Item
+  void removeTransfer(Transfer transfer){
+    setState((){
+      transfers.remove(transfer);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context){
+    return new _TransferListInherited(
+      data : this,
+      child : widget.child,
+    );
   }
 }
