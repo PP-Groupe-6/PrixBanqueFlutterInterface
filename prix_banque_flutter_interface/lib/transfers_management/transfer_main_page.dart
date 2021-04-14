@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:prix_banque_flutter_interface/show_information.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/creation_transfer_page.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/display_list_transfers.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
@@ -53,13 +52,15 @@ class TransferPage extends StatelessWidget {
                     if (snap.hasData) {
                       var transferList = transferListFromJson(snap.data);
                       return SingleChildScrollView(
-                        child:
-                            Column(mainAxisSize: MainAxisSize.min, children: [
-                          DisplayListTransfer(
-                            transfers: transferList.transfers,
-                            color: Colors.blue,
-                          )
-                        ]),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            DisplayListTransfer(
+                              transfers: transferList.transfers,
+                              color: Colors.blue,
+                            )
+                          ],
+                        ),
                       );
                     } else {
                       return CircularProgressIndicator();

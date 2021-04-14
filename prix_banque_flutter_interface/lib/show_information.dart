@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 
 import 'package:prix_banque_flutter_interface/transfers_management/display_list_transfers.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
@@ -55,6 +54,7 @@ class ShowInformation {
               onPressed: () {
                 if (answerController.text == answer) {
                   showMyDialog(context, "transfer accepted");
+
                   state.removeTransfer(transfer);
                 } else {
                   showMyDialog(context, "transfer refused, wrong answer");
