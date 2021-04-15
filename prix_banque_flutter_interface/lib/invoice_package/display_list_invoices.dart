@@ -8,8 +8,9 @@ class DisplayListInvoice extends StatefulWidget {
   final String state;
   final List<Invoice> invoices;
   final Color color;
+  final Function(Invoice) onChange;
 
-  DisplayListInvoice({Key key, @required this.state, @required this.invoices, @required this.color}):super(key:key);
+  DisplayListInvoice({Key key, @required this.onChange, @required this.state, @required this.invoices, @required this.color}):super(key:key);
 
   @override
   _DisplayListInvoiceState createState() => _DisplayListInvoiceState();
@@ -19,59 +20,57 @@ class _DisplayListInvoiceState extends State<DisplayListInvoice> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        children: [
-          Container(
-            color: widget.color,
-            height: 30,
-            child: Center(
-              child: Text(
-                widget.state,
-                style: TextStyle(
-                  fontSize: 15.0,
-                ),
-              ),
-            ),
-          ),
-          Container(
-            height: 300,
-            decoration: BoxDecoration(
-                border: Border.all(color: widget.color)
-            ),
-            child: widget.invoices.isEmpty?Center(
-              child: Text(
-                  "No invoices found",
+        child: Column(
+          children: [
+            Container(
+              color: widget.color,
+              height: 30,
+              child: Center(
+                child: Text(
+                  widget.state,
                   style: TextStyle(
                     fontSize: 15.0,
                   ),
-              )
-            ):
-            ListView(
-              children: widget.invoices.map((invoice) => ListTile(
-                title : Text(invoice.clientToPay),
-                subtitle: Text(invoice.expirationDate),
-                trailing: Icon(Icons.keyboard_arrow_right),
-                onTap : (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context)=>InvoiceInfo(
-                          invoice: invoice
-                      ),
-                    ),
-                  );
-                },
-              )
-              ).toList(),
+                ),
+              ),
             ),
-          ),
-        ],
-      )
+            Container(
+              height: 300,
+              decoration: BoxDecoration(
+                  border: Border.all(color: widget.color)
+              ),
+              child: widget.invoices.isEmpty ? Center(
+                  child: Text(
+                    "No invoices found",
+                    style: TextStyle(
+                      fontSize: 15.0,
+                    ),
+                  )
+              ) :
+              ListView(
+                children: widget.invoices.map((invoice) =>
+                  ListTile(
+                    title: Text(invoice.clientToPay),
+                    subtitle: Text(invoice.expirationDate),
+                    trailing: Icon(Icons.keyboard_arrow_right),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context)=>InvoiceInfo(
+                            invoice: invoice,
+                            buttonFonction: widget.onChange,
+                          ),
+                        ),
+                      );
+                    },
+                  )
+                ).toList(),
+              ),
+            ),
+          ],
+        )
     );
-
-
-
-
   }
 }
 

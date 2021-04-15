@@ -5,8 +5,9 @@ import 'invoice.dart';
 
 class InvoiceInfo extends StatelessWidget{
   final Invoice invoice;
+  final Function(Invoice) buttonFonction;
 
-  InvoiceInfo({Key key, @required this.invoice}):super(key:key);
+  InvoiceInfo({Key key, @required this.invoice, @required this.buttonFonction}):super(key:key);
 
   @override
   Widget build(BuildContext context){
@@ -157,6 +158,17 @@ class InvoiceInfo extends StatelessWidget{
                       ),
                     ),
                   ),
+                  Container(
+                    margin: EdgeInsets.only(top: 20),
+                    child: ElevatedButton(
+                      child: Text("Pay"),
+                      onPressed: (invoice.state=="waiting")?
+                      (){
+                        buttonFonction(invoice);
+                      }:
+                        null
+                    ),
+                  )
                 ],
               ),
             ),
