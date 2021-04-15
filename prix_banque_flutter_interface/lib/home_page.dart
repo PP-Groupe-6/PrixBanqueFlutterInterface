@@ -24,11 +24,14 @@ class HomePage extends StatelessWidget {
               style: new TextStyle(fontSize: 90),
             ),
             Image.asset("images/PrixBanqueLogo.png"),
-            Row(
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height/5,
+            child :Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  width: 250,
+                  width: MediaQuery.of(context).size.width/6,
                   height: 50,
                   child: ElevatedButton(
                       onPressed: () {
@@ -38,7 +41,7 @@ class HomePage extends StatelessWidget {
                       child: Text("My bank accounts")),
                 ),
                 Container(
-                  width: 250,
+                  width: MediaQuery.of(context).size.width/6,
                   height: 50,
                   child: ElevatedButton(
                       onPressed: () {
@@ -48,7 +51,7 @@ class HomePage extends StatelessWidget {
                       child: Text("My invoices")),
                 ),
                 Container(
-                  width: 250,
+                  width: MediaQuery.of(context).size.width/6,
                   height: 50,
                   child: ElevatedButton(
                       onPressed: () {
@@ -57,7 +60,7 @@ class HomePage extends StatelessWidget {
                       child: Text("My transfers")),
                 ),
                 Container(
-                  width: 250,
+                  width: MediaQuery.of(context).size.width/6,
                   height: 50,
                   child: ElevatedButton(
                       onPressed: () {
@@ -68,18 +71,25 @@ class HomePage extends StatelessWidget {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+            child :Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+
                 Text(
                   "Money amount : ",
-                  style: new TextStyle(fontSize: 90),
+                  style: new TextStyle(fontSize: 50),
                 ),
                 Text(
                   "3090",
-                  style: new TextStyle(fontSize: 100),
+                  style: new TextStyle(fontSize: 40),
                 ),
+
+
               ],
+            ),
             ),
             ElevatedButton(
               onPressed: () {

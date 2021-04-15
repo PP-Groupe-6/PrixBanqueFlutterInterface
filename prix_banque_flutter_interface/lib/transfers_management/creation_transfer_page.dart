@@ -24,9 +24,18 @@ class _CreateTransferPageState extends State<CreateTransferPage> {
 
   var json = Map<String,String>();
   Future<Transfer> _futureTransfer;
+  Future<Transfer> _futureTransfergetted;
+
 
   int selectedValue = 1;
   bool selectedValueBool = false;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _futureTransfergetted = JsonHttp().getRequestTransfer();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,8 +136,8 @@ class _CreateTransferPageState extends State<CreateTransferPage> {
                 //json = {"Amount" : amountController.text};
                 //JSONStorage().createFile(json, new Directory("transfers_management"), "test_virement_creation.json");
                 setState(() {
-                  _futureTransfer =  JsonHttp().createTransfer(amountController.text);
-                  print(_futureTransfer==null);
+                  _futureTransfer =  JsonHttp().postRequestTransfer(amountController.text);
+                  _futureTransfergetted=JsonHttp().getRequestTransfer();
                 });
               }
             },
