@@ -139,8 +139,9 @@ class _CreateTransferPageState extends State<CreateTransferPage> {
                             questionController.text,
                             answerController.text,
                             dateController.text);
-                        _futureTransfergetted = JsonHttp().getRequestTransfer();
+                        // _futureTransfergetted = JsonHttp().getRequestTransfer();
                       });
+                      Text("Bonjour");
                     }
                   },
                   child: Text("Validate"),
@@ -150,13 +151,81 @@ class _CreateTransferPageState extends State<CreateTransferPage> {
                 future: _futureTransfer,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return Text(snapshot.data.transferAmount.toString() +
+                    return Column(
+                      children: [
+                        Text(
+                          "Transfer recap :",
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 24,
+                          ),
+                        ),
+                        Card(
+                          elevation: 5,
+                          shadowColor: Colors.blue,
+                          child: Column(
+                            children: [
+                              RichText(
+                                  text: TextSpan(
+                                      text: "Amount : ",
+                                      style: TextStyle(
+                                          color: Colors.blue, fontSize: 16),
+                                      children: [
+                                    TextSpan(
+                                      text: snapshot.data.transferAmount
+                                          .toString(),
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 13),
+                                    )
+                                  ])),
+                              RichText(
+                                  text: TextSpan(
+                                      text: "Verification Question : ",
+                                      style: TextStyle(
+                                          color: Colors.blue, fontSize: 16),
+                                      children: [
+                                    TextSpan(
+                                      text: snapshot.data.receiverQuestion,
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 13),
+                                    )
+                                  ])),
+                              RichText(
+                                  text: TextSpan(
+                                      text: "Question Answer : ",
+                                      style: TextStyle(
+                                          color: Colors.blue, fontSize: 16),
+                                      children: [
+                                    TextSpan(
+                                      text: snapshot.data.receiverAnswer,
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 13),
+                                    )
+                                  ])),
+                              RichText(
+                                  text: TextSpan(
+                                      text: "Scheduled Date : ",
+                                      style: TextStyle(
+                                          color: Colors.blue, fontSize: 16),
+                                      children: [
+                                    TextSpan(
+                                      text: snapshot.data.scheduledTransferDate,
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 13),
+                                    )
+                                  ])),
+                            ],
+                          ),
+                        )
+                      ],
+                    );
+                    /*return Text(snapshot.data.transferAmount.toString() +
                         "\n" +
                         snapshot.data.receiverQuestion +
                         "\n" +
                         snapshot.data.receiverAnswer +
                         "\n" +
-                        snapshot.data.scheduledTransferDate);
+                        snapshot.data.scheduledTransferDate);*/
                   } else if (snapshot.hasError) {
                     return Text("${snapshot.error}");
                   }
