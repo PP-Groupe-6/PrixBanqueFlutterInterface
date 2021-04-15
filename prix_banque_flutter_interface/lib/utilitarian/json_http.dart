@@ -1,11 +1,19 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
 
 class JsonHttp {
-  Future<Transfer> postRequestTransfer(int title) async {
-    Map data = {'transferAmount': title};
+  Future<Transfer> postRequestTransfer(
+      int transferAmount,
+      String receiverQuestion,
+      String receiverAnswer,
+      String scheduledTransferDate) async {
+    Map data = {
+      'transferAmount': transferAmount,
+      'receiverQuestion': receiverQuestion,
+      'receiverAnswer': receiverAnswer,
+      'scheduledTransferDate': scheduledTransferDate
+    };
     String body = json.encode(data);
     final response = await http.post(
       Uri.parse("https://retoolapi.dev/Nx5F0M/test"),
