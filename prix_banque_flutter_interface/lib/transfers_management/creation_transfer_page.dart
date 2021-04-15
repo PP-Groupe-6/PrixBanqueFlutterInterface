@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/JSON_storage.dart';
-
+import 'package:http/http.dart';
+import 'package:prix_banque_flutter_interface/utilitarian/json_http.dart';
 import '../show_information.dart';
 
 class CreateTransferPage extends StatefulWidget {
@@ -15,16 +17,13 @@ class CreateTransferPage extends StatefulWidget {
 
 class _CreateTransferPageState extends State<CreateTransferPage> {
   final TextEditingController amountController = TextEditingController();
-
   final TextEditingController emailReceiverController = TextEditingController();
-
   final TextEditingController questionController = TextEditingController();
-
   final TextEditingController answerController = TextEditingController();
-
   final TextEditingController dateController = TextEditingController();
 
   var json = Map<String,String>();
+  Future<Transfer> _futureTransfer;
 
   int selectedValue = 1;
   bool selectedValueBool = false;
@@ -36,7 +35,9 @@ class _CreateTransferPageState extends State<CreateTransferPage> {
         title: Text("Make a transfer"),
       ),
       body: Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        child: (_futureTransfer == null)
+          ?
+        Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text("Creation Transfer Page"),
           DropdownButton(
             value: selectedValue,
@@ -123,13 +124,28 @@ class _CreateTransferPageState extends State<CreateTransferPage> {
                 ShowInformation().showMyDialog(context, "Date Required.");
               } else {
                 ShowInformation().showMyDialog(context, "Transfer Validated");
-                json = {"Amount" : amountController.text};
-                JSONStorage().createFile(json, new Directory("transfers_management"), "test_virement_creation.json");
+                //json = {"Amount" : amountController.text};
+                //JSONStorage().createFile(json, new Directory("transfers_management"), "test_virement_creation.json");
+                setState(() {
+                  _futureTransfer =  JsonHttp().createTransfer(amountController.text);
+                  print(_futureTransfer==null);
+                });
               }
             },
             child: Text("Validate"),
           )
-        ]),
+        ])
+        : FutureBuilder<Transfer>(
+            future : _futureTransfer,
+            builder: (context, snapshot){
+              if(snapshot.hasData) {
+                return Text(snapshot.data.transferAmount.toString());
+              }else if( snapshot.hasError){
+                return Text("${snapshot.error}");
+              }
+              return CircularProgressIndicator();
+            }
+        )
       ),
     );
   }

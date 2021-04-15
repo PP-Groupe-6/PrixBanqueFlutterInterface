@@ -58,7 +58,6 @@ class _DisplayListTransfer extends State<DisplayListTransfer> {
                     ShowInformation(onTransferAccepted : (){
                       widget.transfers.remove(transfer);
                       setState(() {
-
                       });
                     }).confirmDialog(
                         context,
