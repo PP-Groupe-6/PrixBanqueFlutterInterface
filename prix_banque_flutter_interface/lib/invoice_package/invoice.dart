@@ -17,12 +17,21 @@ class InvoiceList {
   factory InvoiceList.fromJson(Map<String, dynamic> json) => InvoiceList(
     List<Invoice>.from(json["invoices"].map((x) => Invoice.fromJson(x))),
   );
+
+  updateListToPay(Invoice invoice){
+    if(invoice.state=="waiting") {
+      invoicesToPay.remove(invoice);
+      invoicesPaid.add(invoice);
+      invoice.setState("paid");
+    }
+  }
+
 }
 
 class Invoice {
   final int id;
   final int amount;
-  final String state;
+  String state;
   final String expirationDate;
   final String clientToPay;
   final String email;
@@ -40,5 +49,9 @@ class Invoice {
       email: json['email'] as String,
       phoneNumber: json['phone'] as String,
     );
+  }
+
+  void setState(String s){
+    this.state=s;
   }
 }
