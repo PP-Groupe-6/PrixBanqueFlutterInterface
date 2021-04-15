@@ -136,7 +136,7 @@ class _CreateTransferPageState extends State<CreateTransferPage> {
                 //json = {"Amount" : amountController.text};
                 //JSONStorage().createFile(json, new Directory("transfers_management"), "test_virement_creation.json");
                 setState(() {
-                  _futureTransfer =  JsonHttp().postRequestTransfer(amountController.text);
+                  _futureTransfer =  JsonHttp().postRequestTransfer(int.parse(amountController.text));
                   _futureTransfergetted=JsonHttp().getRequestTransfer();
                 });
               }
