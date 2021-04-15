@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
-
-import '../show_information.dart';
+import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/classicText.dart';
+import 'package:prix_banque_flutter_interface/utilitarian/Widgets/pop-ups/show_information.dart';
 
 
 class DisplayListTransfer extends StatefulWidget {
@@ -29,12 +29,7 @@ class _DisplayListTransfer extends State<DisplayListTransfer> {
               color: widget.color,
               height: 30,
               child: Center(
-                child: Text(
-                  "Waiting transfers",
-                  style: TextStyle(
-                    fontSize: 15.0,
-                  ),
-                ),
+                child: classicText(myText: "Waiting transfers", myFontSize: 15, myColor: Colors.black),
               ),
             ),
             Container(
@@ -42,12 +37,7 @@ class _DisplayListTransfer extends State<DisplayListTransfer> {
               decoration: BoxDecoration(border: Border.all(color: widget.color)),
               child: widget.transfers.isEmpty
                   ? Center(
-                  child: Text(
-                    "No transfers found",
-                    style: TextStyle(
-                      fontSize: 15.0,
-                    ),
-                  ))
+                  child: classicText(myText: "No transfers found", myFontSize: 15, myColor: Colors.black),)
                   : ListView(
                 children: widget.transfers
                     .map((transfer) => ListTile(

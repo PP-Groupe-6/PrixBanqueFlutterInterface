@@ -3,8 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
+import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Builders/futureBuilderTransfer.dart';
+import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/classicTextField.dart';
+import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/datePickerTextField.dart';
+import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/digitTextField.dart';
+import 'package:prix_banque_flutter_interface/utilitarian/Widgets/pop-ups/show_information.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/json_http.dart';
-import '../show_information.dart';
 
 class CreateTransferPage extends StatefulWidget {
   static const name = "/createTransferPage";
@@ -26,12 +30,6 @@ class _CreateTransferPageState extends State<CreateTransferPage> {
 
   int selectedValue = 1;
   bool selectedValueBool = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _futureTransfergetted = JsonHttp().getRequestTransfer();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,197 +64,57 @@ class _CreateTransferPageState extends State<CreateTransferPage> {
                     });
                   },
                 ),
-                TextField(
-                  controller: amountController,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                  decoration: InputDecoration(
-                    labelText: "Amount",
-                  ),
-                ),
-                TextField(
-                  controller: emailReceiverController,
-                  decoration: InputDecoration(
-                    labelText: "Email of the receiver",
-                  ),
-                ),
-                TextField(
-                  controller: questionController,
-                  decoration: InputDecoration(
-                    labelText: "Verification question",
-                  ),
-                ),
-                TextField(
-                  controller: answerController,
-                  decoration: InputDecoration(
-                    labelText: "Question answer",
-                  ),
-                ),
-                TextField(
-                  enabled: selectedValueBool,
-                  controller: dateController,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.allow(RegExp(''))
-                  ],
-                  decoration: InputDecoration(
-                    labelText: "Date",
-                  ),
-                  onTap: () async {
-                    var date = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime(2100));
-                    dateController.text = date.toString().substring(0, 10);
-                  },
-                ),
+                digitTextField(controller: amountController, message: "Amount"),
+                classicTextField(controller: emailReceiverController, message: "Email of the receiver"),
+                classicTextField(controller: questionController, message: "Verification question"),
+                classicTextField(controller: answerController, message: "Verification answer"),
+                datePickerTextField(selectedValueBool: selectedValueBool, dateController: dateController),
                 ElevatedButton(
                   onPressed: () {
-                    if (amountController.text == "") {
-                      ShowInformation()
-                          .showMyDialog(context, "Amount Required.");
-                    } else if (emailReceiverController.text == "") {
-                      ShowInformation()
-                          .showMyDialog(context, "Email Required.");
-                    } else if (answerController.text == "") {
-                      ShowInformation()
-                          .showMyDialog(context, "Question Answer Required.");
-                    } else if (questionController.text == "") {
-                      ShowInformation().showMyDialog(
-                          context, "Verification Question Required.");
-                    } else if (dateController.text == "" &&
-                        selectedValueBool == true) {
-                      ShowInformation().showMyDialog(context, "Date Required.");
-                    } else {
-                      ShowInformation()
-                          .showMyDialog(context, "Transfer Validated");
-                      //json = {"Amount" : amountController.text};
-                      //JSONStorage().createFile(json, new Directory("transfers_management"), "test_virement_creation.json");
-                      setState(() {
-                        String transferType;
-                        if (selectedValueBool == true) {
-                          transferType = "Scheduled";
-                        } else {
-                          transferType = "Immediate";
-                        }
-                        _futureTransfer = JsonHttp().postRequestTransfer(
-                            int.parse(amountController.text),
-                            questionController.text,
-                            answerController.text,
-                            dateController.text,
-                            transferType);
-                        // _futureTransfergetted = JsonHttp().getRequestTransfer();
-                      });
-                      Text("Bonjour");
-                    }
+                    testInputFilled(context);
                   },
                   child: Text("Validate"),
                 )
               ])
-            : FutureBuilder<Transfer>(
-                future: _futureTransfer,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Column(
-                      children: [
-                        Text(
-                          "Transfer recap :",
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 24,
-                          ),
-                        ),
-                        Card(
-                          elevation: 5,
-                          shadowColor: Colors.blue,
-                          child: Column(
-                            children: [
-                              RichText(
-                                  text: TextSpan(
-                                      text: "Amount : ",
-                                      style: TextStyle(
-                                          color: Colors.blue, fontSize: 16),
-                                      children: [
-                                    TextSpan(
-                                      text: snapshot.data.transferAmount
-                                          .toString(),
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 13),
-                                    )
-                                  ])),
-                              RichText(
-                                  text: TextSpan(
-                                      text: "Verification Question : ",
-                                      style: TextStyle(
-                                          color: Colors.blue, fontSize: 16),
-                                      children: [
-                                    TextSpan(
-                                      text: snapshot.data.receiverQuestion,
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 13),
-                                    )
-                                  ])),
-                              RichText(
-                                  text: TextSpan(
-                                      text: "Question Answer : ",
-                                      style: TextStyle(
-                                          color: Colors.blue, fontSize: 16),
-                                      children: [
-                                    TextSpan(
-                                      text: snapshot.data.receiverAnswer,
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 13),
-                                    )
-                                  ])),
-                              RichText(
-                                  text: TextSpan(
-                                      text: "Transfer Type : ",
-                                      style: TextStyle(
-                                          color: Colors.blue, fontSize: 16),
-                                      children: [
-                                    TextSpan(
-                                      text: snapshot.data.transferType,
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 13),
-                                    )
-                                  ])),
-                              Visibility(
-                                child: RichText(
-                                  text: TextSpan(
-                                      text: "Scheduled Date : ",
-                                      style: TextStyle(
-                                          color: Colors.blue, fontSize: 16),
-                                      children: [
-                                        TextSpan(
-                                          text: snapshot
-                                              .data.scheduledTransferDate,
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 13),
-                                        )
-                                      ]),
-                                ),
-                                visible: selectedValueBool,
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    );
-                    /*return Text(snapshot.data.transferAmount.toString() +
-                        "\n" +
-                        snapshot.data.receiverQuestion +
-                        "\n" +
-                        snapshot.data.receiverAnswer +
-                        "\n" +
-                        snapshot.data.scheduledTransferDate);*/
-                  } else if (snapshot.hasError) {
-                    return Text("${snapshot.error}");
-                  }
-                  return CircularProgressIndicator();
-                }),
+            : futureBuilderTransfer(futureTransfer: _futureTransfer, selectedValueBool: selectedValueBool),
       ),
     );
   }
+
+  void testInputFilled(dynamic context) {
+    if (amountController.text == "") {
+      ShowInformation().showMyDialog(context, "Amount Required.");
+    } else if (emailReceiverController.text == "") {
+      ShowInformation().showMyDialog(context, "Email Required.");
+    } else if (answerController.text == "") {
+      ShowInformation().showMyDialog(context, "Question Answer Required.");
+    } else if (questionController.text == "") {
+      ShowInformation()
+          .showMyDialog(context, "Verification Question Required.");
+    } else if (dateController.text == "" && selectedValueBool == true) {
+      ShowInformation().showMyDialog(context, "Date Required.");
+    } else {
+      createTransfer(context);
+    }
+  }
+
+  void createTransfer(dynamic context) {
+    ShowInformation().showMyDialog(context, "Transfer Validated");
+    setState(() {
+      String transferType;
+      if (selectedValueBool == true) {
+        transferType = "Scheduled";
+      } else {
+        transferType = "Immediate";
+      }
+      _futureTransfer = JsonHttp().postRequestTransfer(
+          int.parse(amountController.text),
+          questionController.text,
+          answerController.text,
+          dateController.text,
+          transferType);
+    });
+  }
 }
+
+

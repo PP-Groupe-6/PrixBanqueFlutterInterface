@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:prix_banque_flutter_interface/show_information.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_main_page.dart';
-import 'authentification_service.dart';
+import 'package:prix_banque_flutter_interface/utilitarian/Widgets/pop-ups/show_information.dart';
+import 'authentification_management/authentification_service.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
