@@ -134,11 +134,18 @@ class _CreateTransferPageState extends State<CreateTransferPage> {
                       //json = {"Amount" : amountController.text};
                       //JSONStorage().createFile(json, new Directory("transfers_management"), "test_virement_creation.json");
                       setState(() {
+                        String transferType;
+                        if (selectedValueBool == true) {
+                          transferType = "Scheduled";
+                        } else {
+                          transferType = "Immediate";
+                        }
                         _futureTransfer = JsonHttp().postRequestTransfer(
                             int.parse(amountController.text),
                             questionController.text,
                             answerController.text,
-                            dateController.text);
+                            dateController.text,
+                            transferType);
                         // _futureTransfergetted = JsonHttp().getRequestTransfer();
                       });
                       Text("Bonjour");
@@ -204,16 +211,34 @@ class _CreateTransferPageState extends State<CreateTransferPage> {
                                   ])),
                               RichText(
                                   text: TextSpan(
-                                      text: "Scheduled Date : ",
+                                      text: "Transfer Type : ",
                                       style: TextStyle(
                                           color: Colors.blue, fontSize: 16),
                                       children: [
                                     TextSpan(
-                                      text: snapshot.data.scheduledTransferDate,
+                                      text: snapshot.data.transferType,
                                       style: TextStyle(
                                           color: Colors.black, fontSize: 13),
                                     )
                                   ])),
+                              Visibility(
+                                child: RichText(
+                                  text: TextSpan(
+                                      text: "Scheduled Date : ",
+                                      style: TextStyle(
+                                          color: Colors.blue, fontSize: 16),
+                                      children: [
+                                        TextSpan(
+                                          text: snapshot
+                                              .data.scheduledTransferDate,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 13),
+                                        )
+                                      ]),
+                                ),
+                                visible: selectedValueBool,
+                              )
                             ],
                           ),
                         )

@@ -7,12 +7,14 @@ class JsonHttp {
       int transferAmount,
       String receiverQuestion,
       String receiverAnswer,
-      String scheduledTransferDate) async {
+      String scheduledTransferDate,
+      String transferType) async {
     Map data = {
       'transferAmount': transferAmount,
       'receiverQuestion': receiverQuestion,
       'receiverAnswer': receiverAnswer,
-      'scheduledTransferDate': scheduledTransferDate
+      'scheduledTransferDate': scheduledTransferDate,
+      'transferType': transferType
     };
     String body = json.encode(data);
     final response = await http.post(
