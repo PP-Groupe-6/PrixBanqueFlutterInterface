@@ -9,8 +9,8 @@ class classicRichText extends StatelessWidget {
   }) : super(key: key);
 
   final String myText;
-  final double myTitleFontSize=16;
-  final double mySubtitleFontSize=13;
+  final double myTitleFontSize=35;
+  final double mySubtitleFontSize=30;
   final Color myTitleColor=Colors.blue;
   final Color mySubtitleColor=Colors.black;
   final dynamic snapshot;
@@ -21,13 +21,13 @@ class classicRichText extends StatelessWidget {
         text: TextSpan(
             text: myText,
             style: TextStyle(
-                 fontSize: myTitleFontSize), //color: myTitleColor,
+                 color : Theme.of(context).primaryColor, fontSize: myTitleFontSize), //color: myTitleColor,
             children: [
               TextSpan(
                 text: snapshot
                     .toString(),
                 style: TextStyle(
-                    fontSize: mySubtitleFontSize),
+                    color : Theme.of(context).accentColor, fontSize: mySubtitleFontSize),
               )
             ]));
   }

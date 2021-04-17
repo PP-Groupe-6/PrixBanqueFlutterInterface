@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Builders/futureBuilderTransfer.dart';
+import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/classicText.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/classicTextField.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/datePickerTextField.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/digitTextField.dart';
@@ -40,7 +41,7 @@ class _CreateTransferPage extends State<CreateTransferPage> {
         child: (_futureTransfer == null)
             ? Column(mainAxisAlignment: MainAxisAlignment.center,
             children: [
-                Text("Creation Transfer Page"),
+              classicText(myColor: Theme.of(context).primaryColor, myFontSize: 25, myText: "Creation Transfer Page"),
                 DropdownButton(
                   value: selectedValue,
                   items: [
