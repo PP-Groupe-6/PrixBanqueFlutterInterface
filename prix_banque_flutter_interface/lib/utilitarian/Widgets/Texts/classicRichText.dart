@@ -13,7 +13,7 @@ class classicRichText extends StatelessWidget {
   final double mySubtitleFontSize=13;
   final Color myTitleColor=Colors.blue;
   final Color mySubtitleColor=Colors.black;
-  final AsyncSnapshot snapshot;
+  final dynamic snapshot;
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +21,13 @@ class classicRichText extends StatelessWidget {
         text: TextSpan(
             text: myText,
             style: TextStyle(
-                color: myTitleColor, fontSize: myTitleFontSize),
+                 fontSize: myTitleFontSize), //color: myTitleColor,
             children: [
               TextSpan(
-                text: snapshot.data.transferAmount
+                text: snapshot
                     .toString(),
                 style: TextStyle(
-                    color: mySubtitleColor, fontSize: mySubtitleFontSize),
+                    fontSize: mySubtitleFontSize),
               )
             ]));
   }

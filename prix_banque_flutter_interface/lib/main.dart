@@ -14,8 +14,23 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
-}
 
+}
+Map<int, Color> color =
+{
+  50:Color.fromRGBO(27,30,75,.1),
+  100:Color.fromRGBO(27,30,75,.2),
+  200:Color.fromRGBO(27,30,75,.3),
+  300:Color.fromRGBO(27,30,75,.4),
+  400:Color.fromRGBO(27,30,75,.5),
+  500:Color.fromRGBO(27,30,75,.6),
+  600:Color.fromRGBO(27,30,75,.7),
+  700:Color.fromRGBO(27,30,75,.8),
+  800:Color.fromRGBO(27,30,75,.9),
+  900:Color.fromRGBO(27,30,75,1),
+};
+
+MaterialColor colorCustom = MaterialColor(0xFF1B1E4B, color);
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -32,7 +47,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Prix Banque',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          brightness: Brightness.light,
+          primarySwatch: colorCustom,
+          //textTheme: ThemeData.light(),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: AuthenticationWrapper(),

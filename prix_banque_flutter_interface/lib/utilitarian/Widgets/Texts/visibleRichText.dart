@@ -11,7 +11,7 @@ class visibleRichText extends StatelessWidget {
 
   final bool selectedValueBool;
   final String myText;
-  final AsyncSnapshot snapshot;
+  final dynamic snapshot;
 
   @override
   Widget build(BuildContext context) {

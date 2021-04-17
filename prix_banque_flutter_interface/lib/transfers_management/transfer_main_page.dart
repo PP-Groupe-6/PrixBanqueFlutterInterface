@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/creation_transfer_page.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/display_list_transfers.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
+import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Buttons/navigatorPushButton.dart';
 
 TransferList transferListFromJson(String str) =>
     TransferList.fromJson(json.decode(str));
@@ -38,11 +39,7 @@ class TransferPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text("Transfer Page"),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, CreateTransferPage.name);
-                },
-                child: Text("Make a transfer")),
+            navigatorPushButton(message: "Make a transfer", route: CreateTransferPage.name,),
             Container(
               width: MediaQuery.of(context).size.width / 2,
               height: MediaQuery.of(context).size.height / 2,

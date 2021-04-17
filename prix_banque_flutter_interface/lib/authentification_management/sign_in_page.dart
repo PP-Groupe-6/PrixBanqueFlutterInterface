@@ -6,6 +6,7 @@ import 'package:prix_banque_flutter_interface/home_page.dart';
 import 'package:prix_banque_flutter_interface/authentification_management/sign_up_page.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Buttons/authentificationButton.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Buttons/navigatorPushButton.dart';
+import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/classicText.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/classicTextField.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/obscureTextField.dart';
 
@@ -21,9 +22,17 @@ class SignInPage extends StatelessWidget {
           title: Text("Sign In"),
         ),
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              classicTextField(controller: emailController, message: "Email"),
-              obscureTextField(controller: passwordController, message: "Password"),
+              Image.asset("images/PrixBanqueLogo.png"),
+              Container(
+              child :Column (
+                  children : [
+                    classicTextField(controller: emailController, message: "Email"),
+                    obscureTextField(controller: passwordController, message: "Password"),
+                            ]
+              )
+              ),
               authentificationButton(emailController: emailController, passwordController: passwordController),
               navigatorPushButton(route :SignUpPage.name, message :"Sign Up"),
             ]

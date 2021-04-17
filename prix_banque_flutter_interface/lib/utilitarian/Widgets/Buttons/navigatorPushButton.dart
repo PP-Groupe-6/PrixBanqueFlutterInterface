@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class navigatorPushButton extends StatelessWidget {
   const navigatorPushButton({
     Key key,
-    this.message,
-    this.route,
+    @required this.message,
+    @required this.route,
   }) : super(key: key);
 
   final String route;

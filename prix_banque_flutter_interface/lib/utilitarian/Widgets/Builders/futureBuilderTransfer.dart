@@ -25,6 +25,7 @@ class futureBuilderTransfer extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 classicText(myColor: Colors.blue, myFontSize: 24,myText: "Transfer recap :"),
                 Card(
@@ -32,14 +33,16 @@ class futureBuilderTransfer extends StatelessWidget {
                   shadowColor: Colors.blue,
                   child: Column(
                     children: [
-                      classicRichText(myText: "Amount : ", snapshot: snapshot),
-                      classicRichText(myText: "Verification Question : ", snapshot: snapshot),
-                      classicRichText(myText: "Verification Answer : ", snapshot: snapshot),
-                      classicRichText(myText: "Transfer type : ", snapshot: snapshot),
-                      visibleRichText(selectedValueBool: selectedValueBool, myText: "Scheduled Date : ", snapshot: snapshot,)
+                      classicRichText(myText: "Amount : ", snapshot: snapshot.data.transferAmount),
+                      classicRichText(myText: "Verification Question : ", snapshot: snapshot.data.receiverQuestion),
+                      classicRichText(myText: "Verification Answer : ", snapshot: snapshot.data.receiverAnswer),
+                      classicRichText(myText: "Transfer type : ", snapshot: snapshot.data.transferType),
+                      visibleRichText(selectedValueBool: selectedValueBool, myText: "Scheduled Date : ", snapshot: snapshot.data.scheduledTransferDate,)
                     ],
                   ),
-                )
+                ),
+                ElevatedButton(onPressed: () {Navigator.pop(context);}, child: Text("Done !")),
+
               ],
             );
           } else if (snapshot.hasError) {

@@ -14,10 +14,10 @@ class CreateTransferPage extends StatefulWidget {
   static const name = "/createTransferPage";
 
   @override
-  _CreateTransferPageState createState() => _CreateTransferPageState();
+  _CreateTransferPage createState() => _CreateTransferPage();
 }
 
-class _CreateTransferPageState extends State<CreateTransferPage> {
+class _CreateTransferPage extends State<CreateTransferPage> {
   final TextEditingController amountController = TextEditingController();
   final TextEditingController emailReceiverController = TextEditingController();
   final TextEditingController questionController = TextEditingController();
@@ -26,7 +26,6 @@ class _CreateTransferPageState extends State<CreateTransferPage> {
 
   var json = Map<String, String>();
   Future<Transfer> _futureTransfer;
-  Future<Transfer> _futureTransfergetted;
 
   int selectedValue = 1;
   bool selectedValueBool = false;
@@ -39,7 +38,8 @@ class _CreateTransferPageState extends State<CreateTransferPage> {
       ),
       body: Center(
         child: (_futureTransfer == null)
-            ? Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            ? Column(mainAxisAlignment: MainAxisAlignment.center,
+            children: [
                 Text("Creation Transfer Page"),
                 DropdownButton(
                   value: selectedValue,
@@ -81,7 +81,7 @@ class _CreateTransferPageState extends State<CreateTransferPage> {
     );
   }
 
-  void testInputFilled(dynamic context) {
+  void testInputFilled(BuildContext context) {
     if (amountController.text == "") {
       ShowInformation().showMyDialog(context, "Amount Required.");
     } else if (emailReceiverController.text == "") {
@@ -98,7 +98,7 @@ class _CreateTransferPageState extends State<CreateTransferPage> {
     }
   }
 
-  void createTransfer(dynamic context) {
+  void createTransfer(BuildContext context) {
     ShowInformation().showMyDialog(context, "Transfer Validated");
     setState(() {
       String transferType;
