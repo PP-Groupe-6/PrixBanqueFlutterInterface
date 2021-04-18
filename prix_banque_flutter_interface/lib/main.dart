@@ -29,8 +29,22 @@ Map<int, Color> color = {
   800: Color.fromRGBO(27, 30, 75, .9),
   900: Color.fromRGBO(27, 30, 75, 1),
 };
+Map<int, Color> color2 =
+{
+  50:Color.fromRGBO(69,90,100,.1),
+  100:Color.fromRGBO(69,90,100,.2),
+  200:Color.fromRGBO(69,90,100,.3),
+  300:Color.fromRGBO(69,90,100,.4),
+  400:Color.fromRGBO(69,90,100,.5),
+  500:Color.fromRGBO(69,90,100,.6),
+  600:Color.fromRGBO(69,90,100,.7),
+  700:Color.fromRGBO(69,90,100,.8),
+  800:Color.fromRGBO(69,90,100,.9),
+  900:Color.fromRGBO(69,90,100,1),
+};
 
-MaterialColor colorCustom = MaterialColor(0xFF1B1E4B, color);
+MaterialColor colorBlueCustom = MaterialColor(0xFF1B1E4B, color);
+MaterialColor colorGreyCustom = MaterialColor(0xFF1B1E4B, color2);
 
 class MyApp extends StatelessWidget {
   @override
@@ -49,8 +63,10 @@ class MyApp extends StatelessWidget {
         title: 'Prix Banque',
         theme: ThemeData(
           brightness: Brightness.light,
-          primarySwatch: colorCustom,
-          //textTheme: ThemeData.light(),
+          primarySwatch: colorBlueCustom,
+          primaryColor: colorBlueCustom[900],
+          hoverColor: colorBlueCustom[500],
+          accentColor: colorGreyCustom[900],
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: AuthenticationWrapper(),

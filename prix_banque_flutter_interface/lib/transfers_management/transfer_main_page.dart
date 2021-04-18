@@ -5,6 +5,7 @@ import 'package:prix_banque_flutter_interface/transfers_management/creation_tran
 import 'package:prix_banque_flutter_interface/transfers_management/display_list_transfers.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Buttons/navigatorPushButton.dart';
+import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/classicText.dart';
 
 TransferList transferListFromJson(String str) =>
     TransferList.fromJson(json.decode(str));
@@ -38,7 +39,7 @@ class TransferPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text("Transfer Page"),
+            classicText(myColor: Theme.of(context).primaryColor, myFontSize: 25, myText: "Transfer Page"),
             navigatorPushButton(message: "Make a transfer", route: CreateTransferPage.name,),
             Container(
               width: MediaQuery.of(context).size.width / 2,

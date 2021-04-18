@@ -26,15 +26,15 @@ class _DisplayListTransfer extends State<DisplayListTransfer> {
         child: Column(
           children: [
             Container(
-              color: widget.color,
+              color: Theme.of(context).primaryColor,
               height: 30,
               child: Center(
-                child: classicText(myText: "Waiting transfers", myFontSize: 15, myColor: Colors.black),
+                child: classicText(myText: "Waiting transfers", myFontSize: 15, myColor: Colors.white),
               ),
             ),
             Container(
               height: 300,
-              decoration: BoxDecoration(border: Border.all(color: widget.color)),
+              decoration: BoxDecoration(border: Border.all(color: Theme.of(context).accentColor)),
               child: widget.transfers.isEmpty
                   ? Center(
                   child: classicText(myText: "No transfers found", myFontSize: 15, myColor: Colors.black),)

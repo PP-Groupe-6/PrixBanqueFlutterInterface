@@ -27,7 +27,7 @@ class futureBuilderTransfer extends StatelessWidget {
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                classicText(myColor: Colors.blue, myFontSize: 24,myText: "Transfer recap :"),
+                classicText(myColor: Theme.of(context).primaryColor, myFontSize: 24,myText: "Transfer recap :"),
                 Card(
                   elevation: 5,
                   shadowColor: Colors.blue,
