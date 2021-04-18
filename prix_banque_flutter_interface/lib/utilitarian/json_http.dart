@@ -34,7 +34,7 @@ class JsonHttp {
 
   Future<Transfer> getRequestTransfer() async {
     final response =
-    await http.get(Uri.parse("https://retoolapi.dev/Nx5F0M/test"));
+        await http.get(Uri.parse("https://retoolapi.dev/Nx5F0M/test"));
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
@@ -43,19 +43,14 @@ class JsonHttp {
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
-      throw Exception('Failed to load album');
+      throw Exception('Failed to load transfer');
     }
   }
 
-
-  Future<User> postRequestUser(
-      var clientId,
-      String mailAdress,
-      String password,
-      String fullName,
-      int phoneNumber) async {
+  Future<User> postRequestUser(var clientId, String mailAdress, String password,
+      String fullName, int phoneNumber) async {
     Map data = {
-      'clientId' : clientId,
+      'clientId': clientId,
       'mailAdress': mailAdress,
       'password': password,
       'fullName': fullName,
@@ -63,7 +58,7 @@ class JsonHttp {
     };
     String body = json.encode(data);
     final response = await http.post(
-      Uri.parse("https://retoolapi.dev/Nx5F0M/test"),
+      Uri.parse("https://retoolapi.dev/NKqUcO/prixbanquetest"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -76,6 +71,34 @@ class JsonHttp {
     }
   }
 
+  Future<User> getRequestUser(String clientId) async {
+    final response = await http
+        .get(Uri.parse("https://retoolapi.dev/NKqUcO/prixbanquetest?clientId=$clientId"));
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      Map<String, dynamic> data = jsonDecode(response.body)[0];
+      return User.fromJson(data);
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load user');
+    }
+  }
 
-
+  getRequestUserFullName(String clientId) async {
+    final response = await http
+        .get(Uri.parse("https://retoolapi.dev/NKqUcO/prixbanquetest?clientId=$clientId"));
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      Map<String, dynamic> data = jsonDecode(response.body)[0];
+      print(data);
+      return data['fullName'];
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load user');
+    }
+  }
 }

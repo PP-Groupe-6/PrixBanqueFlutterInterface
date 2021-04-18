@@ -1,20 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebaseUser;
+import 'package:prix_banque_flutter_interface/authentification_management/user_model.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_main_page.dart';
+import 'package:prix_banque_flutter_interface/user_account_management/user_account_page.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Buttons/navigatorPushButton.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Buttons/navigatorPushEmailVerifiedButton.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Buttons/verificationMailAdressButton.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/classicText.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/pop-ups/show_information.dart';
+import 'package:prix_banque_flutter_interface/utilitarian/json_http.dart';
 import 'authentification_management/authentification_service.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   static const name = "/menuPage";
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String fullName;
+  dynamic userName="";
   final TextEditingController amountController = TextEditingController();
+
   firebaseUser.User user = firebaseUser.FirebaseAuth.instance.currentUser;
+
+  @override
+  void initState(){
+    super.initState();
+    JsonHttp().getRequestUserFullName(firebaseUser.FirebaseAuth.instance.currentUser.uid).then((
+        futureString) => setState((){userName=futureString;}));
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    print(userName);
     return Scaffold(
       appBar: AppBar(
         title: Text("Main Menu"),
@@ -23,7 +45,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            classicText(myColor: Colors.black, myFontSize: 90, myText: "Welcome"),
+            classicText(myColor: Colors.black, myFontSize: 90, myText: "Welcome $userName"),
             Image.asset("images/PrixBanqueLogo.png"),
             Container(
               width: MediaQuery.of(context).size.width,
@@ -59,12 +81,7 @@ class HomePage extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width/6,
                   height: 50,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        ShowInformation()
-                            .showMyDialog(context, "User account page");
-                      },
-                      child: Text("My user account")),
+                  child: navigatorPushButton(route: UserInfoPage.name, message: "My user account"),
                 ),
               ],
             ),

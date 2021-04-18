@@ -8,29 +8,30 @@ import 'package:prix_banque_flutter_interface/authentification_management/sign_i
 import 'package:prix_banque_flutter_interface/authentification_management/sign_up_page.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/creation_transfer_page.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_main_page.dart';
+import 'package:prix_banque_flutter_interface/user_account_management/user_account_page.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
-
 }
-Map<int, Color> color =
-{
-  50:Color.fromRGBO(27,30,75,.1),
-  100:Color.fromRGBO(27,30,75,.2),
-  200:Color.fromRGBO(27,30,75,.3),
-  300:Color.fromRGBO(27,30,75,.4),
-  400:Color.fromRGBO(27,30,75,.5),
-  500:Color.fromRGBO(27,30,75,.6),
-  600:Color.fromRGBO(27,30,75,.7),
-  700:Color.fromRGBO(27,30,75,.8),
-  800:Color.fromRGBO(27,30,75,.9),
-  900:Color.fromRGBO(27,30,75,1),
+
+Map<int, Color> color = {
+  50: Color.fromRGBO(27, 30, 75, .1),
+  100: Color.fromRGBO(27, 30, 75, .2),
+  200: Color.fromRGBO(27, 30, 75, .3),
+  300: Color.fromRGBO(27, 30, 75, .4),
+  400: Color.fromRGBO(27, 30, 75, .5),
+  500: Color.fromRGBO(27, 30, 75, .6),
+  600: Color.fromRGBO(27, 30, 75, .7),
+  700: Color.fromRGBO(27, 30, 75, .8),
+  800: Color.fromRGBO(27, 30, 75, .9),
+  900: Color.fromRGBO(27, 30, 75, 1),
 };
 
 MaterialColor colorCustom = MaterialColor(0xFF1B1E4B, color);
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -53,12 +54,13 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: AuthenticationWrapper(),
-          routes: {
+        routes: {
           SignInPage.name: (context) => SignInPage(),
           SignUpPage.name: (context) => SignUpPage(),
           HomePage.name: (context) => HomePage(),
           TransferPage.name: (context) => TransferPage(),
-            CreateTransferPage.name: (context) => CreateTransferPage()
+          CreateTransferPage.name: (context) => CreateTransferPage(),
+          UserInfoPage.name: (context) => UserInfoPage(),
         },
       ),
     );

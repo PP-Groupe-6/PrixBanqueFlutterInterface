@@ -34,7 +34,7 @@ class futureBuilderUser extends StatelessWidget {
                   shadowColor: Colors.blue,
                   child: Column(
                     children: [
-                      classicRichText(myText: "Mail Adresse : ", snapshot: snapshot.data.mailAdress),
+                      classicRichText(myText: "Mail Adress : ", snapshot: snapshot.data.mailAdress),
                       classicRichText(myText: "Password : ", snapshot: snapshot.data.password),
                       classicRichText(myText: "Full Name : ", snapshot: snapshot.data.fullName),
                       classicRichText(myText: "Phone Number : ", snapshot: snapshot.data.phoneNumber),
