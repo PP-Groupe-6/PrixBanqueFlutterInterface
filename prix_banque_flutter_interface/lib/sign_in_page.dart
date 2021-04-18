@@ -1,10 +1,6 @@
-import 'dart:math';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prix_banque_flutter_interface/authentification_service.dart';
-import 'package:prix_banque_flutter_interface/home_page.dart';
 import 'package:prix_banque_flutter_interface/show_information.dart';
 import 'package:prix_banque_flutter_interface/sign_up_page.dart';
 import 'package:provider/provider.dart';
