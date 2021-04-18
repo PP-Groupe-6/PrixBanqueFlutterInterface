@@ -28,7 +28,7 @@ class futureBuilderUser extends StatelessWidget {
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                classicText(myColor: Theme.of(context).primaryColor, myFontSize: 24,myText: "User Account recap :"),
+                classicText(myColor: Theme.of(context).primaryColor, myFontSize: 35,myText: "User Account recap :"),
                 Card(
                   elevation: 5,
                   shadowColor:Theme.of(context).primaryColor,

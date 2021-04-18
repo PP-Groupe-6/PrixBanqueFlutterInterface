@@ -8,17 +8,19 @@ import 'package:prix_banque_flutter_interface/utilitarian/json_http.dart';
 class UserInfoPage extends StatelessWidget {
   static const name = "/userInfoPage";
 
-
   @override
   Widget build(BuildContext context) {
     print(firebaseUser.FirebaseAuth.instance.currentUser.uid);
-    Future<User> currentUser = JsonHttp().getRequestUser(firebaseUser.FirebaseAuth.instance.currentUser.uid);
+    Future<User> currentUser = JsonHttp()
+        .getRequestUser(firebaseUser.FirebaseAuth.instance.currentUser.uid);
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text("User info :"),
-        ),
-        body: Column(
+      appBar: AppBar(
+        title: Text("User info :"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
               child: Padding(
@@ -26,7 +28,14 @@ class UserInfoPage extends StatelessWidget {
                 child: FutureBuilderUserAccount(futureUser: currentUser),
               ),
             ),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text("Back to main menu !"))
           ],
-        ));
+        ),
+      ),
+    );
   }
 }

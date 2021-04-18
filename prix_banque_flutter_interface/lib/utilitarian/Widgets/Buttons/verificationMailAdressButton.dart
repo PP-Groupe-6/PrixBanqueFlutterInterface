@@ -21,6 +21,6 @@ class verificationMailAdress extends StatelessWidget {
       print(user.emailVerified);
       user.reload();
       ShowInformation().showMyDialog(context, "check your mail and refresh the page");
-    }, child: Text("Clic here to check your mail adress !"));
+    }, child: Text("Click here to check your mail adress !"));
   }
 }

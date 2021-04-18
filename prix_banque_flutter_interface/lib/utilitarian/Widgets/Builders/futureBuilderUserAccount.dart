@@ -23,8 +23,8 @@ class FutureBuilderUserAccount extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 classicText(
-                    myColor: Colors.blue,
-                    myFontSize: 24,
+                    myColor: Theme.of(context).primaryColor,
+                    myFontSize: 35,
                     myText: "User account information :"),
                 Card(
                   elevation: 5,
