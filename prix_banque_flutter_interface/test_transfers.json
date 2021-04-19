@@ -2,8 +2,8 @@
   "transfers": [
     {
       "transferId": 1,
-      "accountTransferPayerId": 123,
-      "accountTransferReceiverId": 456,
+      "accountTransferPayerId": "123",
+      "accountTransferReceiverId": "456",
       "scheduledTransferDate" : "2021-04-27 20:00:00",
       "transferAmount" : 550,
       "transferType" : "scheduled",
@@ -12,8 +12,8 @@
     },
     {
       "transferId": 2,
-      "accountTransferPayerId": 444,
-      "accountTransferReceiverId": 456,
+      "accountTransferPayerId": "444",
+      "accountTransferReceiverId": "456",
       "scheduledTransferDate" : "2021-04-27 20:00:00",
       "transferAmount" : 524,
       "transferType" : "scheduled",
@@ -22,8 +22,8 @@
     },
     {
       "transferId": 3,
-      "accountTransferPayerId": 555,
-      "accountTransferReceiverId": 456,
+      "accountTransferPayerId": "555",
+      "accountTransferReceiverId": "456",
       "scheduledTransferDate" : "2021-04-27 20:00:00",
       "transferAmount" : 550,
       "transferType" : "scheduled",
@@ -32,8 +32,8 @@
     },
     {
       "transferId": 4,
-      "accountTransferPayerId": 666,
-      "accountTransferReceiverId": 456,
+      "accountTransferPayerId": "666",
+      "accountTransferReceiverId": "456",
       "scheduledTransferDate" : "2021-04-27 20:00:00",
       "transferAmount" : 524,
       "transferType" : "scheduled",
@@ -42,8 +42,8 @@
     },
     {
       "transferId": 1,
-      "accountTransferPayerId": 123,
-      "accountTransferReceiverId": 456,
+      "accountTransferPayerId": "123",
+      "accountTransferReceiverId": "456",
       "scheduledTransferDate" : "2021-04-27 20:00:00",
       "transferAmount" : 550,
       "transferType" : "scheduled",
@@ -52,8 +52,8 @@
     },
     {
       "transferId": 2,
-      "accountTransferPayerId": 123,
-      "accountTransferReceiverId": 456,
+      "accountTransferPayerId": "123",
+      "accountTransferReceiverId": "456",
       "scheduledTransferDate" : "2021-04-27 20:00:00",
       "transferAmount" : 524,
       "transferType" : "scheduled",

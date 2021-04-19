@@ -31,12 +31,11 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     JsonHttp().getRequestUserFullName(firebaseUser.FirebaseAuth.instance.currentUser.uid).then((
         futureString) => setState((){userName=futureString;}));
+
   }
 
   @override
   Widget build(BuildContext context) {
-
-    print(userName);
     return Scaffold(
       appBar: AppBar(
         title: Text("Main Menu"),

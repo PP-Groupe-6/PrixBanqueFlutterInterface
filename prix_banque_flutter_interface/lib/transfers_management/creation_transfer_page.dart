@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebaseUser;
+
 import 'package:flutter/services.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Builders/futureBuilderTransfer.dart';
@@ -28,8 +30,30 @@ class _CreateTransferPage extends State<CreateTransferPage> {
   var json = Map<String, String>();
   Future<Transfer> _futureTransfer;
 
+  dynamic accountTransferReceiverId;
+  dynamic accountTransferPayerId;
+  String scheduleTransferDate;
   int selectedValue = 1;
   bool selectedValueBool = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void networkLoading() {
+    JsonHttp()
+        .getRequestUserId(emailReceiverController.text)
+        .then((dynamic futureIdReceiver) => setState(() {
+              accountTransferReceiverId = futureIdReceiver;
+            })); //Recup l'ID via email du receiveur
+    JsonHttp()
+        .getRequestUserId(firebaseUser.FirebaseAuth.instance.currentUser.email)
+      .then((dynamic futureIdPayer) => setState(() {
+            accountTransferPayerId = futureIdPayer;
+          })); //Recup l'ID via email du Payeur
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +63,11 @@ class _CreateTransferPage extends State<CreateTransferPage> {
       ),
       body: Center(
         child: (_futureTransfer == null)
-            ? Column(mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              classicText(myColor: Theme.of(context).primaryColor, myFontSize: 25, myText: "Creation Transfer Page"),
+            ? Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                classicText(
+                    myColor: Theme.of(context).primaryColor,
+                    myFontSize: 25,
+                    myText: "Creation Transfer Page"),
                 DropdownButton(
                   value: selectedValue,
                   items: [
@@ -66,10 +92,18 @@ class _CreateTransferPage extends State<CreateTransferPage> {
                   },
                 ),
                 digitTextField(controller: amountController, message: "Amount"),
-                classicTextField(controller: emailReceiverController, message: "Email of the receiver"),
-                classicTextField(controller: questionController, message: "Verification question"),
-                classicTextField(controller: answerController, message: "Verification answer"),
-                datePickerTextField(selectedValueBool: selectedValueBool, dateController: dateController),
+                classicTextField(
+                    controller: emailReceiverController,
+                    message: "Email of the receiver"),
+                classicTextField(
+                    controller: questionController,
+                    message: "Verification question"),
+                classicTextField(
+                    controller: answerController,
+                    message: "Verification answer"),
+                datePickerTextField(
+                    selectedValueBool: selectedValueBool,
+                    dateController: dateController),
                 ElevatedButton(
                   onPressed: () {
                     testInputFilled(context);
@@ -77,7 +111,9 @@ class _CreateTransferPage extends State<CreateTransferPage> {
                   child: Text("Validate"),
                 )
               ])
-            : futureBuilderTransfer(futureTransfer: _futureTransfer, selectedValueBool: selectedValueBool),
+            : futureBuilderTransfer(
+                futureTransfer: _futureTransfer,
+                selectedValueBool: selectedValueBool),
       ),
     );
   }
@@ -95,7 +131,13 @@ class _CreateTransferPage extends State<CreateTransferPage> {
     } else if (dateController.text == "" && selectedValueBool == true) {
       ShowInformation().showMyDialog(context, "Date Required.");
     } else {
-      createTransfer(context);
+      networkLoading();
+      // Recup ID payer/Reciever with get request
+      if (accountTransferReceiverId == null && accountTransferPayerId == null) {
+        ShowInformation().showMyDialog(context, "Network is loading data");
+      } else {
+        createTransfer(context);
+      }
     }
   }
 
@@ -105,17 +147,29 @@ class _CreateTransferPage extends State<CreateTransferPage> {
       String transferType;
       if (selectedValueBool == true) {
         transferType = "Scheduled";
+        scheduleTransferDate = dateController.text;
       } else {
         transferType = "Immediate";
+        scheduleTransferDate = DateTime.now().toString();
       }
+
       _futureTransfer = JsonHttp().postRequestTransfer(
-          int.parse(amountController.text),
-          questionController.text,
-          answerController.text,
-          dateController.text,
-          transferType);
+        accountTransferPayerId,
+        //accountTransferPayerId
+        accountTransferReceiverId,
+        //accountTransferReceiverId
+        int.parse(amountController.text),
+        //transferAmount
+        questionController.text,
+        //receiverQuestion
+        answerController.text,
+        //receiverAnswer
+        scheduleTransferDate,
+        //scheduleTransferDate
+        transferType,
+        //transferType
+        DateTime.now().toString(), //executionTransferDate
+      );
     });
   }
 }
-
-
