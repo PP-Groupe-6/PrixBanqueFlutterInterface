@@ -7,6 +7,7 @@ class Transfer {
   final String receiverQuestion;
   final String receiverAnswer;
   final String scheduledTransferDate;
+  final String executionTransferDate;
 
   Transfer(
       {this.transferId,
@@ -16,7 +17,8 @@ class Transfer {
       this.transferType,
       this.receiverQuestion,
       this.receiverAnswer,
-      this.scheduledTransferDate});
+      this.scheduledTransferDate,
+      this.executionTransferDate});
 
   factory Transfer.fromJson(Map<String, dynamic> json) {
     return Transfer(
@@ -28,6 +30,7 @@ class Transfer {
       transferType: json['transferType'] as String,
       receiverQuestion: json['receiverQuestion'] as String,
       receiverAnswer: json['receiverAnswer'] as String,
+      executionTransferDate: json['executionTransferDate'] as String,
     );
   }
 }
