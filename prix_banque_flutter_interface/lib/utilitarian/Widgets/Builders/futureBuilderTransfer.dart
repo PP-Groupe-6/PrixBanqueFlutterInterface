@@ -8,12 +8,12 @@ import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/visibleR
 import '../Texts/classicText.dart';
 
 class futureBuilderTransfer extends StatelessWidget {
-
   const futureBuilderTransfer({
     Key key,
     @required Future<Transfer> futureTransfer,
     @required this.selectedValueBool,
-  }) : _futureTransfer = futureTransfer, super(key: key);
+  })  : _futureTransfer = futureTransfer,
+        super(key: key);
 
   final Future<Transfer> _futureTransfer;
   final bool selectedValueBool;
@@ -27,22 +27,40 @@ class futureBuilderTransfer extends StatelessWidget {
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                classicText(myColor: Theme.of(context).primaryColor, myFontSize: 35,myText: "Transfer recap :"),
+                classicText(
+                    myColor: Theme.of(context).primaryColor,
+                    myFontSize: 35,
+                    myText: "Transfer recap :"),
                 Card(
                   elevation: 5,
                   shadowColor: Colors.blue,
                   child: Column(
                     children: [
-                      classicRichText(myText: "Amount : ", snapshot: snapshot.data.transferAmount),
-                      classicRichText(myText: "Verification Question : ", snapshot: snapshot.data.receiverQuestion),
-                      classicRichText(myText: "Verification Answer : ", snapshot: snapshot.data.receiverAnswer),
-                      classicRichText(myText: "Transfer type : ", snapshot: snapshot.data.transferType),
-                      visibleRichText(selectedValueBool: selectedValueBool, myText: "Scheduled Date : ", snapshot: snapshot.data.scheduledTransferDate,)
+                      classicRichText(
+                          myText: "Amount : ",
+                          snapshot: snapshot.data.transferAmount),
+                      classicRichText(
+                          myText: "Verification Question : ",
+                          snapshot: snapshot.data.receiverQuestion),
+                      classicRichText(
+                          myText: "Verification Answer : ",
+                          snapshot: snapshot.data.receiverAnswer),
+                      classicRichText(
+                          myText: "Transfer type : ",
+                          snapshot: snapshot.data.transferType),
+                      visibleRichText(
+                        selectedValueBool: selectedValueBool,
+                        myText: "Scheduled Date : ",
+                        snapshot: snapshot.data.scheduledTransferDate,
+                      )
                     ],
                   ),
                 ),
-                ElevatedButton(onPressed: () {Navigator.pop(context);}, child: Text("Done !")),
-
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text("Done !")),
               ],
             );
           } else if (snapshot.hasError) {
@@ -52,8 +70,3 @@ class futureBuilderTransfer extends StatelessWidget {
         });
   }
 }
-
-
-
-
-

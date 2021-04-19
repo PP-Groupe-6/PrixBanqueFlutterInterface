@@ -32,9 +32,24 @@ class JsonHttp {
     }
   }
 
-  Future<Transfer> getRequestTransfer() async {
+  Future<List<Transfer>> getRequestPaidTransfer(String idClient) async {
     final response =
-        await http.get(Uri.parse("https://retoolapi.dev/Nx5F0M/test"));
+        await http.get(Uri.parse("https://retoolapi.dev/AsJ5uM/transferliste?accountTransferPayerId=$idClient"));
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      List jsonResponse = jsonDecode(response.body);
+      return jsonResponse.map((data) => new Transfer.fromJson(data)).toList();
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load transfer');
+    }
+  }
+  Future<Transfer> getRequestReceivedTransfer(String idClient) async {
+    final response =
+    await http.get(Uri.parse("https://retoolapi.dev/Nx5F0M/test?accountTransferReceiverId=$idClient"));
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
@@ -46,6 +61,7 @@ class JsonHttp {
       throw Exception('Failed to load transfer');
     }
   }
+
 
   Future<User> postRequestUser(var clientId, String mailAdress, String password,
       String fullName, int phoneNumber) async {
