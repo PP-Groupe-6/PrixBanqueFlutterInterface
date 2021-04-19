@@ -9,8 +9,9 @@ class DisplayListInvoice extends StatefulWidget {
   final List<Invoice> invoices;
   final Color color;
   final Function(Invoice) onChange;
+  final bool isInvoiceSent;
 
-  DisplayListInvoice({Key key, @required this.onChange, @required this.state, @required this.invoices, @required this.color}):super(key:key);
+  DisplayListInvoice({Key key,@required this.isInvoiceSent, @required this.onChange, @required this.state, @required this.invoices, @required this.color}):super(key:key);
 
   @override
   _DisplayListInvoiceState createState() => _DisplayListInvoiceState();
@@ -50,7 +51,7 @@ class _DisplayListInvoiceState extends State<DisplayListInvoice> {
               ListView(
                 children: widget.invoices.map((invoice) =>
                   ListTile(
-                    title: Text(invoice.clientToPay),
+                    title: Text((widget.isInvoiceSent)?invoice.toName:invoice.fromName),
                     subtitle: Text(invoice.expirationDate),
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () {
@@ -58,6 +59,7 @@ class _DisplayListInvoiceState extends State<DisplayListInvoice> {
                         context,
                         MaterialPageRoute(
                           builder: (context)=>InvoiceInfo(
+                            isInvoiceSent: widget.isInvoiceSent,
                             invoice: invoice,
                             buttonFonction: widget.onChange,
                           ),

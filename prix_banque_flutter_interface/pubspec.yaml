@@ -53,6 +53,7 @@ flutter:
   assets:
     - images/PrixBanqueLogo.png
     - test_invoices.json
+    - test_invoices_sent.json
 
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

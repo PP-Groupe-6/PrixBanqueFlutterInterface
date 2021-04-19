@@ -26,6 +26,12 @@ class InvoiceList {
     }
   }
 
+  removeExpiredInvoice(Invoice invoice){
+    if(invoice.state=="expired") {
+      invoicesExpired.remove(invoice);
+    }
+  }
+
 }
 
 class Invoice {
@@ -33,11 +39,25 @@ class Invoice {
   final int amount;
   String state;
   final String expirationDate;
-  final String clientToPay;
-  final String email;
-  final String phoneNumber;
+  final String fromName;
+  final String fromEmail;
+  final String fromPhone;
+  final String toName;
+  final String toEmail;
+  final String toPhone;
 
-  Invoice({this.id, this.amount, this.state, this.expirationDate, this.clientToPay, this.email, this.phoneNumber});
+  Invoice({
+    this.id,
+    this.amount,
+    this.state,
+    this.expirationDate,
+    this.fromName,
+    this.fromEmail,
+    this.fromPhone,
+    this.toName,
+    this.toEmail,
+    this.toPhone
+  });
 
   factory Invoice.fromJson(Map<String, dynamic> json){
     return Invoice(
@@ -45,9 +65,12 @@ class Invoice {
       amount: json['amount'] as int,
       state: json['state'] as String,
       expirationDate: json['expDate'] as String,
-      clientToPay: json['payto'] as String,
-      email: json['email'] as String,
-      phoneNumber: json['phone'] as String,
+      fromName: json['fromName'] as String,
+      fromEmail: json['fromEmail'] as String,
+      fromPhone: json['fromPhone'] as String,
+      toName: json['toName'] as String,
+      toEmail: json['toEmail'] as String,
+      toPhone: json['toPhone'] as String,
     );
   }
 
