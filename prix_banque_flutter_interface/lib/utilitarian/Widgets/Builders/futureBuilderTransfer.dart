@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/visibleRichText.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/classicRichText.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebaseUser;
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/visibleRichText.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/json_http.dart';
 
@@ -24,28 +25,6 @@ class futureBuilderTransfer extends StatefulWidget {
 }
 
 class _futureBuilderTransferState extends State<futureBuilderTransfer> {
-  dynamic fullNamePayer;
-  String accountTransferPayerId = "";
-  dynamic fullNameReciever;
-  String accountTransferReceiverId = "";
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  void networkLoading() {
-    JsonHttp()
-        .getRequestUserFullName(accountTransferPayerId)
-        .then((futurePayerName) => setState(() {
-              fullNamePayer = futurePayerName;
-            }));
-    JsonHttp()
-        .getRequestUserFullName(accountTransferReceiverId)
-        .then((futureRecieverName) => setState(() {
-              fullNameReciever = futureRecieverName;
-            }));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,14 +32,6 @@ class _futureBuilderTransferState extends State<futureBuilderTransfer> {
         future: widget._futureTransfer,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            accountTransferReceiverId =
-                snapshot.data.accountTransferReceiverId.toString();
-            accountTransferPayerId =
-                snapshot.data.accountTransferPayerId.toString();
-            if (fullNamePayer == null && fullNameReciever == null) {
-              networkLoading();
-            }
-            //Recup les noms avec les ID via get Request
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -74,9 +45,9 @@ class _futureBuilderTransferState extends State<futureBuilderTransfer> {
                   child: Column(
                     children: [
                       classicRichText(
-                          myText: "From : ", snapshot: fullNamePayer),
+                          myText: "From : ", snapshot: firebaseUser.FirebaseAuth.instance.currentUser.email ),
                       classicRichText(
-                          myText: "To : ", snapshot: fullNameReciever),
+                          myText: "To : ", snapshot: snapshot.data.mailAdressTransferReceiver),
                       classicRichText(
                           myText: "Amount : ",
                           snapshot: snapshot.data.transferAmount),
@@ -92,11 +63,6 @@ class _futureBuilderTransferState extends State<futureBuilderTransfer> {
                       classicRichText(
                           myText: "Execution Date : ",
                           snapshot: snapshot.data.executionTransferDate),
-                      visibleRichText(
-                        selectedValueBool: widget.selectedValueBool,
-                        myText: "Scheduled Date : ",
-                        snapshot: snapshot.data.scheduledTransferDate,
-                      ),
                     ],
                   ),
                 ),

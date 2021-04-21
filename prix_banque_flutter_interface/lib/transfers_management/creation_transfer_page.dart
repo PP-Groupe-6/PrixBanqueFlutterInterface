@@ -26,30 +26,11 @@ class _CreateTransferPage extends State<CreateTransferPage> {
   var json = Map<String, String>();
   Future<Transfer> _futureTransfer;
 
-  dynamic accountTransferReceiverId;
-  dynamic accountTransferPayerId;
-  String scheduleTransferDate;
+  String executionTransferDate;
   int selectedValue = 1;
   bool selectedValueBool = false;
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
-  @override
-  void networkLoading() {
-    JsonHttp()
-        .getRequestUserId(emailReceiverController.text)
-        .then((dynamic futureIdReceiver) => setState(() {
-              accountTransferReceiverId = futureIdReceiver;
-            })); //Recup l'ID via email du receiveur
-    JsonHttp()
-        .getRequestUserId(firebaseUser.FirebaseAuth.instance.currentUser.email)
-      .then((dynamic futureIdPayer) => setState(() {
-            accountTransferPayerId = futureIdPayer;
-          })); //Recup l'ID via email du Payeur
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,15 +108,10 @@ class _CreateTransferPage extends State<CreateTransferPage> {
     } else if (dateController.text == "" && selectedValueBool == true) {
       ShowInformation().showMyDialog(context, "Date Required.");
     } else {
-      networkLoading();
-      // Recup ID payer/Reciever with get request
-      if (accountTransferReceiverId == null && accountTransferPayerId == null) {
-        ShowInformation().showMyDialog(context, "Network is loading data");
-      } else {
-        createTransfer(context);
+      createTransfer(context);
       }
     }
-  }
+
 
   void createTransfer(BuildContext context) {
     ShowInformation().showMyDialog(context, "Transfer Validated");
@@ -143,28 +119,28 @@ class _CreateTransferPage extends State<CreateTransferPage> {
       String transferType;
       if (selectedValueBool == true) {
         transferType = "Scheduled";
-        scheduleTransferDate = dateController.text;
+        executionTransferDate = dateController.text;
       } else {
         transferType = "Immediate";
-        scheduleTransferDate = DateTime.now().toString().substring(0,10);
+        executionTransferDate = DateTime.now().toString().substring(0,10);
       }
 
       _futureTransfer = JsonHttp().postRequestTransfer(
-        accountTransferPayerId,
-        //accountTransferPayerId
-        accountTransferReceiverId,
-        //accountTransferReceiverId
+        firebaseUser.FirebaseAuth.instance.currentUser.email,
+        //mailAdressTransferPayer
+        emailReceiverController.text,
+        //mailAdressTransferReceiver
         int.parse(amountController.text),
         //transferAmount
+        transferType,
+        //transferType
         questionController.text,
         //receiverQuestion
         answerController.text,
         //receiverAnswer
-        scheduleTransferDate,
+        executionTransferDate,
         //scheduleTransferDates
-        transferType,
-        //transferType
-        DateTime.now().toString().substring(0, 10), //executionTransferDate
+
       );
     });
   }
