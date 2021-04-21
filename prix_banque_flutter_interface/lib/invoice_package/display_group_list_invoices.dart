@@ -21,7 +21,7 @@ class DisplayInvoicesReceived extends StatelessWidget{
           child: Text(
             "Invoice you received from other clients :",
             style: TextStyle(
-              color: Colors.blue,
+              color: Theme.of(context).primaryColor,
               fontSize: 24,
             ),
           ),

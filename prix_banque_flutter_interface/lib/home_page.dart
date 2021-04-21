@@ -12,6 +12,8 @@ import 'package:prix_banque_flutter_interface/utilitarian/json_http.dart';
 import 'authentification_management/authentification_service.dart';
 import 'package:provider/provider.dart';
 
+import 'invoice_package/invoice_main_page.dart';
+
 class HomePage extends StatefulWidget {
   static const name = "/menuPage";
 
