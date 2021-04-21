@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
             child :Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                classicText(myColor: Theme.of(context).primaryColor, myFontSize: 50, myText: "Money amount : "),
+                classicText(myColor: Theme.of(context).primaryColor, myFontSize: 50, myText: "Money balance : "),
                 classicText(myColor: Theme.of(context).accentColor, myFontSize: 40, myText: "3090"),
               ],
             ),

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
+import 'package:prix_banque_flutter_interface/user_balance_account_management/transactions_model.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/classicText.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebaseUser;
 
 class DisplayListTransaction extends StatefulWidget {
-  final List<Transfer> transactions;
+  final List<Transactions> transactions;
   final Color color;
 
   DisplayListTransaction(
@@ -16,8 +15,6 @@ class DisplayListTransaction extends StatefulWidget {
 }
 
 class _DisplayListTransaction extends State<DisplayListTransaction> {
-  String fullName;
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -44,24 +41,43 @@ class _DisplayListTransaction extends State<DisplayListTransaction> {
                   )
                 : ListView(
                     children: widget.transactions
-                        .map((transactions) => ListTile(
-                              title:
-                              classicText(
-                                myText: transactions.transferAmount.toString(),
-                                myColor: firebaseUser.FirebaseAuth.instance
-                                    .currentUser.uid ==
-                                    transactions.accountTransferPayerId
-                                    ? Colors.red
-                                    : Colors.green,
-                                myFontSize: 25,
-                              ),
-                              subtitle: classicText(
-                                myText: transactions.executionTransferDate
-                                    .toString(),
-                                myFontSize: 10,
-                              ),
-                              trailing: Icon(Icons.keyboard_arrow_right),
-                            ))
+                        .map(
+                          (transactions) => ListTile(
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                classicText(
+                                  myText: "\$"
+                                      "${transactions.transactionAmount.toString()}",
+                                  myColor: transactions.role == "payer"
+                                      ? Colors.red
+                                      : Colors.green,
+                                  myFontSize: 25,
+                                ),
+                                classicText(
+                                  myText:
+                                      "Date : ${transactions.transactionDate}",
+                                  myFontSize: 15,
+                                ),
+                                classicText(
+                                    myFontSize: 20,
+                                    myText: "From ${transactions.name}"),
+                                classicText(
+                                    myFontSize: 15,
+                                    myText:
+                                        "Type : ${transactions.transactionType}"),
+                              ],
+                            ),
+                            trailing: Icon(transactions.role == "payer"
+                                ? Icons.remove
+                                : Icons.add),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(0),
+                              side: BorderSide(color: Colors.black),
+                            ),
+                            onTap: () {},
+                          ),
+                        )
                         .toList(),
                   ),
           ),

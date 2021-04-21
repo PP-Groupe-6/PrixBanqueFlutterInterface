@@ -26,21 +26,37 @@ class FutureBuilderUserAccount extends StatelessWidget {
                     myColor: Theme.of(context).primaryColor,
                     myFontSize: 35,
                     myText: "User account information :"),
-                Card(
-                  elevation: 5,
-                  shadowColor: Colors.blue,
-                  child: Column(
-                    children: [
-                      classicRichText(
-                          myText: "Mail Adress : ",
-                          snapshot: snapshot.data.mailAdress),
-                      classicRichText(
-                          myText: "Full Name : ",
-                          snapshot: snapshot.data.fullName),
-                      classicRichText(
-                          myText: "Phone Number : ",
-                          snapshot: snapshot.data.phoneNumber),
-                    ],
+                Center(
+                  child: Card(
+                    elevation: 5,
+                    shadowColor: Colors.blue,
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 150,
+                          height: 100,
+                          child: Icon(
+                            Icons.account_circle_outlined,
+                            color: Theme.of(context).primaryColor,
+                            size: 100,
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            classicRichText(
+                                myText: "Mail Adress : ",
+                                snapshot: snapshot.data.mailAdress),
+                            classicRichText(
+                                myText: "Full Name : ",
+                                snapshot: snapshot.data.fullName),
+                            classicRichText(
+                                myText: "Phone Number : ",
+                                snapshot: snapshot.data.phoneNumber),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

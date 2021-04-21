@@ -1,64 +1,60 @@
 {
   "transfers": [
     {
-      "transferId": 1,
-      "accountTransferPayerId": "123",
-      "accountTransferReceiverId": "456",
-      "scheduledTransferDate" : "2021-04-27 20:00:00",
-      "transferAmount" : 550,
-      "transferType" : "scheduled",
+      "mailAdressTransferPayer": "Corentin.laloz@gmail.com",
+      "transferAmount": 456,
+      "executionTransferDate" : "2021-04-27",
       "receiverQuestion" : "Quel est le couleur de mon chat ?",
       "receiverAnswer" : "Roux"
     },
     {
-      "transferId": 2,
-      "accountTransferPayerId": "444",
-      "accountTransferReceiverId": "456",
-      "scheduledTransferDate" : "2021-04-27 20:00:00",
-      "transferAmount" : 524,
-      "transferType" : "scheduled",
+      "mailAdressTransferPayer": "Corentin.laloz@gmail.com",
+      "transferAmount": 200,
+      "executionTransferDate" : "2021-04-27",
       "receiverQuestion" : "Quel est le couleur de mon chat ?",
       "receiverAnswer" : "Roux"
-    },
-    {
-      "transferId": 3,
-      "accountTransferPayerId": "555",
-      "accountTransferReceiverId": "456",
-      "scheduledTransferDate" : "2021-04-27 20:00:00",
-      "transferAmount" : 550,
-      "transferType" : "scheduled",
+    },{
+      "mailAdressTransferPayer": "victordu92@gmail.com",
+      "transferAmount": 50,
+      "executionTransferDate" : "2021-04-27",
+      "receiverQuestion" : "Bonjour",
+      "receiverAnswer" : "Bonsoir"
+    },{
+      "mailAdressTransferPayer": "Corentin.laloz@gmail.com",
+      "transferAmount": 35,
+      "executionTransferDate" : "2021-04-27",
       "receiverQuestion" : "Quel est le couleur de mon chat ?",
       "receiverAnswer" : "Roux"
-    },
-    {
-      "transferId": 4,
-      "accountTransferPayerId": "666",
-      "accountTransferReceiverId": "456",
-      "scheduledTransferDate" : "2021-04-27 20:00:00",
-      "transferAmount" : 524,
-      "transferType" : "scheduled",
+    },{
+      "mailAdressTransferPayer": "Corentin.laloz@gmail.com",
+      "transferAmount": 90,
+      "executionTransferDate" : "2021-04-27",
       "receiverQuestion" : "Quel est le couleur de mon chat ?",
       "receiverAnswer" : "Roux"
-    },
-    {
-      "transferId": 1,
-      "accountTransferPayerId": "123",
-      "accountTransferReceiverId": "456",
-      "scheduledTransferDate" : "2021-04-27 20:00:00",
-      "transferAmount" : 550,
-      "transferType" : "scheduled",
-      "receiverQuestion" : "Quel est le couleur de mon chat ?",
-      "receiverAnswer" : "Roux"
-    },
-    {
-      "transferId": 2,
-      "accountTransferPayerId": "123",
-      "accountTransferReceiverId": "456",
-      "scheduledTransferDate" : "2021-04-27 20:00:00",
-      "transferAmount" : 524,
-      "transferType" : "scheduled",
-      "receiverQuestion" : "Quel est le couleur de mon chat ?",
-      "receiverAnswer" : "Roux"
+    },{
+      "mailAdressTransferPayer": "victordu92@gmail.com",
+      "transferAmount": 100000,
+      "executionTransferDate" : "2021-04-27",
+      "receiverQuestion" : "Bonjour",
+      "receiverAnswer" : "Bonsoir"
+    },{
+      "mailAdressTransferPayer": "victordu92@gmail.com",
+      "transferAmount": 1250,
+      "executionTransferDate" : "2021-04-27",
+      "receiverQuestion" : "Bonjour",
+      "receiverAnswer" : "Bonsoir"
+    },{
+      "mailAdressTransferPayer": "jean_michel@yahoo.fr",
+      "transferAmount": 5678,
+      "executionTransferDate" : "2021-04-27",
+      "receiverQuestion" : "Yo !",
+      "receiverAnswer" : "Man"
+    },{
+      "mailAdressTransferPayer": "jean_michel@yahoo.fr",
+      "transferAmount": 444,
+      "executionTransferDate" : "2021-04-27",
+      "receiverQuestion" : "Yo !",
+      "receiverAnswer" : "Man"
     }
   ]
 }

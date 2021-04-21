@@ -54,6 +54,7 @@ flutter:
   assets:
     - images/PrixBanqueLogo.png
     - test_transfers.json
+    - test_transactions.json
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

@@ -2,20 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
 import 'package:prix_banque_flutter_interface/user_balance_account_management/display_list_transactions.dart';
+import 'package:prix_banque_flutter_interface/user_balance_account_management/transactions_model.dart';
 import 'package:prix_banque_flutter_interface/user_balance_account_management/user_balance_account_page.dart';
 
 class FutureBuilderTransaction extends StatelessWidget {
   const FutureBuilderTransaction({
     Key key,
-    @required Future<List<Transfer>> futureTransaction,
+    @required Future<List<Transactions>> futureTransaction,
   })  : _futureTransaction = futureTransaction,
         super(key: key);
 
-  final Future<List<Transfer>> _futureTransaction;
+  final Future<List<Transactions>> _futureTransaction;
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Transfer>>(
+    return FutureBuilder<List<Transactions>>(
       future: _futureTransaction,
       builder: (context, snapshot) {
         if (snapshot.hasData) {

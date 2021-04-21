@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prix_banque_flutter_interface/authentification_management/user_model.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Builders/futureBuilderUserAccount.dart';
+import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Buttons/navigatorPopButton.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/json_http.dart';
 
 class UserInfoPage extends StatelessWidget {
@@ -27,11 +28,7 @@ class UserInfoPage extends StatelessWidget {
                 child: FutureBuilderUserAccount(futureUser: currentUser),
               ),
             ),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text("Back to main menu !"))
+            NavigatorPopButton(myMessage: "Back to main menu !")
           ],
         ),
       ),
