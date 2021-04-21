@@ -1,12 +1,8 @@
-import 'dart:math';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prix_banque_flutter_interface/home_page.dart';
 import 'package:prix_banque_flutter_interface/authentification_management/sign_up_page.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Buttons/authentificationButton.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Buttons/navigatorPushButton.dart';
-import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/classicText.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/classicTextField.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/obscureTextField.dart';
 

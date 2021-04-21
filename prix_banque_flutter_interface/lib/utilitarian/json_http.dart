@@ -4,6 +4,9 @@ import 'package:prix_banque_flutter_interface/authentification_management/user_m
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
 
 class JsonHttp {
+
+  String date;
+
   Future<Transfer> postRequestTransfer(
       String accountTransferPayerId,
       String accountTransferReceiverId,
@@ -14,8 +17,8 @@ class JsonHttp {
       String transferType,
       String executionTransferDate) async {
     Map data = {
-      'accountTransferPayerId' : accountTransferPayerId,
-      'accountTransferReceiverId' : accountTransferReceiverId,
+      'accountTransferPayerId': accountTransferPayerId,
+      'accountTransferReceiverId': accountTransferReceiverId,
       'transferAmount': transferAmount,
       'receiverQuestion': receiverQuestion,
       'receiverAnswer': receiverAnswer,
@@ -38,10 +41,27 @@ class JsonHttp {
     }
   }
 
-  Future<List<Transfer>> getRequestPaidTransfer(String idClient) async {
-    final response =
-        await http.get(Uri.parse("https://retoolapi.dev/AsJ5uM/transferliste?accountTransferPayerId=$idClient"));
+  Future<List<Transfer>> getRequestAllTransfer(String idClient) async {
+    final responsePaid = await http.get(Uri.parse(
+        "https://retoolapi.dev/AsJ5uM/transferliste?accountTransferPayerId=$idClient"));
+    final responseReceived = await http.get(Uri.parse(
+        "https://retoolapi.dev/AsJ5uM/transferliste?accountTransferReceiverId=$idClient"));
+    if (responsePaid.statusCode == 200 && responseReceived.statusCode == 200 ) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      List jsonResponse = jsonDecode(responsePaid.body) + jsonDecode(responseReceived.body);
+      //jsonResponse.sort((a,b) => a["executionDateTime"].compareTo(b["executionDateTime"]));
+      return jsonResponse.map((data) => new Transfer.fromJson(data)).toList();
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load transfer');
+    }
+  }
 
+  Future<List<Transfer>> getRequestReceivedTransfer(String idClient) async {
+    final response = await http.get(Uri.parse(
+        "https://retoolapi.dev/AsJ5uM/transferliste?accountTransferPayerId=$idClient"));
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
@@ -53,12 +73,6 @@ class JsonHttp {
       throw Exception('Failed to load transfer');
     }
   }
-  Future<Transfer> getRequestReceivedTransfer(String idClient) async {
-    final response =
-    await http.get(Uri.parse("https://retoolapi.dev/Nx5F0M/test?accountTransferReceiverId=$idClient"));
-
-  }
-
 
   Future<User> postRequestUser(var clientId, String mailAdress, String password,
       String fullName, int phoneNumber) async {
@@ -85,8 +99,8 @@ class JsonHttp {
   }
 
   Future<User> getRequestUser(String clientId) async {
-    final response = await http
-        .get(Uri.parse("https://retoolapi.dev/NKqUcO/prixbanquetest?clientId=$clientId"));
+    final response = await http.get(Uri.parse(
+        "https://retoolapi.dev/NKqUcO/prixbanquetest?clientId=$clientId"));
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
@@ -100,8 +114,8 @@ class JsonHttp {
   }
 
   getRequestUserFullName(String clientId) async {
-    final response = await http
-        .get(Uri.parse("https://retoolapi.dev/NKqUcO/prixbanquetest?clientId=$clientId"));
+    final response = await http.get(Uri.parse(
+        "https://retoolapi.dev/NKqUcO/prixbanquetest?clientId=$clientId"));
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
@@ -113,9 +127,10 @@ class JsonHttp {
       throw Exception('Failed to load user');
     }
   }
+
   getRequestUserId(String clientEmail) async {
-    final response = await http
-        .get(Uri.parse("https://retoolapi.dev/NKqUcO/prixbanquetest?mailAdress=$clientEmail"));
+    final response = await http.get(Uri.parse(
+        "https://retoolapi.dev/NKqUcO/prixbanquetest?mailAdress=$clientEmail"));
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
@@ -127,4 +142,7 @@ class JsonHttp {
       throw Exception('Failed to load user');
     }
   }
+
+
+
 }

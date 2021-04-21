@@ -1,9 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebaseUser;
-
-import 'package:flutter/services.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Builders/futureBuilderTransfer.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/classicText.dart';
@@ -150,7 +146,7 @@ class _CreateTransferPage extends State<CreateTransferPage> {
         scheduleTransferDate = dateController.text;
       } else {
         transferType = "Immediate";
-        scheduleTransferDate = DateTime.now().toString();
+        scheduleTransferDate = DateTime.now().toString().substring(0,10);
       }
 
       _futureTransfer = JsonHttp().postRequestTransfer(
@@ -165,10 +161,10 @@ class _CreateTransferPage extends State<CreateTransferPage> {
         answerController.text,
         //receiverAnswer
         scheduleTransferDate,
-        //scheduleTransferDate
+        //scheduleTransferDates
         transferType,
         //transferType
-        DateTime.now().toString(), //executionTransferDate
+        DateTime.now().toString().substring(0, 10), //executionTransferDate
       );
     });
   }

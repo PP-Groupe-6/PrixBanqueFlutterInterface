@@ -24,7 +24,7 @@ class datePickerTextField extends StatelessWidget {
         labelText: "Date",
       ),
       onTap: () async {
-        var date = await showDatePicker(
+        DateTime date = await showDatePicker(
             context: context,
             initialDate: DateTime.now(),
             firstDate: DateTime.now(),

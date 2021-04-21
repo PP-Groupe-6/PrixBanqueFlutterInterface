@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/classicText.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebaseUser;
 
 class DisplayListTransaction extends StatefulWidget {
   final List<Transfer> transactions;
@@ -16,6 +17,7 @@ class DisplayListTransaction extends StatefulWidget {
 
 class _DisplayListTransaction extends State<DisplayListTransaction> {
   String fullName;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -43,10 +45,21 @@ class _DisplayListTransaction extends State<DisplayListTransaction> {
                 : ListView(
                     children: widget.transactions
                         .map((transactions) => ListTile(
-                              title: Text(
-                                  transactions.transferAmount.toString()),
-                              subtitle:
-                                  Text(transactions.accountTransferPayerId.toString()),
+                              title:
+                              classicText(
+                                myText: transactions.transferAmount.toString(),
+                                myColor: firebaseUser.FirebaseAuth.instance
+                                    .currentUser.uid ==
+                                    transactions.accountTransferPayerId
+                                    ? Colors.red
+                                    : Colors.green,
+                                myFontSize: 25,
+                              ),
+                              subtitle: classicText(
+                                myText: transactions.executionTransferDate
+                                    .toString(),
+                                myFontSize: 10,
+                              ),
                               trailing: Icon(Icons.keyboard_arrow_right),
                             ))
                         .toList(),

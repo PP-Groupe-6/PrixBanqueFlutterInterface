@@ -12,7 +12,7 @@ class BalancePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future<List<Transfer>> currentTransaction =
-        JsonHttp().getRequestPaidTransfer(firebaseUser.FirebaseAuth.instance.currentUser.uid);
+        JsonHttp().getRequestAllTransfer(firebaseUser.FirebaseAuth.instance.currentUser.uid);
 
     return Scaffold(
       appBar: AppBar(
