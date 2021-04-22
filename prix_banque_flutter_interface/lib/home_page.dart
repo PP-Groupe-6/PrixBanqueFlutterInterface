@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebaseUser;
-import 'package:prix_banque_flutter_interface/authentification_management/user_model.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_main_page.dart';
 import 'package:prix_banque_flutter_interface/user_account_management/user_account_page.dart';
 import 'package:prix_banque_flutter_interface/user_balance_account_management/user_balance_account_page.dart';
@@ -28,10 +27,10 @@ class _HomePageState extends State<HomePage> {
   firebaseUser.User user = firebaseUser.FirebaseAuth.instance.currentUser;
 
   @override
-  void initState(){
+ void initState(){
     super.initState();
-    JsonHttp().getRequestUserFullName(firebaseUser.FirebaseAuth.instance.currentUser.uid).then((
-        futureString) => setState((){userName=futureString;}));
+    JsonHttp().getRequestUser(user.email).then((
+        futureUser) => setState((){userName=futureUser.fullName;}));
 
   }
 

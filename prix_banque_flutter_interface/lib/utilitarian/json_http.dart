@@ -96,9 +96,9 @@ class JsonHttp {
     }
   }
 
-  Future<User> getRequestUser(String clientId) async {
+  Future<User> getRequestUser(String mailAdress) async {
     final response = await http.get(Uri.parse(
-        "https://retoolapi.dev/NKqUcO/prixbanquetest?clientId=$clientId"));
+        "https://retoolapi.dev/NKqUcO/prixbanquetest?mailAdress=$mailAdress"));
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
@@ -110,5 +110,4 @@ class JsonHttp {
       throw Exception('Failed to load user');
     }
   }
-  
 }
