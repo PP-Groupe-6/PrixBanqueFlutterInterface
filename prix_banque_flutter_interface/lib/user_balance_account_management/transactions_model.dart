@@ -2,7 +2,7 @@ class Transactions {
   final String transactionType;
   final String role;
   final String name;
-  final int transactionAmount;
+  final double transactionAmount;
   final String transactionDate;
 
   Transactions(
@@ -17,7 +17,7 @@ class Transactions {
       transactionType: json['transactionType'] as String,
       role: json['role'] as String,
       name: json['name'] as String,
-      transactionAmount: json['transactionAmount'] as int,
+      transactionAmount: json['transactionAmount'] as double,
       transactionDate: json['transactionDate'] as String,
     );
   }

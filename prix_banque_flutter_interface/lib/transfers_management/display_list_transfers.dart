@@ -18,32 +18,33 @@ class _DisplayListTransfer extends State<DisplayListTransfer> {
   @override
   Widget build(BuildContext context) {
     return Card(
-        child: Column(
-      children: [
-        Container(
-          color: Theme.of(context).primaryColor,
-          height: 30,
-          child: Center(
-            child: classicText(
-                myText: "Waiting transfers",
-                myFontSize: 15,
-                myColor: Colors.white),
+      child: Column(
+        children: [
+          Container(
+            color: Theme.of(context).primaryColor,
+            height: 30,
+            child: Center(
+              child: classicText(
+                  myText: "Waiting transfers",
+                  myFontSize: 15,
+                  myColor: Colors.white),
+            ),
           ),
-        ),
-        Container(
-          height: 300,
-          decoration: BoxDecoration(
-              border: Border.all(color: Theme.of(context).accentColor)),
-          child: widget.transfers.isEmpty
-              ? Center(
-                  child: classicText(
-                      myText: "No transfers found",
-                      myFontSize: 15,
-                      myColor: Colors.black),
-                )
-              : ListView(
-                  children: widget.transfers
-                      .map((transfer) => ListTile(
+          Container(
+            height: 300,
+            decoration: BoxDecoration(
+                border: Border.all(color: Theme.of(context).accentColor)),
+            child: widget.transfers.isEmpty
+                ? Center(
+                    child: classicText(
+                        myText: "No transfers found",
+                        myFontSize: 15,
+                        myColor: Colors.black),
+                  )
+                : ListView(
+                    children: widget.transfers
+                        .map(
+                          (transfer) => ListTile(
                             title: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -54,8 +55,8 @@ class _DisplayListTransfer extends State<DisplayListTransfer> {
                                           "From : ${transfer.mailAdressTransferPayer}"),
                                   classicText(
                                       myFontSize: 15,
-                                      myText:
-                                          "\$" "${transfer.transferAmount.toString()}"),
+                                      myText: "\$"
+                                          "${transfer.transferAmount.toString()}"),
                                   classicText(
                                       myFontSize: 15,
                                       myText:
@@ -71,11 +72,13 @@ class _DisplayListTransfer extends State<DisplayListTransfer> {
                                   transfer.receiverQuestion,
                                   transfer.receiverAnswer);
                             },
-                          ))
-                      .toList(),
-                ),
-        ),
-      ],
-    ));
+                          ),
+                        )
+                        .toList(),
+                  ),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -1,7 +1,7 @@
 class User {
   final String clientId;
   final String fullName;
-  final int phoneNumber;
+  final String phoneNumber;
   final String mailAdress;
   final String password;
 
@@ -18,7 +18,7 @@ class User {
     return User(
       clientId: json['clientId'] as String,
       fullName: json['fullName'] as String,
-      phoneNumber: json['phoneNumber'] as int,
+      phoneNumber: json['phoneNumber'] as String,
       mailAdress: json['mailAdress'] as String,
       password: json['password'] as String,
     );

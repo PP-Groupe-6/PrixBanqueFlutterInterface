@@ -130,7 +130,7 @@ class _CreateTransferPage extends State<CreateTransferPage> {
         //mailAdressTransferPayer
         emailReceiverController.text,
         //mailAdressTransferReceiver
-        int.parse(amountController.text),
+        double.parse(amountController.text),
         //transferAmount
         transferType,
         //transferType

@@ -9,7 +9,7 @@
     },
     {
       "mailAdressTransferPayer": "Corentin.laloz@gmail.com",
-      "transferAmount": 200,
+      "transferAmount": 200.57,
       "executionTransferDate" : "2021-04-27",
       "receiverQuestion" : "Quel est le couleur de mon chat ?",
       "receiverAnswer" : "Roux"

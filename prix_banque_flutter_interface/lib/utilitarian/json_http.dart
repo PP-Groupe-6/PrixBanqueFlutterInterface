@@ -9,7 +9,7 @@ class JsonHttp {
   Future<Transfer> postRequestTransfer(
       String mailAdressTransferPayer,
       String mailAdressTransferReceiver,
-      int transferAmount,
+      double transferAmount,
       String transferType,
       String receiverQuestion,
       String receiverAnswer,
@@ -72,12 +72,11 @@ class JsonHttp {
     }
   }
 
-  Future<User> postRequestUser(var clientId, String mailAdress, String password,
-      String fullName, int phoneNumber) async {
+  Future<User> postRequestUser(var clientId, String mailAdress,
+      String fullName, String phoneNumber) async {
     Map data = {
       'clientId': clientId,
       'mailAdress': mailAdress,
-      'password': password,
       'fullName': fullName,
       'phoneNumber': phoneNumber
     };

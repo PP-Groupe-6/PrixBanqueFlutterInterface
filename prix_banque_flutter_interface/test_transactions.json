@@ -4,7 +4,7 @@
       "transactionType": "invoice",
       "role": "payer",
       "name": "Corentin Laloz",
-      "transactionAmount": 554,
+      "transactionAmount": 554.45,
       "transactionDate": "2021-04-27"
     },
     {

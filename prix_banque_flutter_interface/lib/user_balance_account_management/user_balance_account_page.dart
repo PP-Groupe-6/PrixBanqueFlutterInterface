@@ -41,7 +41,7 @@ class BalancePage extends StatelessWidget {
                 myFontSize: 25,
                 myText: "Transaction Page"),
             Container(
-                width: MediaQuery.of(context).size.width / 2,
+                width: MediaQuery.of(context).size.width / 1.2,
                 height: MediaQuery.of(context).size.height / 2,
                 child: FutureBuilder(
                   future: rootBundle.loadString('test_transactions.json'),

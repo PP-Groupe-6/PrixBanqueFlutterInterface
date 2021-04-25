@@ -104,9 +104,8 @@ class _SignUpPageState extends State<SignUpPage> {
           _futureUser = JsonHttp().postRequestUser(
               firebaseUser.FirebaseAuth.instance.currentUser.uid,
               emailController.text,
-              passwordController.text,
               fullNameController.text,
-              int.parse(phoneNumberController.text));
+              phoneNumberController.text);
         });
       } else {
         ShowInformation().showMyDialog(context, message);
