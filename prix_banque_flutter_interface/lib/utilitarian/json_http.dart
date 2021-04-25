@@ -55,9 +55,9 @@ class JsonHttp {
     }
   }
 
-  Future<User> getUserInformation(String mailAdress) async {
+  Future<User> getUserInformation(String idClient) async {
     final response = await http.get(Uri.parse(
-        "https://retoolapi.dev/NKqUcO/prixbanquetest?mailAdress=$mailAdress"));
+        "https://retoolapi.dev/NKqUcO/prixbanquetest?clientId=$idClient"));
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
