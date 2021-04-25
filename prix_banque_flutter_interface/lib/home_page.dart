@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   @override
  void initState(){
     super.initState();
-    JsonHttp().getRequestUser(user.email).then((
+    JsonHttp().getUserInformation(user.email).then((
         futureUser) => setState((){userName=futureUser.fullName;}));
 
   }

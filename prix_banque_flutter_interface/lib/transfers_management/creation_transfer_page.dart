@@ -125,7 +125,7 @@ class _CreateTransferPage extends State<CreateTransferPage> {
         executionTransferDate = DateTime.now().toString().substring(0,10);
       }
 
-      _futureTransfer = JsonHttp().postRequestTransfer(
+      _futureTransfer = JsonHttp().postTransfer(
         firebaseUser.FirebaseAuth.instance.currentUser.email,
         //mailAdressTransferPayer
         emailReceiverController.text,

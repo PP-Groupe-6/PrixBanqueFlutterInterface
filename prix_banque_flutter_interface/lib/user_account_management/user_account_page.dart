@@ -12,7 +12,7 @@ class UserInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future<User> currentUser = JsonHttp()
-        .getRequestUser(firebaseUser.FirebaseAuth.instance.currentUser.email);
+        .getUserInformation(firebaseUser.FirebaseAuth.instance.currentUser.email);
 
     return Scaffold(
       appBar: AppBar(

@@ -25,7 +25,9 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController passwordVerificationController =
       TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
-  final TextEditingController fullNameController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+
 
   var json = Map<String, String>();
 
@@ -50,8 +52,11 @@ class _SignUpPageState extends State<SignUpPage> {
                     Container(
                       child: Column(children: [
                         classicTextField(
-                            controller: fullNameController,
-                            message: "Full Name"),
+                            controller: firstNameController,
+                            message: "First Name"),
+                          classicTextField(
+                              controller: lastNameController,
+                              message: "Last Name"),
                         classicTextField(
                             controller: emailController, message: "Email"),
                         obscureTextField(
@@ -78,9 +83,11 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void testInputFilled(BuildContext context) {
-    if (fullNameController.text == "") {
-      ShowInformation().showMyDialog(context, "Full Name Required.");
-    } else if (phoneNumberController.text == "") {
+    if (firstNameController.text == "") {
+      ShowInformation().showMyDialog(context, "First Name Required.");}
+     else if (lastNameController.text == "") {
+        ShowInformation().showMyDialog(context, "Last Name Required.");}
+     else if (phoneNumberController.text == "") {
       ShowInformation().showMyDialog(context, "Phone Number Required.");
     } else if (passwordController.text != passwordVerificationController.text) {
       ShowInformation().showMyDialog(context, "Passwords are not the same.");
@@ -101,10 +108,10 @@ class _SignUpPageState extends State<SignUpPage> {
       if (message == "Signed up") {
         setState(() {
           //Creation of user in Database
-          _futureUser = JsonHttp().postRequestUser(
+          _futureUser = JsonHttp().postUser(
               firebaseUser.FirebaseAuth.instance.currentUser.uid,
               emailController.text,
-              fullNameController.text,
+              firstNameController.text + " " + lastNameController.text,
               phoneNumberController.text);
         });
       } else {
