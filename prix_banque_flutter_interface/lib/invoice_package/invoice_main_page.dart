@@ -30,15 +30,16 @@ class InvoicePage extends StatefulWidget {
 
 class _InvoicePageState extends State<InvoicePage> {
 
-  Future<Map<String, String>> loadFiles;
+  Future<InvoiceList> _futureInvoices;
   bool isInvoiceSent;
+  final String uid = firebaseUser.FirebaseAuth.instance.currentUser.uid;
 
   @override
   void initState(){
     super.initState();
     isInvoiceSent=false;
-    //getInvoiceList()
-    loadFiles = loadJson(context,isInvoiceSent);
+    print(uid);
+    _futureInvoices = JsonHttp().getInvoiceList(uid, isInvoiceSent);
   }
 
   // Payment of an invoice
@@ -62,11 +63,9 @@ class _InvoicePageState extends State<InvoicePage> {
   // Suppression of an invoice
   // Call back end to remove the invoice
   // Remove from invoiceList
-  void _removeExpiredInvoice(Invoice invoice){
-    Future<bool> result = JsonHttp().deleteInvoice(invoice.id);
-    var done;
-    result.then((value) => done=value);
-    if(done){
+  Future<void> _removeExpiredInvoice(Invoice invoice) async {
+    var result = await JsonHttp().deleteInvoice(invoice.id);
+    if(result){
       //remove
       print("deleted");
       //Navigator.pop
@@ -138,6 +137,7 @@ class _InvoicePageState extends State<InvoicePage> {
                             icon: const Icon(Icons.arrow_circle_down),
                             onChanged: (bool newValue){
                               setState(() {
+                                print("t");
                                 isInvoiceSent = newValue;
                               });
                             },
@@ -172,11 +172,10 @@ class _InvoicePageState extends State<InvoicePage> {
                   height: 10,
                   color: Colors.blue,
                 ),
-                FutureBuilder(
-                  future: loadFiles,
-                  builder: (BuildContext context, AsyncSnapshot snap){
-                    if (snap.hasData){
-                      var invoiceList = invoiceListFromJson(snap.data['file']);
+                FutureBuilder<InvoiceList>(
+                  future: _futureInvoices,
+                  builder: (context,snapshot){
+                    if (snapshot.hasData){
                       return Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -192,21 +191,21 @@ class _InvoicePageState extends State<InvoicePage> {
                           ),
                           DisplayListInvoice(
                             state: "Invoices expired",
-                            invoices: invoiceList.invoicesExpired,
+                            invoices: snapshot.data.invoicesExpired,
                             color: Colors.redAccent,
                             onChange: _removeExpiredInvoice,
                             isInvoiceSent: isInvoiceSent,
                           ),
                           DisplayListInvoice(
                             state: (isInvoiceSent)?"Invoices waiting for payment":"Invoices to pay",
-                            invoices: invoiceList.invoicesToPay,
+                            invoices: snapshot.data.invoicesToPay,
                             color: Colors.deepOrangeAccent,
                             onChange: _invoicePayment,
                             isInvoiceSent: isInvoiceSent,
                           ),
                           DisplayListInvoice(
                             state: "Invoices paid",
-                            invoices: invoiceList.invoicesPaid,
+                            invoices: snapshot.data.invoicesPaid,
                             color: Colors.lightGreen,
                             onChange: null,
                             isInvoiceSent: isInvoiceSent,

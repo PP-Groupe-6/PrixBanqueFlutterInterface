@@ -35,42 +35,33 @@ class InvoiceList {
 }
 
 class Invoice {
-  final int id;
-  final int amount;
+  final String id;
+  final double amount;
   String state;
   final String expirationDate;
-  final String fromName;
-  final String fromEmail;
-  final String fromPhone;
-  final String toName;
-  final String toEmail;
-  final String toPhone;
+  final String withClientName;
+  final String withClientEmail;
+  final String withClientPhone;
 
   Invoice({
     this.id,
     this.amount,
     this.state,
     this.expirationDate,
-    this.fromName,
-    this.fromEmail,
-    this.fromPhone,
-    this.toName,
-    this.toEmail,
-    this.toPhone
+    this.withClientName,
+    this.withClientEmail,
+    this.withClientPhone
   });
 
   factory Invoice.fromJson(Map<String, dynamic> json){
     return Invoice(
-      id : json['id'] as int,
-      amount: json['amount'] as int,
+      id : json['id'] as String,
+      amount: json['amount'] as double,
       state: json['state'] as String,
       expirationDate: json['expDate'] as String,
-      fromName: json['fromName'] as String,
-      fromEmail: json['fromEmail'] as String,
-      fromPhone: json['fromPhone'] as String,
-      toName: json['toName'] as String,
-      toEmail: json['toEmail'] as String,
-      toPhone: json['toPhone'] as String,
+      withClientName: json['withClientName'] as String,
+      withClientEmail: json['withClientEmail'] as String,
+      withClientPhone: json['withClientPhone'] as String,
     );
   }
 

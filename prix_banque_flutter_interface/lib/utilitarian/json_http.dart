@@ -146,7 +146,7 @@ class JsonHttp {
   }
 
   Future<InvoiceList> getInvoiceList(String idClient, bool isInvoiceSent) async {
-    final response = await http.get(Uri.parse("????"));
+    final response = await http.get(Uri.parse("http://localhost:8002/invoices/"));
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
@@ -167,7 +167,7 @@ class JsonHttp {
     };
     String body = json.encode(data);
     final response = await http.post(
-      Uri.parse("??????"),
+      Uri.parse("http://localhost:8002/invoices/"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -186,7 +186,7 @@ class JsonHttp {
     };
     String body = json.encode(data);
     final response = await http.post(
-      Uri.parse("??????"),
+      Uri.parse("http://localhost:8002/invoices/pay"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -205,14 +205,14 @@ class JsonHttp {
     };
     String body = json.encode(data);
     final response = await http.delete(
-      Uri.parse("??????"),
+      Uri.parse("http://localhost:8002/invoices/"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: body,
     );
     if (response.statusCode == 201) {
-      return jsonDecode(response.body)['paid'];
+      return jsonDecode(response.body)['deleted'];
     } else {
       throw Exception('Failed to create user.');
     }
