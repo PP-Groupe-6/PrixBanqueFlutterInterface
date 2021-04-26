@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:prix_banque_flutter_interface/authentification_management/user_model.dart';
+import 'package:prix_banque_flutter_interface/invoice_package/invoice.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
 import 'package:prix_banque_flutter_interface/user_balance_account_management/transactions_model.dart';
 
@@ -143,4 +144,21 @@ class JsonHttp {
       throw Exception('Failed to update Transfer.');
     }
   }
+
+  Future<InvoiceList> getInvoiceList(String idClient, bool isInvoiceSent) async {
+    final response = await http.get(Uri.parse(
+        "????"));
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      List jsonResponse = jsonDecode(response.body);
+      return jsonResponse.map((data) => new InvoiceList.fromJson(data)).first;
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load transfer');
+    }
+  }
+
+
 }
