@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prix_banque_flutter_interface/invoice_package/display_group_list_invoices.dart';
 
+import 'display_list_invoices.dart';
 import 'invoice.dart';
 import 'invoice_creation_dialog.dart';
 
@@ -150,10 +151,41 @@ class _InvoicePageState extends State<InvoicePage> {
                   builder: (BuildContext context, AsyncSnapshot snap){
                     if (snap.hasData){
                       var invoiceList = invoiceListFromJson(snap.data['file']);
-                      return DisplayInvoices(
-                        invoices: invoiceList,
-                        onChange: _removeExpiredInvoice,
-                        isInvoiceSent: isInvoiceSent,
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(top: 10,bottom: 20),
+                            child: Text(
+                              "Invoice you received from other clients :",
+                              style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontSize: 24,
+                              ),
+                            ),
+                          ),
+                          DisplayListInvoice(
+                            state: "Invoices expired",
+                            invoices: invoiceList.invoicesExpired,
+                            color: Colors.redAccent,
+                            onChange: _removeExpiredInvoice,
+                            isInvoiceSent: isInvoiceSent,
+                          ),
+                          DisplayListInvoice(
+                            state: (isInvoiceSent)?"Invoices waiting for payment":"Invoices to pay",
+                            invoices: invoiceList.invoicesToPay,
+                            color: Colors.deepOrangeAccent,
+                            onChange: _updateListToPay,
+                            isInvoiceSent: isInvoiceSent,
+                          ),
+                          DisplayListInvoice(
+                            state: "Invoices paid",
+                            invoices: invoiceList.invoicesPaid,
+                            color: Colors.lightGreen,
+                            onChange: null,
+                            isInvoiceSent: isInvoiceSent,
+                          ),
+                        ],
                       );
                     }
                     else{
