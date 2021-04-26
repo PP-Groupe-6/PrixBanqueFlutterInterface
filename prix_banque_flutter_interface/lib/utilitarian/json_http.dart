@@ -146,17 +146,75 @@ class JsonHttp {
   }
 
   Future<InvoiceList> getInvoiceList(String idClient, bool isInvoiceSent) async {
-    final response = await http.get(Uri.parse(
-        "????"));
+    final response = await http.get(Uri.parse("????"));
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
-      List jsonResponse = jsonDecode(response.body);
-      return jsonResponse.map((data) => new InvoiceList.fromJson(data)).first;
+      return InvoiceList.fromJson(jsonDecode(response.body));
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
       throw Exception('Failed to load transfer');
+    }
+  }
+
+  Future<bool> postInvoice(var clientId, String mailAdress, double amount, String expDate) async {
+    Map data = {
+      'uid': clientId,
+      'emailClient': mailAdress,
+      'amount': amount,
+      'expDate': expDate
+    };
+    String body = json.encode(data);
+    final response = await http.post(
+      Uri.parse("??????"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: body,
+    );
+    if (response.statusCode == 201) {
+      return jsonDecode(response.body)['created'];
+    } else {
+      throw Exception('Failed to create user.');
+    }
+  }
+
+  Future<bool> postInvoicePaiement(var invoiceId) async {
+    Map data = {
+      'Iid': invoiceId,
+    };
+    String body = json.encode(data);
+    final response = await http.post(
+      Uri.parse("??????"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: body,
+    );
+    if (response.statusCode == 201) {
+      return jsonDecode(response.body)['paid'];
+    } else {
+      throw Exception('Failed to create user.');
+    }
+  }
+
+  Future<bool> deleteInvoice(var invoiceId) async {
+    Map data = {
+      'Iid': invoiceId,
+    };
+    String body = json.encode(data);
+    final response = await http.delete(
+      Uri.parse("??????"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: body,
+    );
+    if (response.statusCode == 201) {
+      return jsonDecode(response.body)['paid'];
+    } else {
+      throw Exception('Failed to create user.');
     }
   }
 
