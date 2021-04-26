@@ -3,7 +3,7 @@ class Transfer {
   final int transferId;
   final String mailAdressTransferPayer;
   final String mailAdressTransferReceiver;
-  final double transferAmount;
+  final String transferAmount;
   final String transferType;
   final String receiverQuestion;
   final String receiverAnswer;
@@ -24,7 +24,7 @@ class Transfer {
       transferId: json['transferId'] as int,
       mailAdressTransferPayer: json['mailAdressTransferPayer'] as String,
       mailAdressTransferReceiver: json['mailAdressTransferReceiver'] as String,
-      transferAmount: json['transferAmount'] as double,
+      transferAmount: json['transferAmount'] as String,
       transferType: json['transferType'] as String,
       receiverQuestion: json['receiverQuestion'] as String,
       receiverAnswer: json['receiverAnswer'] as String,

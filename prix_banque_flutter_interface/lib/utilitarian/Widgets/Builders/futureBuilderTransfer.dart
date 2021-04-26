@@ -45,7 +45,7 @@ class _futureBuilderTransferState extends State<futureBuilderTransfer> {
                   child: Column(
                     children: [
                       classicRichText(
-                          myText: "From : ", snapshot: firebaseUser.FirebaseAuth.instance.currentUser.email ),
+                          myText: "From : ", snapshot: snapshot.data.mailAdressTransferPayer),
                       classicRichText(
                           myText: "To : ", snapshot: snapshot.data.mailAdressTransferReceiver),
                       classicRichText(
@@ -62,7 +62,7 @@ class _futureBuilderTransferState extends State<futureBuilderTransfer> {
                           snapshot: snapshot.data.transferType),
                       classicRichText(
                           myText: "Execution Date : ",
-                          snapshot: snapshot.data.executionTransferDate),
+                          snapshot: snapshot.data.executionTransferDate.substring(0,10)),
                     ],
                   ),
                 ),
