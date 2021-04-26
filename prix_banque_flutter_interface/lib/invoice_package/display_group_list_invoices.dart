@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'display_list_invoices.dart';
 import 'invoice.dart';
 
-class DisplayInvoicesReceived extends StatelessWidget{
+class DisplayInvoices extends StatelessWidget{
 
   final Function(Invoice) onChange;
-  final InvoiceList invoicesReceived;
+  final InvoiceList invoices;
+  final bool isInvoiceSent;
 
-  DisplayInvoicesReceived({Key key,@required this.invoicesReceived, @required this.onChange});
+  DisplayInvoices({Key key,@required this.invoices, @required this.onChange, @required this.isInvoiceSent});
 
   @override
   Widget build(BuildContext context){
@@ -28,73 +29,24 @@ class DisplayInvoicesReceived extends StatelessWidget{
         ),
         DisplayListInvoice(
           state: "Invoices expired",
-          invoices: invoicesReceived.invoicesExpired,
+          invoices: invoices.invoicesExpired,
           color: Colors.redAccent,
           onChange: onChange,
-          isInvoiceSent: false,
+          isInvoiceSent: isInvoiceSent,
         ),
         DisplayListInvoice(
-          state: "Invoices to pay",
-          invoices: invoicesReceived.invoicesToPay,
+          state: (isInvoiceSent)?"Invoices waiting for payment":"Invoices to pay",
+          invoices: invoices.invoicesToPay,
           color: Colors.deepOrangeAccent,
           onChange: onChange,
-          isInvoiceSent: false,
+          isInvoiceSent: isInvoiceSent,
         ),
         DisplayListInvoice(
           state: "Invoices paid",
-          invoices: invoicesReceived.invoicesPaid,
+          invoices: invoices.invoicesPaid,
           color: Colors.lightGreen,
           onChange: onChange,
-          isInvoiceSent: false,
-        ),
-      ],
-    );
-  }
-}
-
-
-class DisplayInvoicesSent extends StatelessWidget{
-
-  final Function(Invoice) onChange;
-  final InvoiceList invoicesSent;
-
-  DisplayInvoicesSent({Key key,@required this.invoicesSent, @required this.onChange});
-
-  @override
-  Widget build(BuildContext context){
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          margin: EdgeInsets.only(top: 10,bottom: 20),
-          child: Text(
-            "Invoice you sent :",
-            style: TextStyle(
-              color: Colors.blue,
-              fontSize: 24,
-            ),
-          ),
-        ),
-        DisplayListInvoice(
-          state: "Invoices expired",
-          invoices: invoicesSent.invoicesExpired,
-          color: Colors.redAccent,
-          onChange: onChange,
-          isInvoiceSent: true,
-        ),
-        DisplayListInvoice(
-          state: "Invoices waiting for payment",
-          invoices: invoicesSent.invoicesToPay,
-          color: Colors.deepOrangeAccent,
-          onChange: onChange,
-          isInvoiceSent: true,
-        ),
-        DisplayListInvoice(
-          state: "Invoices paid",
-          invoices: invoicesSent.invoicesPaid,
-          color: Colors.lightGreen,
-          onChange: onChange,
-          isInvoiceSent: true,
+          isInvoiceSent: isInvoiceSent,
         ),
       ],
     );

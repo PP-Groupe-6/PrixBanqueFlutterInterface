@@ -6,30 +6,47 @@ import 'invoice.dart';
 import 'invoice_creation_dialog.dart';
 
 
-// Body of the Invoice Management page
-class InvoiceContent extends StatefulWidget {
-  final InvoiceList invoicesReceived;
-  final InvoiceList invoicesSent;
-
-  InvoiceContent({Key key, @required this.invoicesReceived,@required this.invoicesSent}):super(key:key);
-
-  @override
-  _InvoiceContentState createState() => _InvoiceContentState();
+Future<Map<String, String>> loadJson(BuildContext context, bool isFromClient) async {
+  String json;
+  if (isFromClient){
+    json = await DefaultAssetBundle.of(context).loadString('test_invoices_sent.json');
+  }
+  else {
+    json = await DefaultAssetBundle.of(context).loadString('test_invoices.json');
+  }
+  return {
+    'file': json,
+  };
 }
 
-// State
-class _InvoiceContentState extends State<InvoiceContent> {
 
-  // Represents which invoice list display (True = invoices created by user)
-  bool displayClientOwnInvoices = false;
+class InvoicePage extends StatefulWidget {
+  static const name = "/invoicePage";
+
+  @override
+  _InvoicePageState createState() => _InvoicePageState();
+}
+
+class _InvoicePageState extends State<InvoicePage> {
+
+  Future<Map<String, String>> loadFiles;
+  bool isInvoiceSent;
+
+  @override
+  void initState(){
+    super.initState();
+    isInvoiceSent=false;
+    loadFiles = loadJson(context,isInvoiceSent);
+  }
 
   // Payment of an invoice
   // Call back end to update the state
   // Update invoiceList
   void _updateListToPay(Invoice invoice){
     // http update
-    widget.invoicesReceived.updateListToPay(invoice);
-    setState(() {});
+    //widget.invoicesReceived.updateListToPay(invoice);
+    //setState(() {});
+    print("update");
   }
 
   // Suppression of an invoice
@@ -37,8 +54,9 @@ class _InvoiceContentState extends State<InvoiceContent> {
   // Remove from invoiceList
   void _removeExpiredInvoice(Invoice invoice){
     //http update
-    widget.invoicesSent.removeExpiredInvoice(invoice);
-    setState(() {});
+    //widget.invoicesSent.removeExpiredInvoice(invoice);
+    //setState(() {});
+    print("remove");
   }
 
 
@@ -53,7 +71,7 @@ class _InvoiceContentState extends State<InvoiceContent> {
   }
 
   // Display panel with fields to create an invoice
-  Future<void> _showMyDialog() async {
+  /*Future<void> _showMyDialog() async {
     return showDialog<void>(
       context: context,// user must tap button!
       builder: (BuildContext context) {
@@ -62,121 +80,93 @@ class _InvoiceContentState extends State<InvoiceContent> {
         );
       },
     );
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
-    return RawScrollbar(
-      thumbColor: Colors.lightBlueAccent,
-      thickness: 10.0,
-      fadeDuration: Duration(seconds: 1),
-      timeToFade: Duration(seconds: 2),
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: 20,bottom: 20),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(right: 20),
-                      child: DropdownButton(
-                        value: displayClientOwnInvoices,
-                        icon: const Icon(Icons.arrow_circle_down),
-                        onChanged: (bool newValue){
-                          setState(() {
-                            displayClientOwnInvoices = newValue;
-                          });
-                        },
-                        items: [
-                          DropdownMenuItem(
-                            value: true,
-                            child: Text("Invoices sent"),
-                          ),
-                          DropdownMenuItem(
-                            value: false,
-                            child: Text("Invoices received"),
-                          ),
-                        ]
-                      ),
-                    ),
-                    Container(
-                      height: 50,
-                      width: 150,
-                      margin: EdgeInsets.only(left: 20),
-                      child: ElevatedButton(
-                        child: Text("Create new invoice"),
-                        onPressed: (){
-                          _showMyDialog();
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Divider(
-                height: 10,
-                color: Colors.blue,
-              ),
-              (displayClientOwnInvoices)?
-              DisplayInvoicesSent(
-                invoicesSent: widget.invoicesSent,
-                onChange: _removeExpiredInvoice,
-              ):
-              DisplayInvoicesReceived(
-                invoicesReceived: widget.invoicesReceived,
-                onChange: _updateListToPay,
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-
-class InvoicePage extends StatelessWidget {
-  static const name = "/invoicePage";
-
-
-  @override
-  Widget build(BuildContext context) {
-    Future<Map<String, String>> loadJson() async {
-      final jsonA = await DefaultAssetBundle.of(context).loadString('test_invoices.json');
-      final jsonB = await DefaultAssetBundle.of(context).loadString('test_invoices_sent.json');
-      return {
-        'fileA': jsonA,
-        'fileB': jsonB,
-      };
-    }
     return Scaffold(
       appBar: AppBar(
         title: const Text("Invoice management"),
       ),
-      body: FutureBuilder(
-        future: loadJson(),
-        builder: (BuildContext context, AsyncSnapshot snap){
-          if (snap.hasData){
-            var invoiceListReceived = invoiceListFromJson(snap.data['fileA']);
-            var invoiceListSent = invoiceListFromJson(snap.data['fileB']);
-            return InvoiceContent(
-              invoicesReceived: invoiceListReceived,
-              invoicesSent: invoiceListSent,
-            );
-          }
-          else{
-            return Center(
-                child: CircularProgressIndicator()
-            );
-          }
-        }
+      body: RawScrollbar(
+        thumbColor: Colors.lightBlueAccent,
+        thickness: 10.0,
+        fadeDuration: Duration(seconds: 1),
+        timeToFade: Duration(seconds: 2),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: 20,bottom: 20),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(right: 20),
+                        child: DropdownButton(
+                            value: isInvoiceSent,
+                            icon: const Icon(Icons.arrow_circle_down),
+                            onChanged: (bool newValue){
+                              setState(() {
+                                isInvoiceSent = newValue;
+                              });
+                            },
+                            items: [
+                              DropdownMenuItem(
+                                value: true,
+                                child: Text("Invoices sent"),
+                              ),
+                              DropdownMenuItem(
+                                value: false,
+                                child: Text("Invoices received"),
+                              ),
+                            ]
+                        ),
+                      ),
+                      Container(
+                        height: 50,
+                        width: 150,
+                        margin: EdgeInsets.only(left: 20),
+                        child: ElevatedButton(
+                          child: Text("Create new invoice"),
+                          onPressed: (){
+                            //_showMyDialog();
+                            print("tap button");
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Divider(
+                  height: 10,
+                  color: Colors.blue,
+                ),
+                FutureBuilder(
+                  future: loadFiles,
+                  builder: (BuildContext context, AsyncSnapshot snap){
+                    if (snap.hasData){
+                      var invoiceList = invoiceListFromJson(snap.data['file']);
+                      return DisplayInvoices(
+                        invoices: invoiceList,
+                        onChange: _removeExpiredInvoice,
+                        isInvoiceSent: isInvoiceSent,
+                      );
+                    }
+                    else{
+                      return Center(
+                          child: CircularProgressIndicator()
+                      );
+                    }
+                  }
+                ),
+              ],
+            ),
       )
 
-    );
+    )));
   }
-
 }
