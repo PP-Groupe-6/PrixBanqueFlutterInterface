@@ -28,7 +28,6 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
 
-
   var json = Map<String, String>();
 
   Future<User> _futureUser;
@@ -54,9 +53,9 @@ class _SignUpPageState extends State<SignUpPage> {
                         classicTextField(
                             controller: firstNameController,
                             message: "First Name"),
-                          classicTextField(
-                              controller: lastNameController,
-                              message: "Last Name"),
+                        classicTextField(
+                            controller: lastNameController,
+                            message: "Last Name"),
                         classicTextField(
                             controller: emailController, message: "Email"),
                         obscureTextField(
@@ -84,10 +83,10 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void testInputFilled(BuildContext context) {
     if (firstNameController.text == "") {
-      ShowInformation().showMyDialog(context, "First Name Required.");}
-     else if (lastNameController.text == "") {
-        ShowInformation().showMyDialog(context, "Last Name Required.");}
-     else if (phoneNumberController.text == "") {
+      ShowInformation().showMyDialog(context, "First Name Required.");
+    } else if (lastNameController.text == "") {
+      ShowInformation().showMyDialog(context, "Last Name Required.");
+    } else if (phoneNumberController.text == "") {
       ShowInformation().showMyDialog(context, "Phone Number Required.");
     } else if (passwordController.text != passwordVerificationController.text) {
       ShowInformation().showMyDialog(context, "Passwords are not the same.");
@@ -110,9 +109,9 @@ class _SignUpPageState extends State<SignUpPage> {
           //Creation of user in Database
           _futureUser = JsonHttp().postUser(
               firebaseUser.FirebaseAuth.instance.currentUser.uid,
-              emailController.text,
               firstNameController.text + " " + lastNameController.text,
-              phoneNumberController.text);
+              phoneNumberController.text,
+              emailController.text);
         });
       } else {
         ShowInformation().showMyDialog(context, message);

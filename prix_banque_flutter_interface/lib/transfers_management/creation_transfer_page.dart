@@ -124,13 +124,12 @@ class _CreateTransferPage extends State<CreateTransferPage> {
         transferType = "Immediate";
         executionTransferDate = DateTime.now().toString().substring(0,10);
       }
-
       _futureTransfer = JsonHttp().postTransfer(
         firebaseUser.FirebaseAuth.instance.currentUser.email,
         //mailAdressTransferPayer
         emailReceiverController.text,
         //mailAdressTransferReceiver
-        double.parse(amountController.text),
+        amountController.text,
         //transferAmount
         transferType,
         //transferType

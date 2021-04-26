@@ -3,7 +3,6 @@ class User {
   final String fullName;
   final String phoneNumber;
   final String mailAdress;
-  final String password;
 
 
   User({
@@ -11,16 +10,14 @@ class User {
     this.fullName,
     this.phoneNumber,
     this.mailAdress,
-    this.password
     });
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      clientId: json['clientId'] as String,
+      //clientId: json['clientId'] as String,
       fullName: json['fullName'] as String,
-      phoneNumber: json['phoneNumber'] as String,
       mailAdress: json['mailAdress'] as String,
-      password: json['password'] as String,
+      phoneNumber: json['phoneNumber'] as String,
     );
   }
 }

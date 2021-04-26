@@ -24,6 +24,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String fullName;
   dynamic userName="";
+  double currentAmount;
   final TextEditingController amountController = TextEditingController();
 
   firebaseUser.User user = firebaseUser.FirebaseAuth.instance.currentUser;
@@ -31,13 +32,19 @@ class _HomePageState extends State<HomePage> {
   @override
  void initState(){
     super.initState();
-    JsonHttp().getUserInformation(user.email).then((
+    JsonHttp().getUserInformation(user.uid).then((
         futureUser) => setState((){userName=futureUser.fullName;}));
+    JsonHttp()
+        .getAmount(user.uid).then((
+        futureAmount) => setState((){currentAmount=futureAmount;}));
 
   }
 
   @override
   Widget build(BuildContext context) {
+
+    // On récupère le solde du compte
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Main Menu"),
@@ -87,7 +94,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 classicText(myColor: Theme.of(context).primaryColor, myFontSize: 50, myText: "Money balance : "),
-                classicText(myColor: Theme.of(context).accentColor, myFontSize: 40, myText: "3090"),
+                classicText(myColor: Theme.of(context).accentColor, myFontSize: 40, myText: "\$" "${currentAmount.toString()}"),
               ],
             ),
             ),

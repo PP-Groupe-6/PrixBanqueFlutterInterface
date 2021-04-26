@@ -5,6 +5,8 @@ import 'package:prix_banque_flutter_interface/user_balance_account_management/di
 import 'package:prix_banque_flutter_interface/user_balance_account_management/transactions_model.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Buttons/navigatorPopButton.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/classicText.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebaseUser;
+import 'package:prix_banque_flutter_interface/utilitarian/json_http.dart';
 
 TransactionList transactionListFromJson(String str) =>
     TransactionList.fromJson(json.decode(str));
@@ -23,11 +25,29 @@ class TransactionList {
       );
 }
 
-class BalancePage extends StatelessWidget {
+class BalancePage extends StatefulWidget {
   static const name = "/balancePage";
 
   @override
+  _BalancePageState createState() => _BalancePageState();
+}
+
+class _BalancePageState extends State<BalancePage> {
+  dynamic currentAmount;
+  firebaseUser.User user = firebaseUser.FirebaseAuth.instance.currentUser;
+
+  void initState() {
+    super.initState();
+    JsonHttp().getAmount(user.uid).then((futureAmount) => setState(() {
+          currentAmount = futureAmount;
+        }));
+  }
+
+  @override
   Widget build(BuildContext context) {
+    Future<List<Transactions>> listTransactions = JsonHttp()
+        .getTransactions(firebaseUser.FirebaseAuth.instance.currentUser.uid);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("My Transactions"),
@@ -44,7 +64,8 @@ class BalancePage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width / 1.2,
                 height: MediaQuery.of(context).size.height / 2,
                 child: FutureBuilder(
-                  future: rootBundle.loadString('test_transactions.json'),
+                  future: listTransactions,
+                  //rootBundle.loadString('test_transactions.json'),
                   builder: (BuildContext context, AsyncSnapshot snap) {
                     if (snap.hasData) {
                       var transactionList = transactionListFromJson(snap.data);
@@ -60,7 +81,9 @@ class BalancePage extends StatelessWidget {
                         ),
                       );
                     } else {
-                      return CircularProgressIndicator();
+                      return Center(
+                        child: Text("No transactions found"),
+                      );
                     }
                   },
                 )
@@ -71,9 +94,10 @@ class BalancePage extends StatelessWidget {
                 myFontSize: 50,
                 myText: "Money balance : "),
             classicText(
-                myColor: Theme.of(context).accentColor,
-                myFontSize: 40,
-                myText: "3090"),
+              myColor: Theme.of(context).accentColor,
+              myFontSize: 40,
+              myText: "\$" "${currentAmount.toString()}",
+            ),
             NavigatorPopButton(myMessage: "Back to main menu !")
           ],
         ),

@@ -6,13 +6,24 @@ import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Builders/futur
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Buttons/navigatorPopButton.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/json_http.dart';
 
-class UserInfoPage extends StatelessWidget {
+class UserInfoPage extends StatefulWidget {
   static const name = "/userInfoPage";
 
   @override
-  Widget build(BuildContext context) {
-    Future<User> currentUser = JsonHttp()
+  _UserInfoPageState createState() => _UserInfoPageState();
+}
+
+class _UserInfoPageState extends State<UserInfoPage> {
+  Future<User> currentUser;
+  void initState(){
+    super.initState();
+    currentUser = JsonHttp()
         .getUserInformation(firebaseUser.FirebaseAuth.instance.currentUser.uid);
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
 
     return Scaffold(
       appBar: AppBar(

@@ -7,6 +7,9 @@ import 'package:prix_banque_flutter_interface/transfers_management/transfer_mode
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Buttons/navigatorPopButton.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Buttons/navigatorPushButton.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/classicText.dart';
+import 'package:prix_banque_flutter_interface/utilitarian/json_http.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebaseUser;
+
 
 TransferList transferListFromJson(String str) =>
     TransferList.fromJson(json.decode(str));
@@ -29,6 +32,9 @@ class TransferPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    Future<List<Transfer>> listTransfer = JsonHttp().getWaitingTransfer(firebaseUser.FirebaseAuth.instance.currentUser.uid);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("My Transfers"),
@@ -49,7 +55,7 @@ class TransferPage extends StatelessWidget {
               width: MediaQuery.of(context).size.width / 2,
               height: MediaQuery.of(context).size.height / 2,
               child: FutureBuilder(
-                  future: rootBundle.loadString('test_transfers.json'),
+                  future: listTransfer, //rootBundle.loadString('test_transfers.json'),
                   builder: (BuildContext context, AsyncSnapshot snap) {
                     if (snap.hasData) {
                       var transferList = transferListFromJson(snap.data);
