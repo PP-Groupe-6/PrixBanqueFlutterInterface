@@ -11,6 +11,7 @@ import 'package:prix_banque_flutter_interface/authentification_management/sign_u
 import 'package:prix_banque_flutter_interface/transfers_management/creation_transfer_page.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_main_page.dart';
 import 'package:prix_banque_flutter_interface/user_account_management/user_account_page.dart';
+import 'package:prix_banque_flutter_interface/user_balance_account_management/user_balance_account_page.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -31,18 +32,17 @@ Map<int, Color> color = {
   800: Color.fromRGBO(27, 30, 75, .9),
   900: Color.fromRGBO(27, 30, 75, 1),
 };
-Map<int, Color> color2 =
-{
-  50:Color.fromRGBO(69,90,100,.1),
-  100:Color.fromRGBO(69,90,100,.2),
-  200:Color.fromRGBO(69,90,100,.3),
-  300:Color.fromRGBO(69,90,100,.4),
-  400:Color.fromRGBO(69,90,100,.5),
-  500:Color.fromRGBO(69,90,100,.6),
-  600:Color.fromRGBO(69,90,100,.7),
-  700:Color.fromRGBO(69,90,100,.8),
-  800:Color.fromRGBO(69,90,100,.9),
-  900:Color.fromRGBO(69,90,100,1),
+Map<int, Color> color2 = {
+  50: Color.fromRGBO(69, 90, 100, .1),
+  100: Color.fromRGBO(69, 90, 100, .2),
+  200: Color.fromRGBO(69, 90, 100, .3),
+  300: Color.fromRGBO(69, 90, 100, .4),
+  400: Color.fromRGBO(69, 90, 100, .5),
+  500: Color.fromRGBO(69, 90, 100, .6),
+  600: Color.fromRGBO(69, 90, 100, .7),
+  700: Color.fromRGBO(69, 90, 100, .8),
+  800: Color.fromRGBO(69, 90, 100, .9),
+  900: Color.fromRGBO(69, 90, 100, 1),
 };
 
 MaterialColor colorBlueCustom = MaterialColor(0xFF1B1E4B, color);
@@ -82,7 +82,7 @@ class MyApp extends StatelessWidget {
           TransferPage.name: (context) => TransferPage(),
           CreateTransferPage.name: (context) => CreateTransferPage(),
           UserInfoPage.name: (context) => UserInfoPage(),
-
+          BalancePage.name: (context) => BalancePage()
         },
       ),
     );

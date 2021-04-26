@@ -3,11 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prix_banque_flutter_interface/authentification_management/user_model.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Buttons/verificationMailAdressButton.dart';
-import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/visibleRichText.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/classicRichText.dart';
-import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/visibleRichText.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:prix_banque_flutter_interface/utilitarian/Widgets/pop-ups/show_information.dart';
 import '../Texts/classicText.dart';
 
 class futureBuilderUser extends StatelessWidget {
@@ -35,7 +31,6 @@ class futureBuilderUser extends StatelessWidget {
                   child: Column(
                     children: [
                       classicRichText(myText: "Mail Adress : ", snapshot: snapshot.data.mailAdress),
-                      classicRichText(myText: "Password : ", snapshot: snapshot.data.password),
                       classicRichText(myText: "Full Name : ", snapshot: snapshot.data.fullName),
                       classicRichText(myText: "Phone Number : ", snapshot: snapshot.data.phoneNumber),
                     ],

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebaseUser;
-import 'package:prix_banque_flutter_interface/authentification_management/user_model.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_main_page.dart';
 import 'package:prix_banque_flutter_interface/user_account_management/user_account_page.dart';
+import 'package:prix_banque_flutter_interface/user_balance_account_management/user_balance_account_page.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Buttons/navigatorPushButton.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Buttons/navigatorPushEmailVerifiedButton.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Buttons/verificationMailAdressButton.dart';
@@ -29,10 +29,10 @@ class _HomePageState extends State<HomePage> {
   firebaseUser.User user = firebaseUser.FirebaseAuth.instance.currentUser;
 
   @override
-  void initState(){
+ void initState(){
     super.initState();
-    JsonHttp().getRequestUserFullName(firebaseUser.FirebaseAuth.instance.currentUser.uid).then((
-        futureString) => setState((){userName=futureString;}));
+    JsonHttp().getUserInformation(user.email).then((
+        futureUser) => setState((){userName=futureUser.fullName;}));
 
   }
 
@@ -57,12 +57,7 @@ class _HomePageState extends State<HomePage> {
                 Container(
                   width: MediaQuery.of(context).size.width/6,
                   height: 50,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        ShowInformation()
-                            .showMyDialog(context, "Bank account page");
-                      },
-                      child: Text("My bank accounts")),
+                  child: navigatorPushMailButton(route: BalancePage.name, message: "My Bank Account", emailVerified : user.emailVerified),
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width/6,
@@ -91,7 +86,7 @@ class _HomePageState extends State<HomePage> {
             child :Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                classicText(myColor: Theme.of(context).primaryColor, myFontSize: 50, myText: "Money amount : "),
+                classicText(myColor: Theme.of(context).primaryColor, myFontSize: 50, myText: "Money balance : "),
                 classicText(myColor: Theme.of(context).accentColor, myFontSize: 40, myText: "3090"),
               ],
             ),

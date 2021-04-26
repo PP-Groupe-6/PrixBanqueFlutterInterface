@@ -1,0 +1,60 @@
+{
+  "transactions": [
+    {
+      "transactionType": "invoice",
+      "role": "payer",
+      "name": "Corentin Laloz",
+      "transactionAmount": 554.45,
+      "transactionDate": "2021-04-27"
+    },
+    {
+      "transactionType": "invoice",
+      "role": "receiver",
+      "name": "Victor",
+      "transactionAmount": 5,
+      "transactionDate": "2021-04-28"
+    },
+    {
+      "transactionType": "invoice",
+      "role": "payer",
+      "name": "Nicolas",
+      "transactionAmount": 1000,
+      "transactionDate": "2021-05-27"
+    },
+    {
+      "transactionType": "invoice",
+      "role": "receiver",
+      "name": "Nicolas",
+      "transactionAmount": 53,
+      "transactionDate": "2021-03-27"
+    },
+    {
+      "transactionType": "invoice",
+      "role": "payer",
+      "name": "Corentin Laloz",
+      "transactionAmount": 554,
+      "transactionDate": "2021-04-27"
+    },
+    {
+      "transactionType": "transfer",
+      "role": "payer",
+      "name": "Victorine",
+      "transactionAmount": 55,
+      "transactionDate": "2021-04-24"
+    },
+    {
+      "transactionType": "transfer",
+      "role": "receiver",
+      "name": "Adrien",
+      "transactionAmount": 1,
+      "transactionDate": "2022-04-27"
+    },
+    {
+      "transactionType": "transfer",
+      "role": "payer",
+      "name": "Joséphine",
+      "transactionAmount": 1000,
+      "transactionDate": "2021-04-21"
+    }
+  ]
+}
