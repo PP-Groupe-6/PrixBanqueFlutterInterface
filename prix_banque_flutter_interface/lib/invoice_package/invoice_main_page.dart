@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prix_banque_flutter_interface/invoice_package/display_group_list_invoices.dart';
-
+import 'package:prix_banque_flutter_interface/utilitarian/json_http.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebaseUser;
 import 'display_list_invoices.dart';
 import 'invoice.dart';
 import 'invoice_creation_dialog.dart';
@@ -37,27 +37,44 @@ class _InvoicePageState extends State<InvoicePage> {
   void initState(){
     super.initState();
     isInvoiceSent=false;
+    //getInvoiceList()
     loadFiles = loadJson(context,isInvoiceSent);
   }
 
   // Payment of an invoice
   // Call back end to update the state
   // Update invoiceList
-  void _updateListToPay(Invoice invoice){
-    // http update
-    //widget.invoicesReceived.updateListToPay(invoice);
-    //setState(() {});
-    print("update");
+  void _invoicePayment(Invoice invoice){
+    Future<bool> result = JsonHttp().postInvoicePayment(invoice.id);
+    var done;
+    result.then((value) => done=value);
+    if(done){
+      //getInvoiceList()
+      print("paid");
+      //Navigator.pop
+      //set state
+    }
+    else{
+      print("impossible to pay");
+    }
   }
 
   // Suppression of an invoice
   // Call back end to remove the invoice
   // Remove from invoiceList
   void _removeExpiredInvoice(Invoice invoice){
-    //http update
-    //widget.invoicesSent.removeExpiredInvoice(invoice);
-    //setState(() {});
-    print("remove");
+    Future<bool> result = JsonHttp().deleteInvoice(invoice.id);
+    var done;
+    result.then((value) => done=value);
+    if(done){
+      //remove
+      print("deleted");
+      //Navigator.pop
+      //set state
+    }
+    else{
+      print("error in suppression");
+    }
   }
 
 
@@ -65,14 +82,23 @@ class _InvoicePageState extends State<InvoicePage> {
   // Call back end to create the invoice
   // Get the new invoice with all info
   // Add invoice to invoiceList
-  void createInvoice(String clientName, int amount, DateTime expirationDate){
-    // TODO
-    // http post/get
-    print("called");
+  void createInvoice(String clientMail, int amount, DateTime expirationDate){
+    Future<bool> result = JsonHttp().postInvoice(firebaseUser.FirebaseAuth.instance.currentUser.email, clientMail, double.parse(amount.toString()), expirationDate.toString());
+    var done;
+    result.then((value) => done=value);
+    if(done){
+      //getInvoiceList
+      print("added");
+      //Navigator.push
+      //set state
+    }
+    else{
+      print("can't add");
+    }
   }
 
   // Display panel with fields to create an invoice
-  /*Future<void> _showMyDialog() async {
+  Future<void> _showMyDialog() async {
     return showDialog<void>(
       context: context,// user must tap button!
       builder: (BuildContext context) {
@@ -81,7 +107,7 @@ class _InvoicePageState extends State<InvoicePage> {
         );
       },
     );
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +160,7 @@ class _InvoicePageState extends State<InvoicePage> {
                         child: ElevatedButton(
                           child: Text("Create new invoice"),
                           onPressed: (){
-                            //_showMyDialog();
+                            _showMyDialog();
                             print("tap button");
                           },
                         ),
@@ -175,7 +201,7 @@ class _InvoicePageState extends State<InvoicePage> {
                             state: (isInvoiceSent)?"Invoices waiting for payment":"Invoices to pay",
                             invoices: invoiceList.invoicesToPay,
                             color: Colors.deepOrangeAccent,
-                            onChange: _updateListToPay,
+                            onChange: _invoicePayment,
                             isInvoiceSent: isInvoiceSent,
                           ),
                           DisplayListInvoice(

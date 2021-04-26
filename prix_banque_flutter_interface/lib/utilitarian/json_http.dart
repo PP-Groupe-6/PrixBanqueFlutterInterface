@@ -180,7 +180,7 @@ class JsonHttp {
     }
   }
 
-  Future<bool> postInvoicePaiement(var invoiceId) async {
+  Future<bool> postInvoicePayment(var invoiceId) async {
     Map data = {
       'Iid': invoiceId,
     };
