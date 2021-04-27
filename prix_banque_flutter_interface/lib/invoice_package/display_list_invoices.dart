@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:prix_banque_flutter_interface/invoice_package/invoice_info_page.dart';
-
 import 'invoice.dart';
 
 class DisplayListInvoice extends StatefulWidget {
@@ -51,7 +50,7 @@ class _DisplayListInvoiceState extends State<DisplayListInvoice> {
               ListView(
                 children: widget.invoices.map((invoice) =>
                   ListTile(
-                    title: Text((widget.isInvoiceSent)?invoice.toName:invoice.fromName),
+                    title: Text(invoice.withClientName),
                     subtitle: Text(invoice.expirationDate),
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () {

@@ -9,9 +9,9 @@ class InvoiceList {
   List<Invoice> invoicesExpired;
 
   InvoiceList(List<Invoice> invoices){
-    this.invoicesToPay = invoices.where((element) => element.state=="waiting").toList();
-    this.invoicesPaid = invoices.where((element) => element.state=="paid").toList();
-    this.invoicesExpired = invoices.where((element) => element.state=="expired").toList();
+    this.invoicesToPay = invoices.where((element) => element.state=="Pending").toList();
+    this.invoicesPaid = invoices.where((element) => element.state=="Paid").toList();
+    this.invoicesExpired = invoices.where((element) => element.state=="Expired").toList();
   }
 
   factory InvoiceList.fromJson(Map<String, dynamic> json) => InvoiceList(
@@ -19,15 +19,15 @@ class InvoiceList {
   );
 
   updateListToPay(Invoice invoice){
-    if(invoice.state=="waiting") {
+    if(invoice.state=="Pending") {
       invoicesToPay.remove(invoice);
       invoicesPaid.add(invoice);
-      invoice.setState("paid");
+      invoice.setState("Paid");
     }
   }
 
   removeExpiredInvoice(Invoice invoice){
-    if(invoice.state=="expired") {
+    if(invoice.state=="Expired") {
       invoicesExpired.remove(invoice);
     }
   }
@@ -35,42 +35,33 @@ class InvoiceList {
 }
 
 class Invoice {
-  final int id;
-  final int amount;
+  final String id;
+  final double amount;
   String state;
   final String expirationDate;
-  final String fromName;
-  final String fromEmail;
-  final String fromPhone;
-  final String toName;
-  final String toEmail;
-  final String toPhone;
+  final String withClientName;
+  final String withClientEmail;
+  final String withClientPhone;
 
   Invoice({
     this.id,
     this.amount,
     this.state,
     this.expirationDate,
-    this.fromName,
-    this.fromEmail,
-    this.fromPhone,
-    this.toName,
-    this.toEmail,
-    this.toPhone
+    this.withClientName,
+    this.withClientEmail,
+    this.withClientPhone
   });
 
   factory Invoice.fromJson(Map<String, dynamic> json){
     return Invoice(
-      id : json['id'] as int,
-      amount: json['amount'] as int,
+      id : json['InvoiceID'] as String,
+      amount: double.parse(json['amount'] as String),
       state: json['state'] as String,
       expirationDate: json['expDate'] as String,
-      fromName: json['fromName'] as String,
-      fromEmail: json['fromEmail'] as String,
-      fromPhone: json['fromPhone'] as String,
-      toName: json['toName'] as String,
-      toEmail: json['toEmail'] as String,
-      toPhone: json['toPhone'] as String,
+      withClientName: json['name'] as String,
+      withClientEmail: json['mail'] as String,
+      withClientPhone: json['phone'] as String,
     );
   }
 

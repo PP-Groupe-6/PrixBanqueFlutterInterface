@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'invoice.dart';
-
 class InvoiceCreationDialog extends StatefulWidget{
   final Function(String, int, DateTime) buttonFonction;
 
