@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:prix_banque_flutter_interface/authentification_management/user_model.dart';
+import 'package:prix_banque_flutter_interface/invoice_package/invoice.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_main_page.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
 import 'package:prix_banque_flutter_interface/user_balance_account_management/transactions_model.dart';
@@ -33,7 +34,7 @@ class JsonHttp {
       // If the server did return a 200 OK response,
       // then parse the JSON.
       List jsonResponse = jsonDecode(response.body);
-      return jsonResponse.map((data) => new TransferList().fromJson(data)).toList();
+      return null;//jsonResponse.map((data) => new TransferList().fromJson(data)).toList();
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
@@ -158,15 +159,16 @@ class JsonHttp {
   }
 
   Future<InvoiceList> getInvoiceList(String idClient, bool isInvoiceSent) async {
-    final response = await http.get(Uri.parse("http://localhost:8002/invoices/"));
+    final response = await http.get(Uri.parse("http://localhost:8002/invoices/$idClient?CreatedBy=$isInvoiceSent"));
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
+      print(response.body);
       return InvoiceList.fromJson(jsonDecode(response.body));
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
-      throw Exception('Failed to load transfer');
+      throw Exception('Failed to get list invoice');
     }
   }
 
@@ -185,10 +187,10 @@ class JsonHttp {
       },
       body: body,
     );
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       return jsonDecode(response.body)['created'];
     } else {
-      throw Exception('Failed to create user.');
+      throw Exception('Failed to add invoice');
     }
   }
 
@@ -204,10 +206,10 @@ class JsonHttp {
       },
       body: body,
     );
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       return jsonDecode(response.body)['paid'];
     } else {
-      throw Exception('Failed to create user.');
+      throw Exception('Failed to pay invoice');
     }
   }
 
@@ -223,10 +225,10 @@ class JsonHttp {
       },
       body: body,
     );
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       return jsonDecode(response.body)['deleted'];
     } else {
-      throw Exception('Failed to create user.');
+      throw Exception('Failed to delete invoice');
     }
   }
 

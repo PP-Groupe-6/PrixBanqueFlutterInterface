@@ -9,9 +9,9 @@ class InvoiceList {
   List<Invoice> invoicesExpired;
 
   InvoiceList(List<Invoice> invoices){
-    this.invoicesToPay = invoices.where((element) => element.state=="waiting").toList();
-    this.invoicesPaid = invoices.where((element) => element.state=="paid").toList();
-    this.invoicesExpired = invoices.where((element) => element.state=="expired").toList();
+    this.invoicesToPay = invoices.where((element) => element.state=="Pending").toList();
+    this.invoicesPaid = invoices.where((element) => element.state=="Paid").toList();
+    this.invoicesExpired = invoices.where((element) => element.state=="Expired").toList();
   }
 
   factory InvoiceList.fromJson(Map<String, dynamic> json) => InvoiceList(
@@ -19,15 +19,15 @@ class InvoiceList {
   );
 
   updateListToPay(Invoice invoice){
-    if(invoice.state=="waiting") {
+    if(invoice.state=="Pending") {
       invoicesToPay.remove(invoice);
       invoicesPaid.add(invoice);
-      invoice.setState("paid");
+      invoice.setState("Paid");
     }
   }
 
   removeExpiredInvoice(Invoice invoice){
-    if(invoice.state=="expired") {
+    if(invoice.state=="Expired") {
       invoicesExpired.remove(invoice);
     }
   }
@@ -55,13 +55,13 @@ class Invoice {
 
   factory Invoice.fromJson(Map<String, dynamic> json){
     return Invoice(
-      id : json['id'] as String,
-      amount: json['amount'] as double,
+      id : json['withClientId'] as String,
+      amount: double.parse(json['amount'] as String),
       state: json['state'] as String,
       expirationDate: json['expDate'] as String,
-      withClientName: json['withClientName'] as String,
-      withClientEmail: json['withClientEmail'] as String,
-      withClientPhone: json['withClientPhone'] as String,
+      withClientName: json['name'] as String,
+      withClientEmail: json['mail'] as String,
+      withClientPhone: json['phone'] as String,
     );
   }
 

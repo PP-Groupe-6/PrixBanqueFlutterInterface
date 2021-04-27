@@ -17,7 +17,7 @@ class InvoiceInfo extends StatelessWidget{
 
   Widget getButton() {
     switch(invoice.state){
-      case "waiting":
+      case "Pending":
         return (isInvoiceSent)?Text("Wait for payment"):Container(
             margin: EdgeInsets.only(top: 20),
             child: ElevatedButton(
@@ -29,7 +29,7 @@ class InvoiceInfo extends StatelessWidget{
             ),
         );
         break;
-      case "expired":
+      case "Expired":
         return (isInvoiceSent)?Container(
           margin: EdgeInsets.only(top: 20),
           child: ElevatedButton(
@@ -41,7 +41,7 @@ class InvoiceInfo extends StatelessWidget{
           ),
         ):Text("Please contact the invoice sender");
         break;
-      case "paid":
+      case "Paid":
         return (isInvoiceSent)?Text("Invoice paid")
             :Text("You already paid this invoice");
         break;

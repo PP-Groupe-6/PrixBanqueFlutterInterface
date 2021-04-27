@@ -42,6 +42,7 @@ class _InvoicePageState extends State<InvoicePage> {
     _futureInvoices = JsonHttp().getInvoiceList(uid, isInvoiceSent);
   }
 
+
   // Payment of an invoice
   // Call back end to update the state
   // Update invoiceList
@@ -81,15 +82,15 @@ class _InvoicePageState extends State<InvoicePage> {
   // Call back end to create the invoice
   // Get the new invoice with all info
   // Add invoice to invoiceList
-  void createInvoice(String clientMail, int amount, DateTime expirationDate){
-    Future<bool> result = JsonHttp().postInvoice(firebaseUser.FirebaseAuth.instance.currentUser.email, clientMail, double.parse(amount.toString()), expirationDate.toString());
-    var done;
-    result.then((value) => done=value);
-    if(done){
+  void createInvoice(String clientMail, int amount, DateTime expirationDate) async{
+    var result = await JsonHttp().postInvoice(firebaseUser.FirebaseAuth.instance.currentUser.uid, clientMail, double.parse(amount.toString()), expirationDate.toString());
+    if(result){
       //getInvoiceList
       print("added");
       //Navigator.push
-      //set state
+      setState(() {
+        _futureInvoices = JsonHttp().getInvoiceList(uid, isInvoiceSent);
+      });
     }
     else{
       print("can't add");
@@ -137,8 +138,8 @@ class _InvoicePageState extends State<InvoicePage> {
                             icon: const Icon(Icons.arrow_circle_down),
                             onChanged: (bool newValue){
                               setState(() {
-                                print("t");
                                 isInvoiceSent = newValue;
+                                _futureInvoices = JsonHttp().getInvoiceList(uid, isInvoiceSent);
                               });
                             },
                             items: [
@@ -176,6 +177,7 @@ class _InvoicePageState extends State<InvoicePage> {
                   future: _futureInvoices,
                   builder: (context,snapshot){
                     if (snapshot.hasData){
+                      print(snapshot.data.invoicesToPay);
                       return Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
