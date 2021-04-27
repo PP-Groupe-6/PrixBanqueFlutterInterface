@@ -56,12 +56,14 @@ class _DisplayListTransaction extends State<DisplayListTransaction> {
                                 ),
                                 classicText(
                                   myText:
-                                      "Date : ${transactions.transactionDate}",
+                                      "Date : ${transactions.transactionDate.substring(0,10)}",
                                   myFontSize: 15,
                                 ),
                                 classicText(
                                     myFontSize: 20,
-                                    myText: "From ${transactions.name}"),
+                                    myText: transactions.role == "payer"
+                                        ? "To ${transactions.name}"
+                                        : "From ${transactions.name}"),
                                 classicText(
                                     myFontSize: 15,
                                     myText:

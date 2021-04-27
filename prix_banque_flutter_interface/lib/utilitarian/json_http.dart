@@ -149,7 +149,6 @@ class JsonHttp {
     );
     if (response.statusCode == 200) {
       String isTransferUpdated = jsonDecode(response.body)["result"];
-      print(isTransferUpdated);
       return (isTransferUpdated);
     } else {
       throw Exception('Failed to update Transfer.');
