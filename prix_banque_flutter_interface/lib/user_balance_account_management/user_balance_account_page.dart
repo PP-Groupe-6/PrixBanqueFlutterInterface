@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:prix_banque_flutter_interface/user_balance_account_management/display_list_transactions.dart';
 import 'package:prix_banque_flutter_interface/user_balance_account_management/transactions_model.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Buttons/navigatorPopButton.dart';
@@ -35,18 +34,19 @@ class BalancePage extends StatefulWidget {
 class _BalancePageState extends State<BalancePage> {
   dynamic currentAmount;
   firebaseUser.User user = firebaseUser.FirebaseAuth.instance.currentUser;
-
+  Future<TransactionList> futureTransactions;
   void initState() {
     super.initState();
     JsonHttp().getAmount(user.uid).then((futureAmount) => setState(() {
           currentAmount = futureAmount;
         }));
+    futureTransactions = JsonHttp()
+        .getTransactions(firebaseUser.FirebaseAuth.instance.currentUser.uid);
+
   }
 
   @override
   Widget build(BuildContext context) {
-    Future<List<Transactions>> listTransactions = JsonHttp()
-        .getTransactions(firebaseUser.FirebaseAuth.instance.currentUser.uid);
 
     return Scaffold(
       appBar: AppBar(
@@ -63,18 +63,17 @@ class _BalancePageState extends State<BalancePage> {
             Container(
                 width: MediaQuery.of(context).size.width / 1.2,
                 height: MediaQuery.of(context).size.height / 2,
-                child: FutureBuilder(
-                  future: listTransactions,
+                child: FutureBuilder<TransactionList>(
+                  future: futureTransactions,
                   //rootBundle.loadString('test_transactions.json'),
                   builder: (BuildContext context, AsyncSnapshot snap) {
                     if (snap.hasData) {
-                      var transactionList = transactionListFromJson(snap.data);
                       return SingleChildScrollView(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             DisplayListTransaction(
-                              transactions: transactionList.transactions,
+                              transactions: snap.data.transactions,
                               color: Colors.blue,
                             )
                           ],
@@ -96,7 +95,7 @@ class _BalancePageState extends State<BalancePage> {
             classicText(
               myColor: Theme.of(context).accentColor,
               myFontSize: 40,
-              myText: "\$" "${currentAmount.toString()}",
+              myText: "\$" "$currentAmount",
             ),
             NavigatorPopButton(myMessage: "Back to main menu !")
           ],

@@ -1,6 +1,6 @@
 
 class Transfer {
-  final int transferId;
+  final String transferId;
   final String mailAdressTransferPayer;
   final String mailAdressTransferReceiver;
   final String transferAmount;
@@ -21,7 +21,7 @@ class Transfer {
 
   factory Transfer.fromJson(Map<String, dynamic> json) {
     return Transfer(
-      transferId: json['transferId'] as int,
+      transferId: json['transferId'] as String,
       mailAdressTransferPayer: json['mailAdressTransferPayer'] as String,
       mailAdressTransferReceiver: json['mailAdressTransferReceiver'] as String,
       transferAmount: json['transferAmount'] as String,

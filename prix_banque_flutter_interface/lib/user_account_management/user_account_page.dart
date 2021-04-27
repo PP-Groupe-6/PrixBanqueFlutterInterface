@@ -24,6 +24,9 @@ class _UserInfoPageState extends State<UserInfoPage> {
 
   @override
   Widget build(BuildContext context) {
+    Future<User> currentUser = JsonHttp()
+        .getUserInformation(firebaseUser.FirebaseAuth.instance.currentUser.uid);
+
 
     return Scaffold(
       appBar: AppBar(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/classicText.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/pop-ups/show_information.dart';
+import 'package:prix_banque_flutter_interface/utilitarian/json_http.dart';
 
 class DisplayListTransfer extends StatefulWidget {
   final List<Transfer> transfers;
@@ -15,6 +16,8 @@ class DisplayListTransfer extends StatefulWidget {
 }
 
 class _DisplayListTransfer extends State<DisplayListTransfer> {
+  String isTransferUpdated;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -56,16 +59,30 @@ class _DisplayListTransfer extends State<DisplayListTransfer> {
                                   classicText(
                                       myFontSize: 15,
                                       myText: "\$"
-                                          "${transfer.transferAmount.toString()}"),
+                                          "${transfer.transferAmount}"),
                                   classicText(
                                       myFontSize: 15,
                                       myText:
-                                          "Date : ${transfer.executionTransferDate}"),
+                                          "Date : ${transfer.executionTransferDate.substring(0, 10)}"),
                                 ]),
                             trailing: Icon(Icons.keyboard_arrow_right),
                             onTap: () {
-                              ShowInformation(onTransferAccepted: () {
-                                widget.transfers.remove(transfer);
+                              ShowInformation(onTransferAccepted: () async {
+                                JsonHttp()
+                                    .postTransferStatus(transfer.transferId)
+                                    .then((futureString) => setState(() {
+                                          isTransferUpdated = futureString;
+                                        }));
+                                await Future.delayed(
+                                    Duration(milliseconds: 500));
+                                if (isTransferUpdated == "true") {
+                                  ShowInformation().showMyDialog(
+                                      context, "transfer accepted");
+                                  widget.transfers.remove(transfer);
+                                } else {
+                                  ShowInformation().showMyDialog(context,
+                                      "error on update transfer status");
+                                }
                                 setState(() {});
                               }).confirmDialog(
                                   context,

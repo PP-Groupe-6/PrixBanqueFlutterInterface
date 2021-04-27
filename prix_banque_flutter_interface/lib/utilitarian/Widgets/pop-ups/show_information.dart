@@ -20,7 +20,6 @@ class ShowInformation  {
                 if (message == "transfer accepted") {
                   Navigator.of(context).pop(true);
                   Navigator.of(context).pop(true);
-                  onTransferAccepted();
                 } else {
                   Navigator.of(context).pop(true);
                 }
@@ -51,7 +50,7 @@ class ShowInformation  {
               child: const Text('OK'),
               onPressed: () {
                 if (answerController.text == answer) {
-                  showMyDialog(context, "transfer accepted");
+                  onTransferAccepted();
                 } else {
                   showMyDialog(context, "transfer refused, wrong answer");
                 }
