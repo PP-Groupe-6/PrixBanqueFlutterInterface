@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:prix_banque_flutter_interface/utilitarian/json_http.dart';
 
 class ShowInformation  {
   final TextEditingController answerController = new TextEditingController();

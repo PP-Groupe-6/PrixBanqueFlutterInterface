@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Texts/classicText.dart';
@@ -75,9 +73,8 @@ class _DisplayListTransfer extends State<DisplayListTransfer> {
                                     .then((futureString) => setState(() {
                                           isTransferUpdated = futureString;
                                         }));
-                                await Future.delayed(Duration(milliseconds: 500));
-                                print("test");
-                                print(isTransferUpdated);
+                                await Future.delayed(
+                                    Duration(milliseconds: 500));
                                 if (isTransferUpdated == "true") {
                                   ShowInformation().showMyDialog(
                                       context, "transfer accepted");
