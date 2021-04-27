@@ -27,14 +27,23 @@ class TransferList {
       );
 }
 
-class TransferPage extends StatelessWidget {
+class TransferPage extends StatefulWidget {
   static const name = "/transferPage";
 
   @override
+  _TransferPageState createState() => _TransferPageState();
+}
+
+class _TransferPageState extends State<TransferPage> {
+  Future<TransferList> futureTransfers;
+  void initState(){
+    super.initState();
+    futureTransfers = JsonHttp().getWaitingTransfer(firebaseUser.FirebaseAuth.instance.currentUser.uid);
+
+  }
+
+  @override
   Widget build(BuildContext context) {
-
-    Future<List<Transfer>> listTransfer = JsonHttp().getWaitingTransfer(firebaseUser.FirebaseAuth.instance.currentUser.uid);
-
     return Scaffold(
       appBar: AppBar(
         title: Text("My Transfers"),
@@ -54,17 +63,16 @@ class TransferPage extends StatelessWidget {
             Container(
               width: MediaQuery.of(context).size.width / 2,
               height: MediaQuery.of(context).size.height / 2,
-              child: FutureBuilder(
-                  future: listTransfer, //rootBundle.loadString('test_transfers.json'),
+              child: FutureBuilder<TransferList>(
+                  future: futureTransfers, //rootBundle.loadString('test_transfers.json'),
                   builder: (BuildContext context, AsyncSnapshot snap) {
                     if (snap.hasData) {
-                      var transferList = transferListFromJson(snap.data);
                       return SingleChildScrollView(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             DisplayListTransfer(
-                              transfers: transferList.transfers,
+                              transfers: snap.data.transfers,
                               color: Colors.blue,
                             )
                           ],

@@ -2,7 +2,7 @@ class Transactions {
   final String transactionType;
   final String role;
   final String name;
-  final double transactionAmount;
+  final String transactionAmount;
   final String transactionDate;
 
   Transactions(
@@ -14,10 +14,10 @@ class Transactions {
 
   factory Transactions.fromJson(Map<String, dynamic> json) {
     return Transactions(
-      transactionType: json['transactionType'] as String,
+      transactionType: json['type'] as String,
       role: json['role'] as String,
       name: json['name'] as String,
-      transactionAmount: json['transactionAmount'] as double,
+      transactionAmount: json['transactionAmount'] as String,
       transactionDate: json['transactionDate'] as String,
     );
   }

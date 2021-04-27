@@ -4,21 +4,19 @@ import 'package:prix_banque_flutter_interface/authentification_management/user_m
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_main_page.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/transfer_model.dart';
 import 'package:prix_banque_flutter_interface/user_balance_account_management/transactions_model.dart';
+import 'package:prix_banque_flutter_interface/user_balance_account_management/user_balance_account_page.dart';
 
 class JsonHttp {
   String date;
 
-  Future<List<Transactions>> getTransactions(String idClient) async {
+  Future<TransactionList> getTransactions(String idClient) async {
     final response =
         await http.get(Uri.parse("http://localhost:8001/transfer/$idClient"));
     // "http://localhost:8001/transfer/$idClient"
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
-      List jsonResponse = jsonDecode(response.body);
-      return jsonResponse
-          .map((data) => new Transactions.fromJson(data))
-          .toList();
+      return TransactionList.fromJson(jsonDecode(response.body));
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
@@ -26,14 +24,13 @@ class JsonHttp {
     }
   }
 
-  Future<List<Transfer>> getWaitingTransfer(String idClient) async {
+  Future<TransferList> getWaitingTransfer(String idClient) async {
     final response = await http
         .get(Uri.parse("http://localhost:8001/transfer/waiting/$idClient"));
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
-      List jsonResponse = jsonDecode(response.body);
-      return jsonResponse.map((data) => new TransferList().fromJson(data)).toList();
+      return TransferList.fromJson(jsonDecode(response.body));
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
@@ -125,7 +122,6 @@ class JsonHttp {
       },
       body: body,
     );
-    print(response.statusCode);
 
     if (response.statusCode == 200) {
       var user = User.fromJson(jsonDecode(response.body));
@@ -136,13 +132,13 @@ class JsonHttp {
     }
   }
 
-  Future<bool> postTransferStatus(var transferId) async {
+  Future<String> postTransferStatus(String transferId) async {
     Map data = {
       'transferId': transferId,
     };
     String body = json.encode(data);
     final response = await http.post(
-      Uri.parse("https://retoolapi.dev/NKqUcO/prixbanquetest"),
+      Uri.parse("http://localhost:8001/transfer/pay/"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
@@ -150,8 +146,10 @@ class JsonHttp {
       },
       body: body,
     );
-    if (response.statusCode == 201) {
-      return (jsonDecode(response.body));
+    if (response.statusCode == 200) {
+      String isTransferUpdated = jsonDecode(response.body)["result"];
+      print(isTransferUpdated);
+      return (isTransferUpdated);
     } else {
       throw Exception('Failed to update Transfer.');
     }
