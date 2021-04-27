@@ -55,7 +55,7 @@ class Invoice {
 
   factory Invoice.fromJson(Map<String, dynamic> json){
     return Invoice(
-      id : json['withClientId'] as String,
+      id : json['InvoiceID'] as String,
       amount: double.parse(json['amount'] as String),
       state: json['state'] as String,
       expirationDate: json['expDate'] as String,

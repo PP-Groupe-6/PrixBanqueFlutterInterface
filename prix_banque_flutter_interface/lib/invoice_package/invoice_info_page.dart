@@ -185,83 +185,101 @@ class InvoiceInfo extends StatelessWidget{
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 10,bottom: 10),
-                    child: Card(
-                      elevation: 5,
-                      shadowColor: Colors.blue,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Container(
-                            width: 70,
-                            height: 100,
-                            child: Icon(
-                              Icons.account_circle_outlined,
-                              color: Colors.blue,
-                              size: 50,
+                    child: FutureBuilder<User>(
+                      future: _futureUser,
+                      builder: (context,snapshot) {
+                        if (snapshot.hasData) {
+                          return Card(
+                            elevation: 5,
+                            shadowColor: Colors.blue,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Container(
+                                  width: 70,
+                                  height: 100,
+                                  child: Icon(
+                                    Icons.account_circle_outlined,
+                                    color: Colors.blue,
+                                    size: 50,
+                                  ),
+                                ),
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    RichText(
+                                      text: TextSpan(
+                                          text: "Name : ",
+                                          style: TextStyle(
+                                              color: Colors.blue,
+                                              fontSize: 16
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: (!isInvoiceSent) ? snapshot
+                                                  .data.fullName : invoice
+                                                  .withClientName,
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 13
+                                              ),
+                                            )
+                                          ]
+                                      ),
+                                    ),
+                                    RichText(
+                                      text: TextSpan(
+                                          text: "Email : ",
+                                          style: TextStyle(
+                                              color: Colors.blue,
+                                              fontSize: 16
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: (!isInvoiceSent) ? snapshot
+                                                  .data.mailAdress : invoice
+                                                  .withClientEmail,
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 13
+                                              ),
+                                            )
+                                          ]
+                                      ),
+                                    ),
+                                    RichText(
+                                      text: TextSpan(
+                                          text: "Phone number : ",
+                                          style: TextStyle(
+                                              color: Colors.blue,
+                                              fontSize: 16
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: (!isInvoiceSent) ? snapshot
+                                                  .data.phoneNumber : invoice
+                                                  .withClientPhone,
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 13
+                                              ),
+                                            )
+                                          ]
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
                             ),
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              RichText(
-                                text: TextSpan(
-                                    text: "Name : ",
-                                    style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 16
-                                    ),
-                                    children: [
-                                      TextSpan(
-                                        text: invoice.withClientName,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 13
-                                        ),
-                                      )
-                                    ]
-                                ),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                    text: "Email : ",
-                                    style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 16
-                                    ),
-                                    children: [
-                                      TextSpan(
-                                        text: invoice.withClientEmail,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 13
-                                        ),
-                                      )
-                                    ]
-                                ),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                    text: "Phone number : ",
-                                    style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 16
-                                    ),
-                                    children: [
-                                      TextSpan(
-                                        text: invoice.withClientPhone,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 13
-                                        ),
-                                      )
-                                    ]
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
+                          );
+                        }
+                        else {
+                          return Center(
+                              child: CircularProgressIndicator()
+                          );
+                        }
+                      }
                     ),
                   ),
                   Divider(

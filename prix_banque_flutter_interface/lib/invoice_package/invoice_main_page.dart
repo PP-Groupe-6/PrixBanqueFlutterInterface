@@ -46,15 +46,15 @@ class _InvoicePageState extends State<InvoicePage> {
   // Payment of an invoice
   // Call back end to update the state
   // Update invoiceList
-  void _invoicePayment(Invoice invoice){
-    Future<bool> result = JsonHttp().postInvoicePayment(invoice.id);
-    var done;
-    result.then((value) => done=value);
-    if(done){
-      //getInvoiceList()
+  void _invoicePayment(Invoice invoice)async{
+    print("invoice id "+invoice.id);
+    var result = await JsonHttp().postInvoicePayment(invoice.id);
+    if(result){
       print("paid");
       //Navigator.pop
-      //set state
+      setState(() {
+        _futureInvoices = JsonHttp().getInvoiceList(uid, isInvoiceSent);
+      });
     }
     else{
       print("impossible to pay");
