@@ -4,6 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:prix_banque_flutter_interface/authentification_management/authentification_service.dart';
 import 'package:prix_banque_flutter_interface/home_page.dart';
+import 'package:prix_banque_flutter_interface/invoice_package/invoice_main_page.dart';
+
 import 'package:prix_banque_flutter_interface/authentification_management/sign_in_page.dart';
 import 'package:prix_banque_flutter_interface/authentification_management/sign_up_page.dart';
 import 'package:prix_banque_flutter_interface/transfers_management/creation_transfer_page.dart';
@@ -74,6 +76,9 @@ class MyApp extends StatelessWidget {
           SignInPage.name: (context) => SignInPage(),
           SignUpPage.name: (context) => SignUpPage(),
           HomePage.name: (context) => HomePage(),
+
+          InvoicePage.name: (context) => InvoicePage(),
+
           TransferPage.name: (context) => TransferPage(),
           CreateTransferPage.name: (context) => CreateTransferPage(),
           UserInfoPage.name: (context) => UserInfoPage(),
