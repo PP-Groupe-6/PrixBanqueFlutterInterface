@@ -14,30 +14,26 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Sign In"),
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Image.asset("images/PrixBanqueLogo.png"),
-              Container(
-              child :Column (
-                  children : [
-                    classicTextField(controller: emailController, message: "Email"),
-                    obscureTextField(controller: passwordController, message: "Password"),
-                            ]
-              )
-              ),
-              authentificationButton(emailController: emailController, passwordController: passwordController),
-              navigatorPushButton(route :SignUpPage.name, message :"Sign Up"),
-            ]
-        )
+      appBar: AppBar(
+        title: Text("Sign In"),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Image.asset("images/PrixBanqueLogo.png"),
+          Container(
+            child: Column(children: [
+              classicTextField(controller: emailController, message: "Email"),
+              obscureTextField(
+                  controller: passwordController, message: "Password"),
+            ]),
+          ),
+          authentificationButton(
+              emailController: emailController,
+              passwordController: passwordController),
+          navigatorPushButton(route: SignUpPage.name, message: "Sign Up"),
+        ],
+      ),
     );
   }
 }
-
-
-
-
-
