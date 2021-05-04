@@ -47,7 +47,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     classicText(
                         myColor: Colors.black,
                         myFontSize: 20,
-                        myText: "Let's start your adventure with us"),
+                        myText: "Let's start your adventure with us !"),
                     Container(
                       child: Column(children: [
                         classicTextField(

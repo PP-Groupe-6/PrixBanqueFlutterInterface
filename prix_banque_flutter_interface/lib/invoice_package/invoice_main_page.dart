@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prix_banque_flutter_interface/utilitarian/Widgets/pop-ups/show_information.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/json_http.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebaseUser;
 import 'display_list_invoices.dart';
@@ -47,17 +48,15 @@ class _InvoicePageState extends State<InvoicePage> {
   // Call back end to update the state
   // Update invoiceList
   void _invoicePayment(Invoice invoice)async{
-    print("invoice id "+invoice.id);
     var result = await JsonHttp().postInvoicePayment(invoice.id);
     if(result){
-      print("paid");
-      //Navigator.pop
+      ShowInformation().showMyDialog(context, "Invoice paid");
       setState(() {
         _futureInvoices = JsonHttp().getInvoiceList(uid, isInvoiceSent);
       });
     }
     else{
-      print("impossible to pay");
+      ShowInformation().showMyDialog(context, "Impossible to pay");
     }
   }
 
@@ -85,15 +84,13 @@ class _InvoicePageState extends State<InvoicePage> {
   void createInvoice(String clientMail, int amount, DateTime expirationDate) async{
     var result = await JsonHttp().postInvoice(firebaseUser.FirebaseAuth.instance.currentUser.uid, clientMail, double.parse(amount.toString()), expirationDate.toString());
     if(result){
-      //getInvoiceList
-      print("added");
-      //Navigator.push
+      ShowInformation().showMyDialog(context, "Invoice send");
       setState(() {
         _futureInvoices = JsonHttp().getInvoiceList(uid, isInvoiceSent);
       });
     }
     else{
-      print("can't add");
+      ShowInformation().showMyDialog(context, "Can't create an invoice");
     }
   }
 

@@ -299,7 +299,7 @@ class InvoiceInfo extends StatelessWidget{
                   Container(
                     margin: EdgeInsets.only(top: 10),
                     child: Text(
-                      invoice.expirationDate,
+                      invoice.expirationDate.substring(0,10),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 30,

@@ -77,11 +77,11 @@ class _DisplayListTransfer extends State<DisplayListTransfer> {
                                     Duration(milliseconds: 500));
                                 if (isTransferUpdated == "true") {
                                   ShowInformation().showMyDialog(
-                                      context, "transfer accepted");
+                                      context, "Transfer accepted");
                                   widget.transfers.remove(transfer);
                                 } else {
                                   ShowInformation().showMyDialog(context,
-                                      "error on update transfer status");
+                                      "Not enough money");
                                 }
                                 setState(() {});
                               }).confirmDialog(

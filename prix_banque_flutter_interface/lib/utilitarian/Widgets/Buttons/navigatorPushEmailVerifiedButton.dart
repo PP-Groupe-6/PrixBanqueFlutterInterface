@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prix_banque_flutter_interface/utilitarian/Widgets/pop-ups/show_information.dart';
 
-class navigatorPushMailButton extends StatelessWidget {
+class navigatorPushMailButton extends StatefulWidget {
   const navigatorPushMailButton({
     Key key,
     @required this.message,
@@ -15,16 +15,21 @@ class navigatorPushMailButton extends StatelessWidget {
   final bool emailVerified;
 
   @override
+  _navigatorPushMailButtonState createState() => _navigatorPushMailButtonState();
+}
+
+class _navigatorPushMailButtonState extends State<navigatorPushMailButton> {
+  @override
   Widget build(BuildContext context) {
     return ElevatedButton(
         onPressed: () {
-          if(emailVerified){
-          Navigator.pushNamed(context, route);}
+          if(widget.emailVerified){
+          Navigator.pushNamed(context, widget.route);}
           else{
             ShowInformation().showMyDialog(context, "Please verified your email before access to this menu");
           }
         },
-        child: Text(message)
+        child: Text(widget.message)
     );
   }
 }

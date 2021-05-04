@@ -17,7 +17,7 @@ class ShowInformation  {
             TextButton(
               child: const Text('OK'),
               onPressed: () {
-                if (message == "transfer accepted") {
+                if (message == "Transfer accepted" || message == "Invoice paid" || message == "Invoice send") {
                   Navigator.of(context).pop(true);
                   Navigator.of(context).pop(true);
                 } else {
@@ -45,14 +45,14 @@ class ShowInformation  {
                 height: 100,
                 child :TextField(
                     controller: answerController,
-                    decoration: InputDecoration(labelText: "secret answer :"))),
+                    decoration: InputDecoration(labelText: "Secret answer :"))),
             TextButton(
               child: const Text('OK'),
               onPressed: () {
                 if (answerController.text == answer) {
                   onTransferAccepted();
                 } else {
-                  showMyDialog(context, "transfer refused, wrong answer");
+                  showMyDialog(context, "Transfer refused, wrong answer");
                 }
               },
             ),

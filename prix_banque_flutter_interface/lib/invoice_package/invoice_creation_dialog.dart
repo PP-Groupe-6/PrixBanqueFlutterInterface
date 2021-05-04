@@ -1,21 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:prix_banque_flutter_interface/utilitarian/Widgets/Buttons/navigatorPopButton.dart';
 
-class InvoiceCreationDialog extends StatefulWidget{
+class InvoiceCreationDialog extends StatefulWidget {
   final Function(String, int, DateTime) buttonFonction;
 
   const InvoiceCreationDialog({Key key, this.buttonFonction}) : super(key: key);
+
   @override
   _InvoiceCreationDialogState createState() => _InvoiceCreationDialogState();
 }
 
 class _InvoiceCreationDialogState extends State<InvoiceCreationDialog> {
-
   final TextEditingController emailController = TextEditingController();
   final TextEditingController amountController = TextEditingController();
   DateTime expirationDate;
-
 
   _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -31,7 +31,7 @@ class _InvoiceCreationDialogState extends State<InvoiceCreationDialog> {
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Dialog(
       child: Container(
         width: MediaQuery.of(context).size.width - 100,
@@ -68,29 +68,32 @@ class _InvoiceCreationDialogState extends State<InvoiceCreationDialog> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top :20),
+              margin: EdgeInsets.only(top: 20),
               child: Row(
                 children: [
+                  Text("Expiration Date : "),
                   Text(
-                    "Expiration Date : "
-                  ),
-                  Text(
-                    (expirationDate==null)?" date not selected ":expirationDate.toString(),
-                    style: TextStyle(
-                      color: Colors.black.withOpacity(0.5)
-                    ),
+                    (expirationDate == null)
+                        ? " date not selected "
+                        : expirationDate.toString().substring(0, 10),
+                    style: TextStyle(color: Colors.black.withOpacity(0.5)),
                   ),
                   ElevatedButton(
-                    onPressed: () => _selectDate(context),
-                    child: Text("Select expiration date")
-                  ),
+                      onPressed: () => _selectDate(context),
+                      child: Text("Select expiration date")),
                 ],
               ),
             ),
             ElevatedButton(
-                onPressed: () => widget.buttonFonction(emailController.text.trim(),int.parse(amountController.text.trim()),expirationDate),
-                child: Text("Confirm creation")
-            ),
+                onPressed: () => widget.buttonFonction(
+                    emailController.text.trim(),
+                    int.parse(amountController.text.trim()),
+                    expirationDate),
+                child: Text("Confirm creation")),
+            Container(
+              padding: EdgeInsets.all(150),
+              child: NavigatorPopButton(myMessage: "Back to invoice main page"),
+            )
           ],
         ),
       ),
